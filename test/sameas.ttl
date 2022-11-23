@@ -1,0 +1,1030 @@
+@prefix dbo:   <http://dbpedia.org/ontology/> .
+@prefix dbp:   <http://dbpedia.org/property/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix wd:    <http://www.wikidata.org/entity/> .
+
+<http://dbpedia.org/resource/El_Chocolate>
+        owl:sameAs  wd:Q3049800 .
+
+<http://dbpedia.org/resource/Chocolate_with_Nuts>
+        owl:sameAs  wd:Q17986457 .
+
+<http://dbpedia.org/resource/Chocolate_(2005_film)>
+        owl:sameAs  wd:Q592915 .
+
+<http://dbpedia.org/resource/Chocolate_Chip_(album)>
+        owl:sameAs  wd:Q20686210 .
+
+<http://dbpedia.org/resource/Chocolate_Girl_(Deacon_Blue_song)>
+        owl:sameAs  wd:Q5103615 .
+
+<http://dbpedia.org/resource/Al_Nassma_Chocolate>
+        owl:sameAs  wd:Q19871809 .
+
+<http://dbpedia.org/resource/See's_Candies>
+        owl:sameAs  wd:Q2103510 .
+
+<http://dbpedia.org/resource/Brother_Louie_(Hot_Chocolate_song)>
+        owl:sameAs  wd:Q2926263 .
+
+<http://dbpedia.org/resource/From_A_to_Z,_in_the_Chocolate_Alphabet>
+        owl:sameAs  wd:Q5505346 .
+
+<http://dbpedia.org/resource/Chocolate_Cosmos>
+        owl:sameAs  wd:Q1075627 .
+
+<http://dbpedia.org/resource/Willie_Harcourt-Cooze>
+        owl:sameAs  wd:Q76280114 .
+
+<http://dbpedia.org/resource/The_Chocolate_Soldier_(film)>
+        owl:sameAs  wd:Q2410237 .
+
+<http://dbpedia.org/resource/Compañía_Nacional_de_Chocolates_de_Perú_S.A.>
+        owl:sameAs  wd:Q5156174 .
+
+<http://dbpedia.org/resource/Ferrero_Rocher>
+        owl:sameAs  wd:Q526516 .
+
+<http://dbpedia.org/resource/Theobroma_cacao>
+        owl:sameAs  wd:Q42385 .
+
+<http://dbpedia.org/resource/Friends,_Lovers,_Chocolate>
+        owl:sameAs  wd:Q5504105 .
+
+<http://dbpedia.org/resource/Venchi>
+        owl:sameAs  wd:Q4009482 .
+
+<http://dbpedia.org/resource/LG_Chocolate_(VX8500)>
+        owl:sameAs  wd:Q10859638 .
+
+<http://dbpedia.org/resource/Chocolate_cake>
+        owl:sameAs  wd:Q30186 .
+
+<http://dbpedia.org/resource/Nero_(confectionery)>
+        owl:sameAs  wd:Q6996558 .
+
+<http://dbpedia.org/resource/Wilbur_Chocolate_Company>
+        owl:sameAs  wd:Q937508 .
+
+<http://dbpedia.org/resource/Novosibirsk_Chocolate_Factory>
+        owl:sameAs  wd:Q4325427 .
+
+<http://dbpedia.org/resource/Zombie_Lane>
+        owl:sameAs  wd:Q8073760 .
+
+<http://dbpedia.org/resource/Galler_(chocolate)>
+        owl:sameAs  wd:Q3094784 .
+
+<http://dbpedia.org/resource/Royal_Chocolate_Flush>
+        owl:sameAs  wd:Q7373951 .
+
+<http://dbpedia.org/resource/The_Chocolate_of_the_Gang>
+        owl:sameAs  wd:Q7722615 .
+
+<http://dbpedia.org/resource/Chocolate_Milk_(band)>
+        owl:sameAs  wd:Q5103623 .
+
+<http://dbpedia.org/resource/Chocolate_(The_Time_song)>
+        owl:sameAs  wd:Q5103592 .
+
+<http://dbpedia.org/resource/Marich_Confectionery>
+        owl:sameAs  wd:Q6762558 .
+
+<http://dbpedia.org/resource/Charlie_and_the_Chocolate_Factory>
+        owl:sameAs  wd:Q466605 .
+
+<http://dbpedia.org/resource/Chocolate_Glacier>
+        owl:sameAs  wd:Q5103616 .
+
+<http://dbpedia.org/resource/Chocolate_Damashii>
+        owl:sameAs  wd:Q2964292 .
+
+<http://dbpedia.org/resource/Havregrynskugle>
+        owl:sameAs  wd:Q595744 .
+
+<http://dbpedia.org/resource/Tokyo_Marble_Chocolate>
+        owl:sameAs  wd:Q987069 .
+
+<http://dbpedia.org/resource/Chocolate_Synthesizer>
+        owl:sameAs  wd:Q5103640 .
+
+<http://dbpedia.org/resource/Toms_International>
+        owl:sameAs  wd:Q7820389 .
+
+<http://dbpedia.org/resource/Like_Water_for_Chocolate_(album)>
+        owl:sameAs  wd:Q848241 .
+
+<http://dbpedia.org/resource/Chocolate_USA>
+        owl:sameAs  wd:Q5103641 .
+
+<http://dbpedia.org/resource/Chocolates_for_Breakfast>
+        owl:sameAs  wd:Q3677376 .
+
+<http://dbpedia.org/resource/Mozartkugel>
+        owl:sameAs  wd:Q263223 .
+
+<http://dbpedia.org/resource/Charlie_and_the_Chocolate_Factory_(soundtrack)>
+        owl:sameAs  wd:Q2960896 .
+
+<http://dbpedia.org/resource/The_Hershey_Company>
+        owl:sameAs  wd:Q1056637 .
+
+<http://dbpedia.org/resource/The_Chocolate_Works>
+        owl:sameAs  wd:Q7722614 .
+
+<http://dbpedia.org/resource/Chic_Chocolate>
+        owl:sameAs  wd:Q5095372 .
+
+<http://dbpedia.org/resource/Pearson's_Candy_Company>
+        owl:sameAs  wd:Q7158304 .
+
+<http://dbpedia.org/resource/Blood_&_Chocolate_(film)>
+        owl:sameAs  wd:Q885164 .
+
+<http://dbpedia.org/resource/Charlie_and_the_Chocolate_Factory_(1985_video_game)>
+        owl:sameAs  wd:Q54819383 .
+
+<http://dbpedia.org/resource/Gertrude_Hawk_Chocolates>
+        owl:sameAs  wd:Q5553326 .
+
+<http://dbpedia.org/resource/LG_U830>
+        owl:sameAs  wd:Q6458395 .
+
+<http://dbpedia.org/resource/G._H._Elliott>
+        owl:sameAs  wd:Q5512254 .
+
+<http://dbpedia.org/resource/Almond_Roca>
+        owl:sameAs  wd:Q4733892 .
+
+<http://dbpedia.org/resource/Chocolate_(color)>
+        owl:sameAs  wd:Q3309916 .
+
+<http://dbpedia.org/resource/Christiana_Edmunds>
+        owl:sameAs  wd:Q5110417 .
+
+<http://dbpedia.org/resource/Ah_Cacao_Real_Chocolate>
+        owl:sameAs  wd:Q4694857 .
+
+<http://dbpedia.org/resource/Corona_(confectioner)>
+        owl:sameAs  wd:Q5172113 .
+
+<http://dbpedia.org/resource/Gimme_Chocolate!!>
+        owl:sameAs  wd:Q18480700 .
+
+<http://dbpedia.org/resource/Chocolate_(Masters_of_Horror)>
+        owl:sameAs  wd:Q2470017 .
+
+<http://dbpedia.org/resource/Chocolate_Salty_Balls>
+        owl:sameAs  wd:Q1866174 .
+
+<http://dbpedia.org/resource/Dame_Chocolate>
+        owl:sameAs  wd:Q1247803 .
+
+<http://dbpedia.org/resource/Chocolate_Eclair_(film)>
+        owl:sameAs  wd:Q3577508 .
+
+<http://dbpedia.org/resource/Clostera_curtula>
+        owl:sameAs  wd:Q1303035 .
+
+<http://dbpedia.org/resource/Vlokken>
+        owl:sameAs  wd:Q2604900 .
+
+<http://dbpedia.org/resource/Rocky_Mountain_Chocolate_Factory>
+        owl:sameAs  wd:Q7355878 .
+
+<http://dbpedia.org/resource/Tortit>
+        owl:sameAs  wd:Q20502487 .
+
+<http://dbpedia.org/resource/The_Chocolate_Touch>
+        owl:sameAs  wd:Q7722610 .
+
+<http://dbpedia.org/resource/Inside_Charlie's_Chocolate_Factory>
+        owl:sameAs  wd:Q24037236 .
+
+<http://dbpedia.org/resource/Carolina_Chocolate_Drops/Luminescent_Orchestrii>
+        owl:sameAs  wd:Q27818308 .
+
+<http://dbpedia.org/resource/S'more>
+        owl:sameAs  wd:Q2339814 .
+
+<http://dbpedia.org/resource/Chocolate_Rain>
+        owl:sameAs  wd:Q2964291 .
+
+<http://dbpedia.org/resource/Slow_Chocolate_Autopsy>
+        owl:sameAs  wd:Q7541980 .
+
+<http://dbpedia.org/resource/Kevin_Hart>
+        owl:sameAs  wd:Q618352 .
+
+<http://dbpedia.org/resource/Chocolate_Starfish_(album)>
+        owl:sameAs  wd:Q28452937 .
+
+<http://dbpedia.org/resource/Double_Decker_(chocolate_bar)>
+        owl:sameAs  wd:Q5299719 .
+
+<http://dbpedia.org/resource/Cadbury_Caramilk>
+        owl:sameAs  wd:Q2937863 .
+
+<http://dbpedia.org/resource/Chocolate_brownie>
+        owl:sameAs  wd:Q503129 .
+
+<http://dbpedia.org/resource/Pain_au_chocolat>
+        owl:sameAs  wd:Q1190838 .
+
+<http://dbpedia.org/resource/The_Chocolate_Girl_(1927_film)>
+        owl:sameAs  wd:Q25209481 .
+
+<http://dbpedia.org/resource/Hershey's_Chocolate_World>
+        owl:sameAs  wd:Q12410253 .
+
+<http://dbpedia.org/resource/Alfredo_%22Chocolate%22_Armenteros>
+        owl:sameAs  wd:Q2835567 .
+
+<http://dbpedia.org/resource/The_Chocolate_Dandies>
+        owl:sameAs  wd:Q1075629 .
+
+<http://dbpedia.org/resource/Prestat>
+        owl:sameAs  wd:Q7241753 .
+
+<http://dbpedia.org/resource/Halloren_Chocolate_Factory>
+        owl:sameAs  wd:Q316714 .
+
+<http://dbpedia.org/resource/Dagoba_Chocolate>
+        owl:sameAs  wd:Q5208618 .
+
+<http://dbpedia.org/resource/Chocolate_(2008_film)>
+        owl:sameAs  wd:Q466354 .
+
+<http://dbpedia.org/resource/Rockwood_Chocolate_Factory_Historic_District>
+        owl:sameAs  wd:Q7355701 .
+
+<http://dbpedia.org/resource/Baunilha_e_chocolate>
+        owl:sameAs  wd:Q4873565 .
+
+<http://dbpedia.org/resource/Hot_Chocolate_Massage>
+        owl:sameAs  wd:Q5909840 .
+
+<http://dbpedia.org/resource/Guylian>
+        owl:sameAs  wd:Q1968624 .
+
+<http://dbpedia.org/resource/Accidentally_Cool>
+        owl:sameAs  wd:Q28449238 .
+
+<http://dbpedia.org/resource/No_Chocolate_Cake>
+        owl:sameAs  wd:Q17039058 .
+
+<http://dbpedia.org/resource/TCHO>
+        owl:sameAs  wd:Q7669708 .
+
+<http://dbpedia.org/resource/Cola,_Candy,_Chocolate>
+        owl:sameAs  wd:Q17413593 .
+
+<http://dbpedia.org/resource/Military_chocolate_(United_States)>
+        owl:sameAs  wd:Q1072093 .
+
+<http://dbpedia.org/resource/Willy_Wonka_&_the_Chocolate_Factory>
+        owl:sameAs  wd:Q936327 .
+
+<http://dbpedia.org/resource/Chocolate_Milk_(Brooklyn_Nine-Nine)>
+        owl:sameAs  wd:Q48458077 .
+
+<http://dbpedia.org/resource/The_Chocolate_Girl>
+        owl:sameAs  wd:Q445627 .
+
+<http://dbpedia.org/resource/Kix_(band)>
+        owl:sameAs  wd:Q587184 .
+
+<http://dbpedia.org/resource/Royal_Chocolate>
+        owl:sameAs  wd:Q7373943 .
+
+<http://dbpedia.org/resource/Amano_Artisan_Chocolate>
+        owl:sameAs  wd:Q4739905 .
+
+<http://dbpedia.org/resource/Ghirardelli_Chocolate_Company>
+        owl:sameAs  wd:Q1134349 .
+
+<http://dbpedia.org/resource/Droste>
+        owl:sameAs  wd:Q2119009 .
+
+<http://dbpedia.org/resource/Ion_(chocolate)>
+        owl:sameAs  wd:Q772209 .
+
+<http://dbpedia.org/resource/Callebaut>
+        owl:sameAs  wd:Q1027218 .
+
+<http://dbpedia.org/resource/Chocolate_(Malayalam_TV_series)>
+        owl:sameAs  wd:Q104859494 .
+
+<http://dbpedia.org/resource/List_of_Charlie_and_the_Chocolate_Factory_characters>
+        owl:sameAs  wd:Q19238836 .
+
+<http://dbpedia.org/resource/Chocolove>
+        owl:sameAs  wd:Q5103683 .
+
+<http://dbpedia.org/resource/Swansongs_(Chocolate_Genius_album)>
+        owl:sameAs  wd:Q28452288 .
+
+<http://dbpedia.org/resource/George_%22Chocolate%22_Perry>
+        owl:sameAs  wd:Q16734419 .
+
+<http://dbpedia.org/resource/Chocolate_Overdose>
+        owl:sameAs  wd:Q20683944 .
+
+<http://dbpedia.org/resource/Chocolate_with_Jacques_Torres>
+        owl:sameAs  wd:Q5103672 .
+
+<http://dbpedia.org/resource/Sachertorte>
+        owl:sameAs  wd:Q131442 .
+
+<http://dbpedia.org/resource/Army_Attack>
+        owl:sameAs  wd:Q4794090 .
+
+<http://dbpedia.org/resource/Chocolate_Weasel>
+        owl:sameAs  wd:Q5103642 .
+
+<http://dbpedia.org/resource/Bertie_Beetle>
+        owl:sameAs  wd:Q4895602 .
+
+<http://dbpedia.org/resource/Chocolate_Chip_Cookies_(album)>
+        owl:sameAs  wd:Q5103603 .
+
+<http://dbpedia.org/resource/Trouble_Chocolate>
+        owl:sameAs  wd:Q2550567 .
+
+<http://dbpedia.org/resource/Kevin_Hart:_What_Now%3F_(The_Mixtape_Presents_Chocolate_Droppa)>
+        owl:sameAs  wd:Q28452711 .
+
+<http://dbpedia.org/resource/I_Gave_You_My_Heart_(Didn't_I)>
+        owl:sameAs  wd:Q5977209 .
+
+<http://dbpedia.org/resource/LG_Chocolate_(KG800)>
+        owl:sameAs  wd:Q6458392 .
+
+<http://dbpedia.org/resource/Sweet_like_Chocolate>
+        owl:sameAs  wd:Q7655623 .
+
+<http://dbpedia.org/resource/Mars_(chocolate_bar)>
+        owl:sameAs  wd:Q31305 .
+
+<http://dbpedia.org/resource/Estrellas_de_Chocolate>
+        owl:sameAs  wd:Q28225542 .
+
+<http://dbpedia.org/resource/Almond_Joy>
+        owl:sameAs  wd:Q4733893 .
+
+<http://dbpedia.org/resource/Blommer_Chocolate_Company>
+        owl:sameAs  wd:Q23460961 .
+
+<http://dbpedia.org/resource/Ancistroides_nigrita>
+        owl:sameAs  wd:Q4753078 .
+
+<http://dbpedia.org/resource/Box_(Chocolate_Starfish_album)>
+        owl:sameAs  wd:Q28452939 .
+
+<http://dbpedia.org/resource/Chocolate_Puma>
+        owl:sameAs  wd:Q1149152 .
+
+<http://dbpedia.org/resource/Chocolate_Bayou,_Texas>
+        owl:sameAs  wd:Q3246607 .
+
+<http://dbpedia.org/resource/Chocolate_Cake_(song)>
+        owl:sameAs  wd:Q5103600 .
+
+<http://dbpedia.org/resource/Willy_Wonka>
+        owl:sameAs  wd:Q738747 .
+
+<http://dbpedia.org/resource/Chocolate_Factory>
+        owl:sameAs  wd:Q2561479 .
+
+<http://dbpedia.org/resource/The_Chocolate_Watchband>
+        owl:sameAs  wd:Q962528 .
+
+<http://dbpedia.org/resource/Chocolate_Shoppe_Ice_Cream_Company>
+        owl:sameAs  wd:Q5103633 .
+
+<http://dbpedia.org/resource/Eurocrem>
+        owl:sameAs  wd:Q12751665 .
+
+<http://dbpedia.org/resource/Choco-Story>
+        owl:sameAs  wd:Q2747092 .
+
+<http://dbpedia.org/resource/Cape_Chocolate>
+        owl:sameAs  wd:Q2562854 .
+
+<http://dbpedia.org/resource/Garoto>
+        owl:sameAs  wd:Q5523750 .
+
+<http://dbpedia.org/resource/Chocolate_Hills>
+        owl:sameAs  wd:Q977422 .
+
+<http://dbpedia.org/resource/Cow_Chocolate>
+        owl:sameAs  wd:Q5179396 .
+
+<http://dbpedia.org/resource/The_Chocolate_Girl_(1950_film)>
+        owl:sameAs  wd:Q3211513 .
+
+<http://dbpedia.org/resource/Hot_Chocolate_discography>
+        owl:sameAs  wd:Q20666004 .
+
+<http://dbpedia.org/resource/My_Friend_the_Chocolate_Cake>
+        owl:sameAs  wd:Q6945521 .
+
+<http://dbpedia.org/resource/Neapolitan_wafer>
+        owl:sameAs  wd:Q176927 .
+
+<http://dbpedia.org/resource/No_Way_Out_(The_Chocolate_Watchband_album)>
+        owl:sameAs  wd:Q664932 .
+
+<http://dbpedia.org/resource/Love_Is_Life>
+        owl:sameAs  wd:Q17035787 .
+
+<http://dbpedia.org/resource/Chocolate_and_Cheese>
+        owl:sameAs  wd:Q3311916 .
+
+<http://dbpedia.org/resource/The_Carolina_Chocolate_Drops>
+        owl:sameAs  wd:Q1044384 .
+
+<http://dbpedia.org/resource/Merci_pour_le_Chocolat>
+        owl:sameAs  wd:Q72321 .
+
+<http://dbpedia.org/resource/Tom_and_Jerry:_Willy_Wonka_and_the_Chocolate_Factory>
+        owl:sameAs  wd:Q29512703 .
+
+<http://dbpedia.org/resource/Chocolate_News>
+        owl:sameAs  wd:Q5103629 .
+
+<http://dbpedia.org/resource/Chocolate_(band)>
+        owl:sameAs  wd:Q541024 .
+
+<http://dbpedia.org/resource/Chocolate_Avenue>
+        owl:sameAs  wd:Q5103595 .
+
+<http://dbpedia.org/resource/Their_Greatest_Hits_(Hot_Chocolate_album)>
+        owl:sameAs  wd:Q7777826 .
+
+<http://dbpedia.org/resource/Peridea_ferruginea>
+        owl:sameAs  wd:Q27997903 .
+
+<http://dbpedia.org/resource/The_Hollow_Chocolate_Bunnies_of_the_Apocalypse>
+        owl:sameAs  wd:Q7739961 .
+
+<http://dbpedia.org/resource/Chocolate_Myers>
+        owl:sameAs  wd:Q5103628 .
+
+<http://dbpedia.org/resource/Aalst_Chocolate>
+        owl:sameAs  wd:Q21178799 .
+
+<http://dbpedia.org/resource/White_chocolate>
+        owl:sameAs  wd:Q742385 .
+
+<http://dbpedia.org/resource/Remelana_jangala>
+        owl:sameAs  wd:Q7311625 .
+
+<http://dbpedia.org/resource/A_20th_Century_Chocolate_Cake>
+        owl:sameAs  wd:Q62902018 .
+
+<http://dbpedia.org/resource/Peter_Beier>
+        owl:sameAs  wd:Q28225860 .
+
+<http://dbpedia.org/resource/Outline_of_chocolate>
+        owl:sameAs  wd:Q7112581 .
+
+<http://dbpedia.org/resource/LG_Chocolate_(KV5900)>
+        owl:sameAs  wd:Q6458393 .
+
+<http://dbpedia.org/resource/Chef's_Chocolate_Salty_Balls>
+        owl:sameAs  wd:Q898213 .
+
+<http://dbpedia.org/resource/After_Eight>
+        owl:sameAs  wd:Q388973 .
+
+<http://dbpedia.org/resource/Taste_of_Chocolate>
+        owl:sameAs  wd:Q3008935 .
+
+<http://dbpedia.org/resource/Buddha_and_the_Chocolate_Box>
+        owl:sameAs  wd:Q1000819 .
+
+<http://dbpedia.org/resource/Balas_y_Chocolate>
+        owl:sameAs  wd:Q19495247 .
+
+<http://dbpedia.org/resource/Theo_Chocolate>
+        owl:sameAs  wd:Q7781431 .
+
+<http://dbpedia.org/resource/Éclair>
+        owl:sameAs  wd:Q273426 .
+
+<http://dbpedia.org/resource/Menier_Chocolate_Factory>
+        owl:sameAs  wd:Q6817045 .
+
+<http://dbpedia.org/resource/Chocolate_Swim>
+        owl:sameAs  wd:Q5103638 .
+
+<http://dbpedia.org/resource/Chocolate_(2007_film)>
+        owl:sameAs  wd:Q5103593 .
+
+<http://dbpedia.org/resource/Death_by_Chocolate_(album)>
+        owl:sameAs  wd:Q5247303 .
+
+<http://dbpedia.org/resource/Like_Water_for_Chocolate_(novel)>
+        owl:sameAs  wd:Q1777072 .
+
+<http://dbpedia.org/resource/Digital_Chocolate>
+        owl:sameAs  wd:Q766278 .
+
+<http://dbpedia.org/resource/Chocolate_Castle>
+        owl:sameAs  wd:Q5103601 .
+
+<http://dbpedia.org/resource/Imhoff-Schokoladenmuseum>
+        owl:sameAs  wd:Q55399 .
+
+<http://dbpedia.org/resource/Chocolate_Supa_Highway>
+        owl:sameAs  wd:Q3675329 .
+
+<http://dbpedia.org/resource/Kim_Jung-eun's_Chocolate>
+        owl:sameAs  wd:Q6409006 .
+
+<http://dbpedia.org/resource/Princessa_(chocolate_bar)>
+        owl:sameAs  wd:Q4351861 .
+
+<http://dbpedia.org/resource/Water_for_Chocolate>
+        owl:sameAs  wd:Q24807624 .
+
+<http://dbpedia.org/resource/The_Emperors_of_Chocolate>
+        owl:sameAs  wd:Q7731942 .
+
+<http://dbpedia.org/resource/No_Doubt_About_It_(Hot_Chocolate_song)>
+        owl:sameAs  wd:Q7044122 .
+
+<http://dbpedia.org/resource/Freia_(chocolate)>
+        owl:sameAs  wd:Q1453800 .
+
+<http://dbpedia.org/resource/William_Dean_Chocolates>
+        owl:sameAs  wd:Q8007715 .
+
+<http://dbpedia.org/resource/Chocolate_Kings>
+        owl:sameAs  wd:Q1091773 .
+
+<http://dbpedia.org/resource/The_Dark_Side_of_Chocolate>
+        owl:sameAs  wd:Q7728995 .
+
+<http://dbpedia.org/resource/Chocolate_Industries>
+        owl:sameAs  wd:Q3675327 .
+
+<http://dbpedia.org/resource/Cavalier_Chocolate>
+        owl:sameAs  wd:Q5054765 .
+
+<http://dbpedia.org/resource/Chocolate_liquor>
+        owl:sameAs  wd:Q1721876 .
+
+<http://dbpedia.org/resource/Bosco_Chocolate_Syrup>
+        owl:sameAs  wd:Q3543327 .
+
+<http://dbpedia.org/resource/LG_New_Chocolate_(BL40)>
+        owl:sameAs  wd:Q495757 .
+
+<http://dbpedia.org/resource/Idilia_Foods>
+        owl:sameAs  wd:Q39047644 .
+
+<http://dbpedia.org/resource/Hot_chocolate>
+        owl:sameAs  wd:Q13261 .
+
+<http://dbpedia.org/resource/R-Type_Tactics_II:_Operation_Bitter_Chocolate>
+        owl:sameAs  wd:Q7273275 .
+
+<http://dbpedia.org/resource/Chips_from_the_Chocolate_Fireball>
+        owl:sameAs  wd:Q5101738 .
+
+<http://dbpedia.org/resource/Chocolate_(Snow_Patrol_song)>
+        owl:sameAs  wd:Q2964296 .
+
+<http://dbpedia.org/resource/Lombart_Chocolate>
+        owl:sameAs  wd:Q2964301 .
+
+<http://dbpedia.org/resource/Frankford_Candy_&_Chocolate_Company>
+        owl:sameAs  wd:Q5490742 .
+
+<http://dbpedia.org/resource/Nutella>
+        owl:sameAs  wd:Q212193 .
+
+<http://dbpedia.org/resource/Beyond_the_Chocolate_War>
+        owl:sameAs  wd:Q4900095 .
+
+<http://dbpedia.org/resource/The_Chocolate_Soldier>
+        owl:sameAs  wd:Q277364 .
+
+<http://dbpedia.org/resource/Cuestión_moral:_si_el_chocolate_quebranta_el_ayuno_eclesiástico>
+        owl:sameAs  wd:Q21708163 .
+
+<http://dbpedia.org/resource/Chocolate_City_(album)>
+        owl:sameAs  wd:Q2018615 .
+
+<http://dbpedia.org/resource/Cadbury's_Chocolate_Factory,_Tasmania>
+        owl:sameAs  wd:Q5016254 .
+
+<http://dbpedia.org/resource/Chocolate_milk>
+        owl:sameAs  wd:Q13253 .
+
+<http://dbpedia.org/resource/Better_Than_Chocolate>
+        owl:sameAs  wd:Q832444 .
+
+<http://dbpedia.org/resource/Chocolate_com_Pimenta>
+        owl:sameAs  wd:Q2630218 .
+
+<http://dbpedia.org/resource/Kilwins>
+        owl:sameAs  wd:Q38250832 .
+
+<http://dbpedia.org/resource/Chocolate_Mountains>
+        owl:sameAs  wd:Q1075637 .
+
+<http://dbpedia.org/resource/Patric_Chocolate>
+        owl:sameAs  wd:Q16242866 .
+
+<http://dbpedia.org/resource/Chocolate_Starfish_and_the_Hot_Dog_Flavored_Water>
+        owl:sameAs  wd:Q847915 .
+
+<http://dbpedia.org/resource/Cadbury_Creme_Egg>
+        owl:sameAs  wd:Q2932621 .
+
+<http://dbpedia.org/resource/Ms._Chocolate>
+        owl:sameAs  wd:Q12871944 .
+
+<http://dbpedia.org/resource/Chocolat_Frey>
+        owl:sameAs  wd:Q505188 .
+
+<http://dbpedia.org/resource/Butlers_Chocolates>
+        owl:sameAs  wd:Q5002697 .
+
+<http://dbpedia.org/resource/LG_Chocolate_Platinum_(KE800)>
+        owl:sameAs  wd:Q3658259 .
+
+<http://dbpedia.org/resource/Abdallah_Candies>
+        owl:sameAs  wd:Q16909921 .
+
+<http://dbpedia.org/resource/Milka>
+        owl:sameAs  wd:Q757388 .
+
+<http://dbpedia.org/resource/Ferrero_SpA>
+        owl:sameAs  wd:Q269792 .
+
+<http://dbpedia.org/resource/Prince_Polo>
+        owl:sameAs  wd:Q3481208 .
+
+<http://dbpedia.org/resource/Hot_Chocolate_(band)>
+        owl:sameAs  wd:Q1368881 .
+
+<http://dbpedia.org/resource/The_Chocolate_Invasion>
+        owl:sameAs  wd:Q1975542 .
+
+<http://dbpedia.org/resource/Bedre_Fine_Chocolate>
+        owl:sameAs  wd:Q4879378 .
+
+<http://dbpedia.org/resource/Bread_and_Chocolate>
+        owl:sameAs  wd:Q671116 .
+
+<http://dbpedia.org/resource/J._G._McDonald_Chocolate_Company_Building>
+        owl:sameAs  wd:Q65041677 .
+
+<http://dbpedia.org/resource/Milk_Chocolate_Girl>
+        owl:sameAs  wd:Q2056268 .
+
+<http://dbpedia.org/resource/Monument_to_Chocolate>
+        owl:sameAs  wd:Q4343622 .
+
+<http://dbpedia.org/resource/Ti_Amo_Chocolate>
+        owl:sameAs  wd:Q11073641 .
+
+<http://dbpedia.org/resource/Lacasa>
+        owl:sameAs  wd:Q3816082 .
+
+<http://dbpedia.org/resource/Charlie_and_the_Chocolate_Factory_(film)>
+        owl:sameAs  wd:Q218235 .
+
+<http://dbpedia.org/resource/Krasny_Oktyabr_(confectionery_brand)>
+        owl:sameAs  wd:Q249717 .
+
+<http://dbpedia.org/resource/5_de_chocolate_y_1_de_fresa>
+        owl:sameAs  wd:Q4641179 .
+
+<http://dbpedia.org/resource/Antica_Dolceria_Bonajuto>
+        owl:sameAs  wd:Q103132202 .
+
+<http://dbpedia.org/resource/Nestlé>
+        owl:sameAs  wd:Q160746 .
+
+<http://dbpedia.org/resource/The_Hershey_Story>
+        owl:sameAs  wd:Q7739512 .
+
+<http://dbpedia.org/resource/Chocolate_industry_in_the_Philippines>
+        owl:sameAs  wd:Q39086258 .
+
+<http://dbpedia.org/resource/Chocolate_Williams>
+        owl:sameAs  wd:Q24565999 .
+
+<http://dbpedia.org/resource/Urney_Chocolates>
+        owl:sameAs  wd:Q7900779 .
+
+<http://dbpedia.org/resource/The_Chocolate_Frog>
+        owl:sameAs  wd:Q17050118 .
+
+<http://dbpedia.org/resource/All_Over_Me_(Chocolate_Starfish_song)>
+        owl:sameAs  wd:Q28452965 .
+
+<http://dbpedia.org/resource/Divine_Chocolate>
+        owl:sameAs  wd:Q5284077 .
+
+<http://dbpedia.org/resource/Zahor_Chocolates>
+        owl:sameAs  wd:Q16576477 .
+
+<http://dbpedia.org/resource/Mayonesa_(Chocolate_song)>
+        owl:sameAs  wd:Q73167378 .
+
+<http://dbpedia.org/resource/Brown_HT>
+        owl:sameAs  wd:Q424541 .
+
+<http://dbpedia.org/resource/Chocolates_and_Cigarettes>
+        owl:sameAs  wd:Q5103676 .
+
+<http://dbpedia.org/resource/Leonidas_(chocolate_maker)>
+        owl:sameAs  wd:Q80335 .
+
+<http://dbpedia.org/resource/Mekupelet>
+        owl:sameAs  wd:Q6810615 .
+
+<http://dbpedia.org/resource/History_of_chocolate_in_Spain>
+        owl:sameAs  wd:Q2264078 .
+
+<http://dbpedia.org/resource/Strawberry_and_Chocolate>
+        owl:sameAs  wd:Q925448 .
+
+<http://dbpedia.org/resource/Chocolate_chip>
+        owl:sameAs  wd:Q1329680 .
+
+<http://dbpedia.org/resource/Chocolate_(The_1975_song)>
+        owl:sameAs  wd:Q16961464 .
+
+<http://dbpedia.org/resource/Tony's_Chocolonely>
+        owl:sameAs  wd:Q14942622 .
+
+<http://dbpedia.org/resource/It_Started_with_a_Kiss_(song)>
+        owl:sameAs  wd:Q28452652 .
+
+<http://dbpedia.org/resource/Ganong_Bros.>
+        owl:sameAs  wd:Q3095191 .
+
+<http://dbpedia.org/resource/Nesquik>
+        owl:sameAs  wd:Q1150326 .
+
+<http://dbpedia.org/resource/Chocolate_City_(film)>
+        owl:sameAs  wd:Q18387392 .
+
+<http://dbpedia.org/resource/Mountain_(song)>
+        owl:sameAs  wd:Q28452946 .
+
+<http://dbpedia.org/resource/Bamsemums>
+        owl:sameAs  wd:Q1778505 .
+
+<http://dbpedia.org/resource/The_Hot_Choc-late_Soldiers>
+        owl:sameAs  wd:Q3521307 .
+
+<http://dbpedia.org/resource/Whitman's>
+        owl:sameAs  wd:Q2567164 .
+
+<http://dbpedia.org/resource/Purdy's_Chocolates>
+        owl:sameAs  wd:Q7261007 .
+
+<http://dbpedia.org/resource/Somebody's_Mother's_Chocolate_Sauce>
+        owl:sameAs  wd:Q7559532 .
+
+<http://dbpedia.org/resource/Pacari_Chocolate>
+        owl:sameAs  wd:Q16242838 .
+
+<http://dbpedia.org/resource/The_Poisoned_Chocolates_Case>
+        owl:sameAs  wd:Q1750535 .
+
+<http://dbpedia.org/resource/Green_&_Black's>
+        owl:sameAs  wd:Q3435718 .
+
+<http://dbpedia.org/resource/LG_Chocolate_3_(VX8560)>
+        owl:sameAs  wd:Q6458400 .
+
+<http://dbpedia.org/resource/Laura_Secord_Chocolates>
+        owl:sameAs  wd:Q6499418 .
+
+<http://dbpedia.org/resource/Chocolate_Genius,_Inc.>
+        owl:sameAs  wd:Q2964285 .
+
+<http://dbpedia.org/resource/Sunset_Over_Chocolate_Mountains>
+        owl:sameAs  wd:Q7641315 .
+
+<http://dbpedia.org/resource/You_Sexy_Thing>
+        owl:sameAs  wd:Q4023015 .
+
+<http://dbpedia.org/resource/Bootleg_(TV_series)>
+        owl:sameAs  wd:Q4943988 .
+
+<http://dbpedia.org/resource/Fannie_May>
+        owl:sameAs  wd:Q5433964 .
+
+<http://dbpedia.org/resource/Hershey,_Pennsylvania>
+        owl:sameAs  wd:Q868666 .
+
+<http://dbpedia.org/resource/Valrhona>
+        owl:sameAs  wd:Q928566 .
+
+<http://dbpedia.org/resource/Chocolates_El_Rey>
+        owl:sameAs  wd:Q5103679 .
+
+<http://dbpedia.org/resource/Polly_Waffle>
+        owl:sameAs  wd:Q7225840 .
+
+<http://dbpedia.org/resource/The_Chocolate_War_(film)>
+        owl:sameAs  wd:Q7722611 .
+
+<http://dbpedia.org/resource/Charlie_and_the_Chocolate_Factory_(musical)>
+        owl:sameAs  wd:Q5085750 .
+
+<http://dbpedia.org/resource/Republic_of_Chocolate>
+        owl:sameAs  wd:Q11057408 .
+
+<http://dbpedia.org/resource/Chocolate_Starfish>
+        owl:sameAs  wd:Q5103636 .
+
+<http://dbpedia.org/resource/Kinder_Surprise>
+        owl:sameAs  wd:Q181042 .
+
+<http://dbpedia.org/resource/Chocolate_and_Soldiers>
+        owl:sameAs  wd:Q19579964 .
+
+<http://dbpedia.org/resource/Darryl_Dawkins>
+        owl:sameAs  wd:Q706771 .
+
+<http://dbpedia.org/resource/Chocolala_Chocolate_Museum>
+        owl:sameAs  wd:Q56274389 .
+
+<http://dbpedia.org/resource/New_in_Town_(video_game)>
+        owl:sameAs  wd:Q7008944 .
+
+<http://dbpedia.org/resource/Chocolat_(2000_film)>
+        owl:sameAs  wd:Q220423 .
+
+<http://dbpedia.org/resource/Chocolates_on_the_Pillow_Aren't_Enough>
+        owl:sameAs  wd:Q5103680 .
+
+<http://dbpedia.org/resource/Chocolate_(South_Korean_TV_series)>
+        owl:sameAs  wd:Q65296659 .
+
+<http://dbpedia.org/resource/Junonia_iphita>
+        owl:sameAs  wd:Q3024933 .
+
+<http://dbpedia.org/resource/Cocoa_Puffs>
+        owl:sameAs  wd:Q5139769 .
+
+<http://dbpedia.org/resource/Like_Water_for_Chocolate_(film)>
+        owl:sameAs  wd:Q5196238 .
+
+<http://dbpedia.org/resource/Hershey's_Kissables>
+        owl:sameAs  wd:Q5744480 .
+
+<http://dbpedia.org/resource/Chocolate_City:_Vegas_Strip>
+        owl:sameAs  wd:Q27888455 .
+
+<http://dbpedia.org/resource/Chocolate_(Kylie_Minogue_song)>
+        owl:sameAs  wd:Q861001 .
+
+<http://dbpedia.org/resource/Malley's_Chocolates>
+        owl:sameAs  wd:Q6744156 .
+
+<http://dbpedia.org/resource/Ernest_Hillier_Chocolates>
+        owl:sameAs  wd:Q5393268 .
+
+<http://dbpedia.org/resource/Richard_Cadbury>
+        owl:sameAs  wd:Q7324583 .
+
+<http://dbpedia.org/resource/Cacau_Show>
+        owl:sameAs  wd:Q9671713 .
+
+<http://dbpedia.org/resource/LG_Chocolate_Touch_(VX8575)>
+        owl:sameAs  wd:Q6458402 .
+
+<http://dbpedia.org/resource/LG_Chocolate_Spin_(VX8550)>
+        owl:sameAs  wd:Q6458399 .
+
+<http://dbpedia.org/resource/Love,_Election_and_Chocolate>
+        owl:sameAs  wd:Q1059839 .
+
+<http://dbpedia.org/resource/So_You_Win_Again>
+        owl:sameAs  wd:Q7549694 .
+
+<http://dbpedia.org/resource/Musée_%22Les_secrets_du_chocolat%22>
+        owl:sameAs  wd:Q6943560 .
+
+<http://dbpedia.org/resource/The_Chocolate_War>
+        owl:sameAs  wd:Q1018108 .
+
+<http://dbpedia.org/resource/World's_Finest_Chocolate>
+        owl:sameAs  wd:Q8035227 .
+
+<http://dbpedia.org/resource/Cheekies>
+        owl:sameAs  wd:Q5096457 .
+
+<http://dbpedia.org/resource/Chocolate>
+        owl:sameAs  wd:Q195 .
+
+<http://dbpedia.org/resource/Chocolate_and_Ice>
+        owl:sameAs  wd:Q5103645 .
+
+<http://dbpedia.org/resource/Brymo>
+        owl:sameAs  wd:Q4980805 .
+
+<http://dbpedia.org/resource/Argyrostrotis_quadrifilaris>
+        owl:sameAs  wd:Q4790014 .
+
+<http://dbpedia.org/resource/Charlie_and_the_Chocolate_Factory_(2005_video_game)>
+        owl:sameAs  wd:Q5085755 .
+
+<http://dbpedia.org/resource/Canfield's_Diet_Chocolate_Fudge>
+        owl:sameAs  wd:Q5032295 .
+
+<http://dbpedia.org/resource/Chocolate_City_Records>
+        owl:sameAs  wd:Q1075623 .
+
+<http://dbpedia.org/resource/Akebia_quinata>
+        owl:sameAs  wd:Q1482093 .
+
+<http://dbpedia.org/resource/Pesek_Zman>
+        owl:sameAs  wd:Q6825486 .
+
+<http://dbpedia.org/resource/Dark_Chocolate_(film)>
+        owl:sameAs  wd:Q22905668 .
+
+<http://dbpedia.org/resource/Blood_and_Chocolate_(novel)>
+        owl:sameAs  wd:Q937692 .
+
+<http://dbpedia.org/resource/Chocolate_Mountain_Aerial_Gunnery_Range>
+        owl:sameAs  wd:Q5103627 .
+
+<http://dbpedia.org/resource/Zotter_Schokoladen_Manufaktur>
+        owl:sameAs  wd:Q226938 .
+
+<http://dbpedia.org/resource/Taza_Chocolate>
+        owl:sameAs  wd:Q7690387 .
+
+<http://dbpedia.org/resource/Chocolate_Milk_(album)>
+        owl:sameAs  wd:Q5103625 .
+
+<http://dbpedia.org/resource/Chocolate_City,_Liberia>
+        owl:sameAs  wd:Q5103605 .
+
+<http://dbpedia.org/resource/Everlasting_Gobstopper>
+        owl:sameAs  wd:Q5417276 .
+
+<http://dbpedia.org/resource/Yankie_Bar>
+        owl:sameAs  wd:Q8048811 .
+
+<http://dbpedia.org/resource/Willie's_Wonky_Chocolate_Factory>
+        owl:sameAs  wd:Q8021355 .
+
+<http://dbpedia.org/resource/Cigarettes_and_Chocolate_Milk>
+        owl:sameAs  wd:Q5119839 .
+
+<http://dbpedia.org/resource/Hot_Chocolate_(album)>
+        owl:sameAs  wd:Q20711671 .
+
+<http://dbpedia.org/resource/The_Chocolate_Girl_(1932_film)>
+        owl:sameAs  wd:Q3211510 .
+
+<http://dbpedia.org/resource/Chocolate-chip_nudibranch>
+        owl:sameAs  wd:Q5103582 .
+
+<http://dbpedia.org/resource/Every_1's_a_Winner_(song)>
+        owl:sameAs  wd:Q25426107 .
+
+<http://dbpedia.org/resource/Chocolate_City_(song)>
+        owl:sameAs  wd:Q5103607 .
+
+<http://dbpedia.org/resource/History_of_chocolate>
+        owl:sameAs  wd:Q2899948 .
+
+<http://dbpedia.org/resource/Leaving_Eden_(Carolina_Chocolate_Drops_album)>
+        owl:sameAs  wd:Q6510736 .
+
+<http://dbpedia.org/resource/Chocolate_Lake>
+        owl:sameAs  wd:Q5103619 .
+
+<http://dbpedia.org/resource/Haigh's_Chocolates>
+        owl:sameAs  wd:Q17006045 .
+
+<http://dbpedia.org/resource/Guittard_Chocolate_Company>
+        owl:sameAs  wd:Q14682090 .
+
+<http://dbpedia.org/resource/Chocolate_City_(record_label)>
+        owl:sameAs  wd:Q5103606 .
+
+<http://dbpedia.org/resource/Zen_Wrapped_in_Karma_Dipped_in_Chocolate>
+        owl:sameAs  wd:Q8068971 .
+
+<http://dbpedia.org/resource/Chocklet>
+        owl:sameAs  wd:Q5103590 .
+
+<http://dbpedia.org/resource/Coenraad_Johannes_van_Houten>
+        owl:sameAs  wd:Q906203 .

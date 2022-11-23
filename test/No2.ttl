@@ -1,0 +1,51 @@
+@prefix o2: <http://exemple.fr/o2#> .
+
+
+
+o2:b3   a                     o2:FemaleScientist ;
+        o2:firstName           "Grace" ;
+        o2:name                "Hopper" .
+
+o2:b4   a                     o2:FemaleScientist ;
+        o2:firstName           "Anita" ;
+        o2:name               "Borg" .
+
+o2:b5   a                     o2:FemaleScientist ;
+        o2:firstName           "Ada" ;
+        o2:name                "Lovelace" .
+
+o2:b6   a                     o2:FemaleScientist ;
+        o2:firstName           "Katie" ;
+        o2:name                "Bouman" .
+
+o2:b7   a                     o2:FemaleScientist ;
+        o2:firstName           "Rosalind" ;
+        o2:name                "Franklin" .
+
+o2:b8  a                     o2:FemaleScientist ;
+       o2:firstName          "Marie" ;
+       o2:name               "Curie" .
+
+
+
+o2:b11   a                     o2:Dictionary;
+        o2:year                "2016" ;
+        o2:title               "The Merriam-Webster Dictionary" .
+
+o2:b12   a                     o2:Dictionary;
+        o2:year                "2009" ;
+        o2:title               "The Merriam-Webster Dictionary" .
+
+o2:b13   a                     o2:Novel;
+        o2:author              "Victor Hugo" ;
+        o2:title               "Les Miséables" .
+
+o2:b14   a                     o2:Novel;
+        o2:author              "Victor Hugo" ;
+        o2:title               "Notre-Dame de Paris" .
+
+o2:b15   a                     o2:Novel;
+        o2:author              "Stephen King" ;
+        o2:author              "Peter Straub" ;
+        o2:title                "The Talisman" .
+

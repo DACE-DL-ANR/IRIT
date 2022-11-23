@@ -1,0 +1,63 @@
+@prefix o1: <http://exemple.fr/o1#> .
+
+o1:a1   a                     o1:Woman ;
+        o1:given           "Oprah" ;
+        o1:familyN         "Winfrey" .
+
+o1:a2    a                     o1:Woman ;
+        o1:given           "Grace" ;
+        o1:familyN         "Kelly" .
+
+o1:a3   a                     o1:Woman ;
+        a                     o1:Scientist;
+        o1:given           "Grace" ;
+        o1:familyN         "Hopper" .
+o1:a4   a                     o1:Woman ;
+        a                     o1:Scientist;
+        o1:given           "Anita" ;
+        o1:familyN         "Borg" .
+
+o1:a5   a                     o1:Woman ;
+        a                     o1:Scientist;
+        o1:given           "Ada" ;
+        o1:familyN         "Lovelace" .
+
+o1:a6   a                     o1:Woman ;
+        a                     o1:Scientist;
+        o1:given           "Katie" ;
+        o1:familyN         "Bouman" .
+o1:a7   a                     o1:Woman ;
+        a                     o1:Scientist;
+        o1:given           "Rosalind" ;
+        o1:familyN         "Franklin" .
+
+o1:a8  a                     o1:Woman ;
+       a                     o1:Scientist;
+        o1:given           "Marie" ;
+        o1:familyN         "Curie" .
+
+o1:a9   a                     o1:Scientist;
+        o1:given            "Pierre" ;
+        o1:familyN          "Curie" .
+
+o1:a10   a                     o1:Scientist;
+        o1:given           "Alan" ;
+        o1:familyN         "Turing" .
+
+o1:a11   a                     o1:Book;
+        o1:date           "2016" ;
+        o1:designation      "The Merriam-Webster Dictionary" .
+o1:a12   a                     o1:Book;
+        o1:date           "2009" ;
+        o1:designation      "The Merriam-Webster Dictionary" .
+o1:a13   a                     o1:Book;
+        o1:creator          "Victor Hugo" ;
+        o1:designation      "Les Miséables" .
+o1:a14   a                     o1:Book;
+        o1:creator          "Victor Hugo" ;
+        o1:designation      "Notre-Dame de Paris" .
+
+o1:a15   a                     o1:Book;
+        o1:creator          "Stephen King" ;
+        o1:designation      "The Talisman" .
+

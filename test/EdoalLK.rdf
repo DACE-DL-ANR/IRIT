@@ -1,0 +1,23 @@
+
+<align:Cell rdf:about="#cell-with-linkkey">
+  <align:entity1><Class rdf:about="Livre" /></align:entity1>
+  <align:entity2><Class rdf:about="Novel" /></align:entity2>
+  <align:relation>=</align:relation>
+  <linkkey>
+    <Linkkey>
+      <lk:type>plain</lk:type>
+      <binding>
+        <Intersects>
+          <property1><Relation rdf:about="auteur" /></property1>
+	  <property2><Relation rdf:about="creator" /></property2>
+	</Intersects>
+      </binding>
+      <binding>
+        <Equals>
+          <property1><Property rdf:about="titre" /></property1>
+          <property2><Property rdf:about="title" /></property2>
+        </Equals>
+      </binding>
+    </Linkkey>
+  </linkkey>
+</align:Cell>
