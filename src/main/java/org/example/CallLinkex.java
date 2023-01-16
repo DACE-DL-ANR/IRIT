@@ -1,46 +1,58 @@
 package org.example;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.xml.sax.SAXException;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.io.IOException;
 import java.util.Set;
 
 public class CallLinkex {
-    Run r=new Run();
 
-    Set<Linkey> execute(File source, File target){
-        Set<Linkey> lks=new HashSet<>();
+
+    Set<Linkey> execute(File source, File target, File result) throws IOException, ParserConfigurationException, SAXException {
+
+        if(!result.exists()) {
+            result.createNewFile();
+        }
+        Set<Linkey> lks;
         System.out.println("Linkex starting ....");
+        String s="*********";
         try {
-            System.out.println("**********");
-            r.runProcess("java -jar  ../linkex/LinkkeyDiscovery-1.0-SNAPSHOT-jar-with-dependencies.jar -o output/linkeys -f edoal "+source+" "+target );
-            System.out.println("**********");
+            System.out.println(s);
+            Run.runProcess("java  -Xmx10012M -jar  ../linkex/LinkkeyDiscovery-1.0-SNAPSHOT-jar-with-dependencies.jar -o output/"+result.getName()+" -t eq -f edoal -c1 " + "http://www.w3.org/2002/07/owl#Thing " +source+" "+target );
+            System.out.println(s);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ParseEdoal parser=new ParseEdoal();
-        lks=parser.EDOALtoLKs(new File("output/linkeys"));
+        lks=ParseEdoal.EDOALtoLKs(result);
         return lks;
     }
-    Set<Linkey> execute(File source, File target, Correspondance c){
+    Set<Linkey> execute(File source, File target, File result,  String cls) throws IOException, ParserConfigurationException, SAXException {
+        String s="*********";
         try {
-            r.runProcess("pwd");
-            System.out.println("**********");
-            r.runProcess("java -jar  target/LinkkeyDiscovery-1.0-SNAPSHOT-jar-with-dependencies.jar -f edoal "+ source+ " "+target+ " "+ c.getC1()+ " "+c.getC2());
-            System.out.println("**********");
+            System.out.println(s);
+            Run.runProcess("java  -Xmx10012M -jar  ../linkex/LinkkeyDiscovery-1.0-SNAPSHOT-jar-with-dependencies.jar -d 0.4 -s 0.4 -o output/"+result.getName()+" -t eq -f edoal -c1 "+ cls+ " " +source+" "+target );
+            System.out.println(s);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String c1 = c.getC1().toString();
-        String c2 = c.getC2().toString();
-
-        try {
-            r.runProcess(c1.concat(c2));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        Set<Linkey> lks=new HashSet<>();
+        Set<Linkey> lks;
         ParseEdoal parser=new ParseEdoal();
-        lks=parser.EDOALtoLKs(new File("output/linkeys"));
+        lks=parser.EDOALtoLKs(result);
+        return lks;
+    }
+    Set<Linkey> execute(File source, File target, File result, Correspondance c) throws IOException, ParserConfigurationException, SAXException {
+        String s="*********";
+        try {
+            System.out.println(s);
+            Run.runProcess("java  -Xmx10012M -jar  ../linkex/LinkkeyDiscovery-1.0-SNAPSHOT-jar-with-dependencies.jar -d 0.4 -s 0.4 -o output/"+result.getName()+" -t eq -f edoal -c1 "+ "http://"+c.getC1().toString().substring(1,c.getC1().toString().length()-1).replace("#","@")+ " -c2 "+"http://"+c.getC2().toString().substring(1,c.getC2().toString().length()-1).replace("#","@")+ " " + source+ " "+target);
+            System.out.println(s);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Set<Linkey> lks;
+        ParseEdoal parser=new ParseEdoal();
+        lks=parser.EDOALtoLKs(result);
         return lks;
     }
 }

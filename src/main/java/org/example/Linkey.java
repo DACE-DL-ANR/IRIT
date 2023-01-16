@@ -1,10 +1,12 @@
 package org.example;
-import com.google.common.base.Optional;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-
+import java.io.File;
+import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Linkey {
 
@@ -23,7 +25,10 @@ public class Linkey {
 
 
     private static OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-    private Set<PropertyPair> PropertySet ;
+    private Set<PropertyPair> PropertySetIn ;
+    private Set<PropertyPair> PropertySetEq ;
+    public Linkey() {
+    }
 
     public Linkey(ConceptPair pairOfConcepts, Set<PropertyPair> propertySet) {
     }
@@ -33,108 +38,117 @@ public class Linkey {
         PairsOfConcepts = pairsOfConcepts;
     }
 
-    public void setPropertySet(Set<PropertyPair> propertySet) {
-        PropertySet = propertySet;
+    public void setPropertySetIn(Set<PropertyPair> propertySetIn) {
+        PropertySetIn = propertySetIn;
+    }
+
+    public void setPropertySetEq(Set<PropertyPair> propertySetEq) {
+        PropertySetEq = propertySetEq;
+    }
+
+    public Set<PropertyPair> getPropertySetIn() {
+        return PropertySetIn;
+    }
+
+    public Set<PropertyPair> getPropertySetEq() {
+        return PropertySetEq;
     }
 
     public ConceptPair getPairsOfConcepts() {
         return PairsOfConcepts;
     }
 
-    public Set<PropertyPair> getPropertySet() {
-        return PropertySet;
+    public void addRoleAss(OWLOntology oa, OWLOntology ob, OWLIndividual a, OWLIndividual b, Set<OWLDataPropertyExpression> sprp) {
+        // a becomes equal to b, so I need to add the axioms of b to the ontology of a
+        // addRoleAss(o2, a, b, sprp1);
+        for (OWLPropertyExpression pe : sprp) {
+
+            if (pe.isDataPropertyExpression()) {
+                for (OWLLiteral obj : a.getDataPropertyValues((OWLDataPropertyExpression) pe, oa)) {
+                    OWLDataPropertyAssertionAxiom assertion = factory.getOWLDataPropertyAssertionAxiom((OWLDataPropertyExpression) pe, b, obj);
+                    manager.addAxiom(ob, assertion);
+                }
+            }
+            else {
+                for (OWLIndividual obj : a.getObjectPropertyValues((OWLObjectPropertyExpression) pe, oa)) {
+                    OWLObjectPropertyAssertionAxiom assertion = factory.getOWLObjectPropertyAssertionAxiom((OWLObjectPropertyExpression) pe, b, obj);
+                    manager.addAxiom(ob, assertion);
+                }
+            }
+        }
+    }
+    public void addClassAss(OWLIndividual a, OWLOntology oa, OWLIndividual b, OWLOntology ob ) {
+
+        for (OWLClassExpression c : a.getTypes(oa)) {
+            OWLClassAssertionAxiom assertion = factory.getOWLClassAssertionAxiom(c, b);
+            manager.addAxiom(ob, assertion);
+        }
     }
 
 
+    void saturateLinkey(OWLOntology o1, OWLOntology o2, Linkey lk) throws OWLOntologyCreationException, IOException, OWLOntologyStorageException {
+        File f_o1_temp = new File("test", "source_temp.ttl");
+        File f_o2_temp = new File("test", "target_temp.ttl");
+        int i=0;
+        f_o1_temp.createNewFile();
+        f_o2_temp.createNewFile();
 
+        IRI owlIRI = IRI.create("http://www.w3.org/2002/07/owl#");
+        boolean sat1 = false;
 
-    void saturateLinkey(OWLOntology o1, OWLOntology o2){
+        Set<OWLPropertyExpression> slkp1In = new HashSet<>();
+        Set<OWLPropertyExpression> slkp2In = new HashSet<>();
+        for (PropertyPair p : lk.getPropertySetIn()) {
+            slkp1In.add(p.getFirstProperty());
+            slkp2In.add(p.getSecondProperty());
+        }
+        Set<OWLPropertyExpression> slkp1Eq = new HashSet<>();
+        Set<OWLPropertyExpression> slkp2Eq = new HashSet<>();
+        for (PropertyPair p : lk.getPropertySetEq()) {
+            slkp1Eq.add(p.getFirstProperty());
+            slkp2Eq.add(p.getSecondProperty());
+        }
+        System.out.println("The size of the properties of the first side of lk: "+slkp1Eq.size());
+        System.out.println("The size of the properties of the second side of lk: "+slkp2Eq.size());
+        ParseEdoal pr = new ParseEdoal();
         // add equalities owl:sameAs
-        IRI ontologyIRI = o1.getOntologyID().getOntologyIRI();
-        for(OWLIndividual a:o1.getIndividualsInSignature()){
-            for(OWLIndividual b:o2.getIndividualsInSignature()){
-                if(a.getTypes(o1).contains(this.getPairsOfConcepts().getFirstConcept())){
-                    if(b.getTypes(o2).contains(this.getPairsOfConcepts().getSecondConcept())) {
-                        for(PropertyPair p:this.getPropertySet()) {
+        //a -> a.getTypes(o1).contains(lk.getPairsOfConcepts().getFirstConcept()) && b -> b.getTypes(o2).contains(lk.getPairsOfConcepts().getSecondConcept()) &&
 
-                          if(a.getDataPropertyValues(o1).containsKey((OWLDataPropertyExpression) p.getFirstProperty())&&b.getDataPropertyValues(o2).containsKey((OWLDataPropertyExpression) p.getSecondProperty())) {
-                              System.out.println("**********************");
-                              System.out.println(p.getFirstProperty());
-                              System.out.println(p.getSecondProperty());
-                              System.out.println(a.getDataPropertyValues(o1).get((OWLDataPropertyExpression) p.getFirstProperty()).toString());
-                              System.out.println(b.getDataPropertyValues(o2).get((OWLDataPropertyExpression) p.getSecondProperty()).toString());
-                              System.out.println("**********************");
-                              if (a.getDataPropertyValues(o1).get((OWLDataPropertyExpression) p.getFirstProperty()).toString().contains(b.getDataPropertyValues(o2).get((OWLDataPropertyExpression) p.getSecondProperty()).toString())) {
-
-                                  //    .containsKey(p.getFirstProperty())
-//&&b.getDataPropertyValues(o2).containsKey(p.getSecondProperty())
-                                  System.out.println("The entities share values");
-                                  //  if ((a.getObjectPropertiesInSignature().contains(p.getFirstProperty()) && b.getObjectPropertiesInSignature().contains(p.getSecondProperty()))||(a.getDataPropertiesInSignature().contains(p.getFirstProperty()) && b.getDataPropertiesInSignature().contains(p.getSecondProperty()))){
-                                  // they satisfy the link key condition
-                                  // so first we add the new sameAs property
-                                  OWLObjectPropertyExpression sameAs = factory.getOWLObjectProperty(IRI.create(ontologyIRI + "owl:sameAs"));
-                                  OWLObjectPropertyAssertionAxiom sameAsAss = factory.getOWLObjectPropertyAssertionAxiom(sameAs, a, b);
-                                  manager.addAxiom(o1, sameAsAss);
-                                  manager.addAxiom(o2, sameAsAss);
-
-                                  // add new class expressions
-                                  for (OWLClassExpression c : b.getTypes(o2)) {
-                                      OWLClassAssertionAxiom assertion = factory.getOWLClassAssertionAxiom(c, a);
-                                      manager.addAxiom(o1, assertion);
-                                  }
-
-                                  for (OWLClassExpression c : a.getTypes(o1)) {
-                                      OWLClassAssertionAxiom assertion = factory.getOWLClassAssertionAxiom(c, b);
-                                      manager.addAxiom(o2, assertion);
-                                  }
-
-                                  // add new property expressions
-                                  for (OWLDataPropertyExpression pe : a.getDataPropertiesInSignature()) {
-                                      Set<OWLDatatype> objs = pe.getDatatypesInSignature();
-                                      for (OWLDatatype obj : objs) {
-                                          OWLDataPropertyAssertionAxiom assertion = factory.getOWLDataPropertyAssertionAxiom(pe, b, (OWLLiteral) obj);
-                                          manager.addAxiom(o2, assertion);
-                                      }
-
-                                  }
-
-                                  for (OWLObjectPropertyExpression pe : a.getObjectPropertiesInSignature()) {
-                                      Set<OWLNamedIndividual> objs = pe.getIndividualsInSignature();
-                                      for (OWLNamedIndividual obj : objs) {
-                                          OWLObjectPropertyAssertionAxiom assertion = factory.getOWLObjectPropertyAssertionAxiom(pe, b, obj);
-                                          manager.addAxiom(o2, assertion);
-                                      }
-
-                                  }
-
-                                  for (OWLDataPropertyExpression pe : b.getDataPropertiesInSignature()) {
-                                      Set<OWLDatatype> objs = pe.getDatatypesInSignature();
-                                      for (OWLDatatype obj : objs) {
-                                          OWLDataPropertyAssertionAxiom assertion = factory.getOWLDataPropertyAssertionAxiom(pe, a, (OWLLiteral) obj);
-                                          manager.addAxiom(o1, assertion);
-                                      }
-
-                                  }
-
-                                  for (OWLObjectPropertyExpression pe : b.getObjectPropertiesInSignature()) {
-                                      Set<OWLNamedIndividual> objs = pe.getIndividualsInSignature();
-                                      for (OWLNamedIndividual obj : objs) {
-                                          OWLObjectPropertyAssertionAxiom assertion = factory.getOWLObjectPropertyAssertionAxiom(pe, b, obj);
-                                          manager.addAxiom(o1, assertion);
-                                      }
-                                  }
-                              }
-                          }
-                                    // add transitivity
-                                    //OWLSameIndividualAxiom ax;
-                                    // if owl:sameAs
-                                }
-
+       Set<OWLIndividual> A = o1.getIndividualsInSignature().stream().filter( a -> a.getDataPropertyValues(o1).keySet().containsAll(slkp1Eq)||a.getObjectPropertyValues(o1).keySet().containsAll(slkp1Eq)).collect(Collectors.toSet());
+       Set<OWLIndividual> B = o2.getIndividualsInSignature().stream().filter( b->b.getDataPropertyValues(o1).keySet().containsAll(slkp2Eq)||b.getObjectPropertyValues(o1).keySet().containsAll(slkp2Eq)).collect(Collectors.toSet());
+        for (OWLIndividual a : A) {
+            for (OWLIndividual b : B) {
+                for (OWLPropertyExpression p1 : slkp1Eq) {
+                    System.out.println("Here1");
+                    for (OWLPropertyExpression p2 : slkp2Eq) {
+                        System.out.println("Here2");
+                        if(a.getDataPropertyValues(o1).get(p1)!=null &&b.getDataPropertyValues(o2).get(p2)!=null) {
+                            System.out.println("Here");
+                            if (a.getDataPropertyValues(o1).get(p1).contains(b.getDataPropertyValues(o2).get(p2)) || (a.getObjectPropertyValues(o1).get(p1).contains(b.getObjectPropertyValues(o2).get(p2)))) {
+                                sat1 = true;
                             }
-
                         }
                     }
                 }
 
-    }
+                if (sat1) {
+                    i++;
+                    System.out.println("Adding assertions");
+                    OWLObjectPropertyExpression sameAs = factory.getOWLObjectProperty(IRI.create(owlIRI + "owl:sameAs"));
+                    OWLObjectPropertyAssertionAxiom sameAsAss = factory.getOWLObjectPropertyAssertionAxiom(sameAs, a, b);
+                    manager.addAxiom(o1, sameAsAss);
+                    manager.addAxiom(o2, sameAsAss);
+                    addClassAss(b, o2, a, o1);
+                    addClassAss(a, o1, b, o2);
+                    addRoleAss(o1, o2, a, b, a.getDataPropertyValues(o1).keySet());
+                    addRoleAss(o2, o1, b, a, b.getDataPropertyValues(o2).keySet());
+
+                }
+            }
+        }
+            System.out.println("The files have been saturated "+i+" by assertions coming from the saturation with link keys");
+            pr.saveOntologies(o1, f_o1_temp);
+            pr.saveOntologies(o2, f_o2_temp);
+        }
+
 }

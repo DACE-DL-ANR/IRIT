@@ -2,8 +2,13 @@
   <library name="alignment">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/../DICAP/alignment" />
+      <root url="file://$PROJECT_DIR$/../DICAP/lib" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../DICAP/lib" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../DICAP/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../DICAP/lib" recursive="false" type="SOURCES" />
   </library>
 </component>

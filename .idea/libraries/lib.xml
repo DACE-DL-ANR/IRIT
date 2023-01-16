@@ -3,13 +3,24 @@
     <CLASSES>
       <root url="file://$PROJECT_DIR$/../alignapi/lib" />
       <root url="file://$PROJECT_DIR$/lib" />
+      <root url="file://$USER_HOME$/Desktop/owlapi-3.1.0" />
+      <root url="file://$USER_HOME$/Desktop/owlapi-3.1.0" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="file://$USER_HOME$/Desktop/owlapi-3.1.0/javadoc" />
+      <root url="https://owlapi.sourceforge.net/" />
+    </JAVADOC>
     <SOURCES>
       <root url="file://$PROJECT_DIR$/lib" />
+      <root url="file://$USER_HOME$/Desktop/owlapi-3.1.0" />
+      <root url="file://$USER_HOME$/Desktop/owlapi-3.1.0" />
     </SOURCES>
+    <jarDirectory url="file://$USER_HOME$/Desktop/owlapi-3.1.0" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Desktop/owlapi-3.1.0" recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/../alignapi/lib" recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Desktop/owlapi-3.1.0" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$USER_HOME$/Desktop/owlapi-3.1.0" recursive="false" type="SOURCES" />
     <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" type="SOURCES" />
   </library>
 </component>
