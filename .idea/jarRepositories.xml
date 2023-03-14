@@ -2,9 +2,24 @@
 <project version="4">
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
+      <option name="id" value="jfact-repo" />
+      <option name="name" value="jfact-repo" />
+      <option name="url" value="https://dl.bintray.com/jfact/jfact-repo/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
       <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="owlapi" />
+      <option name="name" value="owlapi" />
+      <option name="url" value="https://dl.bintray.com/owlapi/maven/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="mvnrepository.com" />
+      <option name="name" value="mvnrepository.com" />
+      <option name="url" value="https://mvnrepository.com/artifact/net.sourceforge.jfact/jfact" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />
@@ -15,6 +30,16 @@
       <option name="id" value="jboss.community" />
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven-central" />
+      <option name="name" value="maven-central" />
+      <option name="url" value="https://repo1.maven.org/maven2/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jfact-repo" />
+      <option name="name" value="JFact Repository" />
+      <option name="url" value="https://oss.sonatype.org/content/repositories/snapshots/" />
     </remote-repository>
   </component>
 </project>
