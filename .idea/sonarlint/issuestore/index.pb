@@ -23,8 +23,6 @@ P
  test/wikidata_chocolate_data.ttl,1/6/16164734556c4e9ad59d5d573f4ab878f9015867
 M
 test/wikidata_chocolate_e.ttl,f/6/f623a515e9ad58aa8783883273db28bba78d7879
-J
-test/dbpedia_chocolate.ttl,0/6/06a881869b88aa051814c2f1ec82460217f9140e
 g
 7CQAs_wikidata_chocolate_e_dbpedia_chocolate/food.sparql,8/6/86b388b68b100769ecd1db3712d2f6c644c7fa0e
 E
