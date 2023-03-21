@@ -1,0 +1,9 @@
+
+>
+java:S2440"#Remove this instantiation of "Run".(£Ñ–€üÿÿÿÿ
+N	java:S106"9Replace this use of System.out or System.err by a logger.(÷ë¸
+V	java:S125"<This block of commented-out lines of code should be removed.(¿‹±òıÿÿÿÿ
+N	java:S106"9Replace this use of System.out or System.err by a logger.(¹éïï
+K
+java:S2209"5Change this instance-reference to a static reference.(˜øÎÍ
+N	java:S106"9Replace this use of System.out or System.err by a logger.(¹éïï

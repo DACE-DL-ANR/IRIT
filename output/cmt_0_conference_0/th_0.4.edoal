@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='utf-8' standalone='no'?>
+<rdf:RDF xmlns='http://knowledgeweb.semanticweb.org/heterogeneity/alignment#'
+         xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+         xmlns:xsd='http://www.w3.org/2001/XMLSchema#'
+         xmlns:alext='http://exmo.inrialpes.fr/align/ext/1.0/'
+         xmlns:align='http://knowledgeweb.semanticweb.org/heterogeneity/alignment#'
+         xmlns:edoal='http://ns.inria.org/edoal/1.0/#'>
+<Alignment>
+  <xml>yes</xml>
+  <level>2EDOAL</level>
+  <type>**</type>
+  <onto1>
+    <Ontology rdf:about="cmt_0">
+      <location>cmt_0</location>
+      <formalism>
+        <Formalism align:name="owl" align:uri="http://www.w3.org/TR/owl-guide/"/>
+      </formalism>
+    </Ontology>
+  </onto1>
+  <onto2>
+    <Ontology rdf:about="conference_0">
+      <location>conference_0</location>
+      <formalism>
+        <Formalism align:name="owl" align:uri="http://www.w3.org/TR/owl-guide/"/>
+      </formalism>
+    </Ontology>
+  </onto2>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class>
+          <edoal:or rdf:parseType="Collection">
+            <edoal:AttributeDomainRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://cmt#hasDecision"/>
+              </edoal:onAttribute>
+              <edoal:exists>
+                <edoal:Class rdf:about="http://cmt#Acceptance"/>
+              </edoal:exists>
+            </edoal:AttributeDomainRestriction>
+            <edoal:AttributeOccurenceRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://cmt#acceptedBy"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#greater-than"/>
+              <edoal:value>0</edoal:value>
+            </edoal:AttributeOccurenceRestriction>
+          </edoal:or>
+        </edoal:Class>
+      </entity1>
+      <entity2>
+        <edoal:AttributeOccurenceRestriction>
+          <edoal:onAttribute>
+            <edoal:Relation>
+              <edoal:inverse>
+                <edoal:Relation rdf:about="http://conference#has_contributions"/>
+              </edoal:inverse>
+            </edoal:Relation>
+          </edoal:onAttribute>
+          <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#greater-than"/>
+          <edoal:value>0</edoal:value>
+        </edoal:AttributeOccurenceRestriction>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.4117646813392639</measure>
+    </Cell>
+  </map>
+</Alignment>
+</rdf:RDF>

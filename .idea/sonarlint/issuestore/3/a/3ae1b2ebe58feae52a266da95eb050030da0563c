@@ -1,0 +1,28 @@
+
+e
+java:S1192…"IDefine a constant instead of duplicating this literal "queries/" 4 times.(İÉêıÿÿÿÿ
+Q
+java:S1141Œ"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Q
+java:S1141"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+7
+java:S1643-"Use a StringBuilder instead.(‘ùªøÿÿÿÿ
+2
+java:S1643/"Use a StringBuilder instead.(Ò³«³
+m
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 81 to the 15 allowed.(›Şîıÿÿÿÿ
+O
+java:S2864?"4Iterate over the "entrySet" instead of the "keySet".(¾°Æáşÿÿÿÿ
+K
+java:S6397C"5Replace this character class by the character itself.(ÑÁ‡ş
+F
+java:S1481E"+Remove this unused "nfound" local variable.(ÆµˆŸúÿÿÿÿ
+V	java:S125H"<This block of commented-out lines of code should be removed.(Ìş¹¥ÿÿÿÿÿ
+S	java:S106v"9Replace this use of System.out or System.err by a logger.(²Ø÷Õşÿÿÿÿ
+O
+java:S2864~"4Iterate over the "entrySet" instead of the "keySet".(¬£ ×ûÿÿÿÿ
+O	java:S106‚"9Replace this use of System.out or System.err by a logger.(¹şÄò
+W	java:S125„"<This block of commented-out lines of code should be removed.(¹Á®‹ÿÿÿÿÿ
+Q	java:S125‰"<This block of commented-out lines of code should be removed.(Ë©øi
+N
+java:S1135­"2Complete the task associated to this TODO comment.(ÕÌ®şÿÿÿÿ
