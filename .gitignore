@@ -1,5 +1,5 @@
 /target/
-.idea
+.idea/
 /output/
 test/source_temp.ttl
 test/target_temp.ttl

@@ -29,7 +29,7 @@ public class Main {
     static CallLinkex linkex;
     private static final OWLDataFactory factory = new OWLDataFactoryImpl();
 
-    public static void main(String[] args) throws IOException, OWLOntologyStorageException, ParserConfigurationException, SAXException {
+    public static void main(String[] args) throws Exception {
 
         String pathSource = "cmt_0.ttl";
 
@@ -55,7 +55,7 @@ public class Main {
         return ontology;
     }
 
-    static void pipe(File fileSourceI, File fileTargetI, File fileSource, File fileTarget, Double valueOfConf) throws IOException, OWLOntologyStorageException, ParserConfigurationException, SAXException {
+    static void pipe(File fileSourceI, File fileTargetI, File fileSource, File fileTarget, Double valueOfConf) throws Exception {
         StopWatch pipe = new StopWatch();
         pipe.start();
         OWLOntology source = loadOntology(fileSourceI);
@@ -86,11 +86,8 @@ public class Main {
         pr.saveOntologies(source, fileSourceI);
         pr.saveOntologies(target, fileTargetI);
 
-        int iter=0;
         Correspondence c = new Correspondence();
-        String fs = "output/" + fileSource.getName().substring(0, t1) + "_" + fileTarget.getName().substring(0, t2) + "/th_" + valueOfConf + ".edoal";
-        c.seperateCorrespondances(fs);
-        // System.out.println(setcls);
+        Correspondence.separateCorrespondences(fs);
 
 
         canard.execute(fileSourceI, fileTargetI, fileSource, fileTarget, valueOfConf);
