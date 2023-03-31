@@ -1,0 +1,138 @@
+<rdf xmlns:edoal="http://ns.inria.org/edoal/1.0/#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:align="http://knowledgeweb.semanticweb.org/heterogeneity/alignment#"
+     xmlns:alext="http://exmo.inrialpes.fr/align/ext/1.0/">
+   <map>
+      <Cell>
+         <entity1>
+            <edoal:Class rdf:about="http://edas#Workshop"/>
+         </entity1>
+         <entity2>
+            <edoal:Class rdf:about="http://conference#Workshop"/>
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+         </entity2>
+      </Cell>
+   </map>
+   <map>
+      <Cell>
+         <entity1>
+            <edoal:Class rdf:about="http://edas#Person"/>
+         </entity1>
+         <entity2>
+            <edoal:Class rdf:about="http://conference#Person"/>
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+         </entity2>
+      </Cell>
+   </map>
+   <map>
+      <Cell>
+         <entity1>
+            <edoal:Class rdf:about="http://edas#Reviewer"/>
+         </entity1>
+         <entity2>
+            <edoal:Class rdf:about="http://conference#Review"/>
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.75</measure>
+         </entity2>
+      </Cell>
+   </map>
+   <map>
+      <Cell>
+         <entity1>
+            <edoal:Class rdf:about="http://edas#Reviewer"/>
+         </entity1>
+         <entity2>
+            <edoal:Class rdf:about="http://conference#Reviewer"/>
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+         </entity2>
+      </Cell>
+   </map>
+   <map>
+      <Cell>
+         <entity1>
+            <edoal:Class rdf:about="http://edas#Paper"/>
+         </entity1>
+         <entity2>
+            <edoal:Class rdf:about="http://conference#Paper"/>
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+         </entity2>
+      </Cell>
+   </map>
+   <map>
+      <Cell>
+         <entity1>
+            <edoal:Class rdf:about="http://edas#Review"/>
+         </entity1>
+         <entity2>
+            <edoal:Class rdf:about="http://conference#Review"/>
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+         </entity2>
+      </Cell>
+   </map>
+   <map>
+      <Cell>
+         <entity1>
+            <edoal:Class rdf:about="http://edas#Review"/>
+         </entity1>
+         <entity2>
+            <edoal:Class rdf:about="http://conference#Reviewer"/>
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.75</measure>
+         </entity2>
+      </Cell>
+   </map>
+   <map>
+      <Cell>
+         <entity1>
+            <edoal:Class rdf:about="http://edas#Topic"/>
+         </entity1>
+         <entity2>
+            <edoal:Class rdf:about="http://conference#Topic"/>
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+         </entity2>
+      </Cell>
+   </map>
+   <map>
+      <Cell>
+         <entity1>
+            <edoal:Class rdf:about="http://edas#PaperPresentation"/>
+         </entity1>
+         <entity2>
+            <edoal:Class rdf:about="http://conference#Presentation"/>
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.7058823108673096</measure>
+         </entity2>
+      </Cell>
+   </map>
+   <map>
+      <Cell>
+         <entity1>
+            <edoal:Class rdf:about="http://edas#Conference"/>
+         </entity1>
+         <entity2>
+            <edoal:Class rdf:about="http://conference#Conference"/>
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+         </entity2>
+      </Cell>
+   </map>
+   <map>
+      <Cell>
+         <entity1>
+            <edoal:Class rdf:about="http://edas#Conference"/>
+         </entity1>
+         <entity2>
+            <edoal:Class rdf:about="http://edas#Conference"/>
+            <relation>=</relation>
+            <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+         </entity2>
+      </Cell>
+   </map>
+</rdf>

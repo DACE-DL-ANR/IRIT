@@ -1,8 +1,6 @@
 
 A
 test/confOf_0.ttl,a/7/a760d9709d3d53744f9bf6aa2a51355cff4a7ca0
-?
-test/cmt_40.ttl,6/c/6c9da7a1047ffbb3de400e56a6d105628703054c
 F
 test/conference_40.ttl,8/1/81615ad1b426737217ad8f05ff2792228c07f790
 J
@@ -61,14 +59,10 @@ R
 test/school.ttl,e/1/e1ed21791c62034f63c7e18b922f49ff79d1ab4a
 V
 &output/cmt_0_conference_0/th_0.4.edoal,9/6/9687debbdd013b16448c378b1f7451b2094618e6
-G
-test/agronomicTaxon.owl,f/2/f2990c5f71578d3e28984212e78e181e655fbbb5
 Z
 *output/cmt_100_conference_100/th_0.4.edoal,7/9/7985170bf769ab7abea3d1762c8269a6a19294e6
 [
 +output/source_temp_target_temp/th_0.4.edoal,3/6/3603859bfe09489df4c3e208e3b3f57b028a962a
-F
-test/agrovoc-light.owl,4/e/4eebb4b90b90fc1492f17b3befdfcb0689df1b0e
 ]
 -output/confOf_100_conference_100/th_0.3.edoal,b/5/b5961195e14d43c068a49afb94c00c63a2906848
 R
@@ -89,8 +83,6 @@ U
 +output/source_temp_target_temp/th_0.2.edoal,d/5/d56fadb55e80f45f17c13a1f0f113989ab920f1f
 [
 +output/edas_100_conference_100/th_1.0.edoal,4/3/43bfaf88de687ee49a8685138b68e2ef01360f54
-[
-+output/edas_100_conference_100/th_0.7.edoal,c/7/c77aea04321280c6a598701a8d8d855b361eaad6
 [
 +output/source_temp_target_temp/th_1.0.edoal,d/c/dc506604b7c8d18fb5410b4d5387ff854899c389
 C

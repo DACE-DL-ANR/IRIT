@@ -13,6 +13,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.util.*;
@@ -40,7 +41,7 @@ public class Main {
         return ontology;
     }
 
-    static void pipe(File fileSourceI, File fileTargetI, File fileSource, File fileTarget, Double valueOfConf) throws IOException, OWLOntologyCreationException, OWLOntologyStorageException, ParserConfigurationException, SAXException, AlignmentException, URISyntaxException {
+    static void pipe(File fileSourceI, File fileTargetI, File fileSource, File fileTarget, Double valueOfConf) throws Exception {
 
 
         OWLOntology source;
@@ -57,14 +58,14 @@ public class Main {
             f_start.createNewFile();
         }
         Set<Linkey> lks;
-        System.out.println("Extracting the link keys before launching Canard");
-        lks = linkex.execute(fileSourceI, fileTargetI, f_start);
-        canard = new CallCanard();
-        canard.execute(fileSourceI, fileTargetI, fileSource, fileTarget, valueOfConf);
+      //  System.out.println("Extracting the link keys before launching Canard");
+       // lks = linkex.execute(fileSourceI, fileTargetI, f_start);
+       canard = new CallCanard();
+       canard.execute(fileSourceI, fileTargetI, fileSource, fileTarget, valueOfConf);
         int t1 = fileSource.getName().lastIndexOf(".");
         int t2 = fileTarget.getName().lastIndexOf(".");
-        String fs = "output/" + fileSource.getName().substring(0, t1) + "_" + fileTarget.getName().substring(0, t2) + "/th_" + valueOfConf + ".edoal";
-        System.out.println("The average value of confidence obtained from canard with labels is: "+calculateAverageMeasure(fs));
+
+      /*  System.out.println("The average value of confidence obtained from canard with labels is: "+calculateAverageMeasure(fs));
         System.out.println("The number of alignments obtained from canard with labels is"+Alignment.readAlignments(fs).size());
         removeRdfsLabels(source);
         removeRdfsLabels(target);
@@ -72,18 +73,21 @@ public class Main {
         pr.saveOntologies(source,fileSourceI);
         pr.saveOntologies(target,fileTargetI);
 
-        int iter=0;
+        int iter=0;*/
         Correspondance c=new Correspondance();
-
-        System.out.println("Extracting the correspondances before saturating with linkeys");
+        String fs = "output/" + fileSource.getName().substring(0, t1) + "_" + fileTarget.getName().substring(0, t2) + "/th_" + valueOfConf + ".edoal";
+        c.seperateCorrespondances(fs);
+       // System.out.println(setcls);
+        /*  System.out.println("Extracting the correspondances before saturating with linkeys");
         canard.execute(fileSourceI, fileTargetI, fileSource, fileTarget, valueOfConf);
         System.out.println("The average value of confidence without labels is: "+calculateAverageMeasure(fs));
         Set<Linkey> lks_w;
         Set<Correspondance> crs=new HashSet<>();
         Set<Correspondance> crsc=new HashSet<>();
+
         int counter_lks=0;
         int counter_lkc=0;
-        while (enter) {
+      while (enter) {
             iter++;
 
             c.saturateCorrespondance(source,target,fs);
@@ -128,7 +132,7 @@ public class Main {
 
                     crsc.add(new Correspondance(factory.getOWLClass(IRI.create(a.getElement1().toMergedForm())), factory.getOWLClass(IRI.create(a.getElement2().toMergedForm()))));
                 }*/
-            }
+       /*     }
 
 
             System.out.println("Extracting link keys between the "+ crs.size()+" equivalent simple classes");
@@ -178,7 +182,7 @@ public class Main {
 
             }
             lks = lks_w;
-        }
+        }*/
 
     }
     public static double calculateAverageMeasure(String xmlFilePath) {
@@ -230,10 +234,10 @@ public class Main {
 
 
 
-    public static void main(String[] args) throws IOException, OWLOntologyCreationException, OWLOntologyStorageException, ParserConfigurationException, SAXException, AlignmentException, URISyntaxException {
+    public static void main(String[] args) throws Exception {
 
 
-        Scanner scanner = new Scanner(System.in);
+       Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter the source ontology");
         String pathSource = scanner.nextLine().trim();
 
@@ -247,7 +251,9 @@ public class Main {
         File fileTarget = new File("test/"+pathTarget);
 
         pipe( fileSource, fileTarget, fileSource, fileTarget, valueOfConf);
-      //  lineDiff();
-
+      //  lineDiff();*/
+   /* Correspondance c=new Correspondance();
+        String fs = "output/" + "edas_100_conference_100/th_0.7.edoal";
+        c.seperateCorrespondances(fs);*/
     }
 }

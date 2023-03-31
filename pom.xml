@@ -37,6 +37,12 @@
             <artifactId>pellet-core</artifactId>
             <version>2.3.2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/net.sf.saxon/saxon-dom -->
+        <dependency>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>saxon-dom</artifactId>
+            <version>8.7</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>

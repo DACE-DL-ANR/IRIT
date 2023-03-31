@@ -17,6 +17,7 @@
     <orderEntry type="library" name="jar_files (1)" level="project" />
     <orderEntry type="library" name="eulergui-2.0-jar-with-dependencies" level="project" />
     <orderEntry type="library" name="edoal" level="project" />
+    <orderEntry type="library" name="saxon8-jdom" level="project" />
     <orderEntry type="library" name="Maven: junit:junit:3.8.1" level="project" />
     <orderEntry type="library" name="Maven: com.github.ansell.pellet:pellet-core:2.3.2" level="project" />
     <orderEntry type="library" name="Maven: com.github.ansell.pellet:pellet-common:2.3.2" level="project" />
@@ -31,6 +32,8 @@
     <orderEntry type="library" name="Maven: com.hp.hpl.jena:jena:2.6.4" level="project" />
     <orderEntry type="library" name="Maven: com.hp.hpl.jena:iri:0.8" level="project" />
     <orderEntry type="library" name="Maven: com.ibm.icu:icu4j:3.4.4" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.saxon:saxon-dom:8.7" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.saxon:saxon:8.7" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.12.0" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.owlapi:owlapi-distribution:1.6.3" level="project" />
   </component>

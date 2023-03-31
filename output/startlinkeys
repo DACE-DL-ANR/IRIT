@@ -40,10 +40,10 @@
           <edoal:binding>
             <edoal:Equals>
               <edoal:property1>
-                <edoal:Relation rdf:about="http://edas#manuscriptDueOn"/>
+                <edoal:Relation rdf:about="http://edas#endDate"/>
               </edoal:property1>
               <edoal:property2>
-                <edoal:Relation rdf:about="http://conference#is_a_full_paper_submission_date"/>
+                <edoal:Relation rdf:about="http://conference#is_an_ending_date"/>
               </edoal:property2>
             </edoal:Equals>
           </edoal:binding>
@@ -53,7 +53,7 @@
                 <edoal:Relation rdf:about="http://edas#paperDueOn"/>
               </edoal:property1>
               <edoal:property2>
-                <edoal:Relation rdf:about="http://conference#is_a_date_of_camera_ready_paper_submission"/>
+                <edoal:Relation rdf:about="http://edas#paperDueOn"/>
               </edoal:property2>
             </edoal:Equals>
           </edoal:binding>
@@ -63,7 +63,7 @@
                 <edoal:Relation rdf:about="http://edas#startDate"/>
               </edoal:property1>
               <edoal:property2>
-                <edoal:Relation rdf:about="http://conference#is_a_starting_date"/>
+                <edoal:Relation rdf:about="http://edas#startDate"/>
               </edoal:property2>
             </edoal:Equals>
           </edoal:binding>
@@ -80,10 +80,50 @@
           <edoal:binding>
             <edoal:Equals>
               <edoal:property1>
+                <edoal:Relation rdf:about="http://edas#hasName"/>
+              </edoal:property1>
+              <edoal:property2>
+                <edoal:Relation rdf:about="http://edas#hasName"/>
+              </edoal:property2>
+            </edoal:Equals>
+          </edoal:binding>
+          <edoal:binding>
+            <edoal:Equals>
+              <edoal:property1>
+                <edoal:Relation rdf:about="http://edas#registrationDueOn"/>
+              </edoal:property1>
+              <edoal:property2>
+                <edoal:Relation rdf:about="http://edas#registrationDueOn"/>
+              </edoal:property2>
+            </edoal:Equals>
+          </edoal:binding>
+          <edoal:binding>
+            <edoal:Equals>
+              <edoal:property1>
+                <edoal:Relation rdf:about="http://edas#paperDueOn"/>
+              </edoal:property1>
+              <edoal:property2>
+                <edoal:Relation rdf:about="http://conference#is_a_date_of_camera_ready_paper_submission"/>
+              </edoal:property2>
+            </edoal:Equals>
+          </edoal:binding>
+          <edoal:binding>
+            <edoal:Equals>
+              <edoal:property1>
                 <edoal:Relation rdf:about="http://edas#endDate"/>
               </edoal:property1>
               <edoal:property2>
-                <edoal:Relation rdf:about="http://conference#is_an_ending_date"/>
+                <edoal:Relation rdf:about="http://edas#endDate"/>
+              </edoal:property2>
+            </edoal:Equals>
+          </edoal:binding>
+          <edoal:binding>
+            <edoal:Equals>
+              <edoal:property1>
+                <edoal:Relation rdf:about="http://edas#startDate"/>
+              </edoal:property1>
+              <edoal:property2>
+                <edoal:Relation rdf:about="http://conference#is_a_starting_date"/>
               </edoal:property2>
             </edoal:Equals>
           </edoal:binding>
@@ -97,6 +137,26 @@
               </edoal:property2>
             </edoal:Equals>
           </edoal:binding>
+          <edoal:binding>
+            <edoal:Equals>
+              <edoal:property1>
+                <edoal:Relation rdf:about="http://edas#manuscriptDueOn"/>
+              </edoal:property1>
+              <edoal:property2>
+                <edoal:Relation rdf:about="http://conference#is_a_full_paper_submission_date"/>
+              </edoal:property2>
+            </edoal:Equals>
+          </edoal:binding>
+          <edoal:binding>
+            <edoal:Equals>
+              <edoal:property1>
+                <edoal:Relation rdf:about="http://edas#manuscriptDueOn"/>
+              </edoal:property1>
+              <edoal:property2>
+                <edoal:Relation rdf:about="http://edas#manuscriptDueOn"/>
+              </edoal:property2>
+            </edoal:Equals>
+          </edoal:binding>
         </edoal:Linkkey>
       </edoal:linkkey>
       <edoal:linkkey>
@@ -104,10 +164,10 @@
           <edoal:binding>
             <edoal:Equals>
               <edoal:property1>
-                <edoal:Relation rdf:about="http://edas#startDate"/>
+                <edoal:Relation rdf:about="http://edas#paperDueOn"/>
               </edoal:property1>
               <edoal:property2>
-                <edoal:Relation rdf:about="http://conference#is_a_starting_date"/>
+                <edoal:Relation rdf:about="http://conference#is_a_date_of_camera_ready_paper_submission"/>
               </edoal:property2>
             </edoal:Equals>
           </edoal:binding>
@@ -136,10 +196,88 @@
           <edoal:binding>
             <edoal:Equals>
               <edoal:property1>
+                <edoal:Relation rdf:about="http://edas#startDate"/>
+              </edoal:property1>
+              <edoal:property2>
+                <edoal:Relation rdf:about="http://conference#is_a_starting_date"/>
+              </edoal:property2>
+            </edoal:Equals>
+          </edoal:binding>
+        </edoal:Linkkey>
+      </edoal:linkkey>
+      <edoal:linkkey>
+        <edoal:Linkkey>
+          <edoal:binding>
+            <edoal:Equals>
+              <edoal:property1>
                 <edoal:Relation rdf:about="http://edas#endDate"/>
               </edoal:property1>
               <edoal:property2>
                 <edoal:Relation rdf:about="http://conference#is_an_ending_date"/>
+              </edoal:property2>
+            </edoal:Equals>
+          </edoal:binding>
+        </edoal:Linkkey>
+      </edoal:linkkey>
+      <edoal:linkkey>
+        <edoal:Linkkey>
+          <edoal:binding>
+            <edoal:Equals>
+              <edoal:property1>
+                <edoal:Relation rdf:about="http://edas#endDate"/>
+              </edoal:property1>
+              <edoal:property2>
+                <edoal:Relation rdf:about="http://edas#endDate"/>
+              </edoal:property2>
+            </edoal:Equals>
+          </edoal:binding>
+          <edoal:binding>
+            <edoal:Equals>
+              <edoal:property1>
+                <edoal:Relation rdf:about="http://edas#hasName"/>
+              </edoal:property1>
+              <edoal:property2>
+                <edoal:Relation rdf:about="http://edas#hasName"/>
+              </edoal:property2>
+            </edoal:Equals>
+          </edoal:binding>
+          <edoal:binding>
+            <edoal:Equals>
+              <edoal:property1>
+                <edoal:Relation rdf:about="http://edas#paperDueOn"/>
+              </edoal:property1>
+              <edoal:property2>
+                <edoal:Relation rdf:about="http://edas#paperDueOn"/>
+              </edoal:property2>
+            </edoal:Equals>
+          </edoal:binding>
+          <edoal:binding>
+            <edoal:Equals>
+              <edoal:property1>
+                <edoal:Relation rdf:about="http://edas#manuscriptDueOn"/>
+              </edoal:property1>
+              <edoal:property2>
+                <edoal:Relation rdf:about="http://edas#manuscriptDueOn"/>
+              </edoal:property2>
+            </edoal:Equals>
+          </edoal:binding>
+          <edoal:binding>
+            <edoal:Equals>
+              <edoal:property1>
+                <edoal:Relation rdf:about="http://edas#startDate"/>
+              </edoal:property1>
+              <edoal:property2>
+                <edoal:Relation rdf:about="http://edas#startDate"/>
+              </edoal:property2>
+            </edoal:Equals>
+          </edoal:binding>
+          <edoal:binding>
+            <edoal:Equals>
+              <edoal:property1>
+                <edoal:Relation rdf:about="http://edas#registrationDueOn"/>
+              </edoal:property1>
+              <edoal:property2>
+                <edoal:Relation rdf:about="http://edas#registrationDueOn"/>
               </edoal:property2>
             </edoal:Equals>
           </edoal:binding>
@@ -164,20 +302,6 @@
               </edoal:property1>
               <edoal:property2>
                 <edoal:Relation rdf:about="http://conference#has_a_location"/>
-              </edoal:property2>
-            </edoal:Equals>
-          </edoal:binding>
-        </edoal:Linkkey>
-      </edoal:linkkey>
-      <edoal:linkkey>
-        <edoal:Linkkey>
-          <edoal:binding>
-            <edoal:Equals>
-              <edoal:property1>
-                <edoal:Relation rdf:about="http://edas#paperDueOn"/>
-              </edoal:property1>
-              <edoal:property2>
-                <edoal:Relation rdf:about="http://conference#is_a_date_of_camera_ready_paper_submission"/>
               </edoal:property2>
             </edoal:Equals>
           </edoal:binding>

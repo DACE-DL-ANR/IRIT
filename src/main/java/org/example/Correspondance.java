@@ -1,28 +1,35 @@
 package org.example;
 import org.semanticweb.HermiT.ReasonerFactory;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.reasoner.InconsistentOntologyException;
-import org.semanticweb.owlapi.reasoner.NodeSet;
-import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
-import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
+import java.io.IOException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
+import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.ArrayList;
-import java.util.List;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+
 public class Correspondance {
     OWLClassExpression c1;
     OWLClassExpression c2;
@@ -295,11 +302,126 @@ if(cls1!=null) {
     //Pellet crashing pb with datatypes
     //Hermit not working pb with datatypes
     // Fact++ pbs with libraries
+    public static void seperateCorrespondances(String xmlFilePath) throws Exception {
+        try {
+            // Create a DocumentBuilderFactory
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(new File(xmlFilePath));
+            Document doc_simple = builder.newDocument();
+            NodeList nodes = doc.getElementsByTagName("edoal:Relation");
+            for (int i = 0; i < nodes.getLength(); i++) {
+                Node node = nodes.item(i);
+                String parent = node.getParentNode().getNodeName();
+                if (node.getParentNode() != null && (parent.equals("entity1") || parent.equals("entity2"))) {
+                    //remove simple
+                    node.getParentNode().getParentNode().getParentNode().getParentNode().removeChild(node.getParentNode().getParentNode().getParentNode());
+                    //cell
+                    node.getParentNode().getParentNode().getParentNode().removeChild(node.getParentNode().getParentNode());
+                    //entity1
+                    NodeList childNodes = node.getChildNodes();
+                    Node n = node.getParentNode();
+                    for (int j = 0; j < childNodes.getLength(); j++) {
+                        Node childNode = childNodes.item(j);
+                        node.removeChild(childNode);
+                    }
+                    node.getParentNode().removeChild(node);
+                    n.getParentNode().removeChild(n);
+                }
+
+            }
+            //Now  have to save simple correspondances in a seperate file, then remove them.
+            NodeList nodesimple = doc.getElementsByTagName("Cell");
+            File f_simple = new File(xmlFilePath.concat("_simple"));
+            f_simple.createNewFile();
+
+            Element root = doc_simple.createElement("rdf");
+            root.setAttribute("xmlns", "http://knowledgeweb.semanticweb.org/heterogeneity/alignment#");
+            root.setAttribute( "xmlns:edoal", "http://ns.inria.org/edoal/1.0/#");
+            root.setAttribute( "xmlns:rdf","http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+            root.setAttribute( "xmlns:xsd","http://www.w3.org/2001/XMLSchema#");
+            root.setAttribute( "xmlns:align", "http://knowledgeweb.semanticweb.org/heterogeneity/alignment#");
+            root.setAttribute("xmlns:alext", "http://exmo.inrialpes.fr/align/ext/1.0/");
+            doc_simple.appendChild(root);
+            for (int j = 0; j < nodesimple.getLength(); j++) {
+                Node n = nodesimple.item(j);
+                Node entity1 = n.getChildNodes().item(1);
+                Node entity2 = n.getChildNodes().item(3);
+                if (entity1.getChildNodes().item(1).getChildNodes().getLength() == 0 && entity2.getChildNodes().item(1).getChildNodes().getLength() == 0) {
+
+                    Element newElement_1 = doc_simple.createElement(n.getParentNode().getNodeName());
+                    root.appendChild(newElement_1);
+
+                    Element newElement_2 = doc_simple.createElement(n.getNodeName());
+                    newElement_1.appendChild(newElement_2);
+
+                    Element newElement_3 = doc_simple.createElement(entity1.getNodeName());
+                    newElement_2.appendChild(newElement_3);
+
+                    Element newElement_4 = (Element) entity1.getChildNodes().item(1);
+                    Element imported_4 = (Element) doc_simple.importNode(newElement_4, true);
+                    newElement_3.appendChild(imported_4);
+
+                    Element newElement_5 = doc_simple.createElement(entity2.getNodeName());
+
+                    newElement_2.appendChild(newElement_5);
+
+                    Element newElement_6 = (Element) entity2.getChildNodes().item(1);
+                    Element imported_6 = (Element) doc_simple.importNode(newElement_6, true);
+                    newElement_5.appendChild(imported_6);
+
+                    newElement_5.appendChild(doc_simple.importNode(n.getChildNodes().item(5),true));
+                    newElement_5.appendChild(doc_simple.importNode(n.getChildNodes().item(7),true));
+
+                    // remove them
+                    entity1.getParentNode().getParentNode().getParentNode().removeChild(entity1.getParentNode().getParentNode());
+                    entity1.getParentNode().getParentNode().removeChild(entity1.getParentNode());
+                    entity1.getParentNode().removeChild(entity1);
+
+
+                }
+            }
 
 
 
+        // Write the updated document back to the file
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        DOMSource source = new DOMSource(doc);
+        DOMSource source_simple = new DOMSource(doc_simple);
+        Path xmlPath = Paths.get(xmlFilePath);
+
+        StreamResult result_simple = new StreamResult(f_simple);
+        transformer.transform(source_simple, result_simple);
+
+        try (OutputStream out = new FileOutputStream(xmlPath.toFile())) {
+
+            StreamResult result = new StreamResult(out);
+            transformer.transform(source, result);
 
 
+        }}
+    catch ( IOException | TransformerException e) {
+            e.printStackTrace();
+        }
 
+    }
+    public static String toString(Document doc) throws Exception {
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer transformer = tf.newTransformer();
+        StringWriter writer = new StringWriter();
+        transformer.transform(new DOMSource(doc), new StreamResult(writer));
+        return writer.getBuffer().toString();
+    }
 
 }
+
+
+
+
+
+
+
+
