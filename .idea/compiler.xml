@@ -9,8 +9,5 @@
         <module name="DICAPNEW" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="DICAPNEW" target="18" />
-    </bytecodeTargetLevel>
   </component>
 </project>
