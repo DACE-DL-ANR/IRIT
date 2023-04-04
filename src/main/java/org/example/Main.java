@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -27,19 +28,60 @@ public class Main {
 
     static CallCanard canard;
     static CallLinkex linkex;
+    static CallLogMap logMap;
     private static final OWLDataFactory factory = new OWLDataFactoryImpl();
 
     public static void main(String[] args) throws Exception {
 
-        String pathSource = "cmt_0.ttl";
+     //   String pathSource = "cmt_0.ttl";
 
-        String pathTarget = "conference_0.ttl";
+      //  String pathTarget = "conference_0.ttl";
 
-        Double valueOfConf = 0.5;
-        File fileSource = new File("test/" + pathSource);
-        File fileTarget = new File("test/" + pathTarget);
+       // Double valueOfConf = 0.5;
 
-        pipe(fileSource, fileTarget, fileSource, fileTarget, valueOfConf);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Which system you need to integrate? 1:LOGMAP, 2:DICAP");
+        String system = scanner.nextLine().trim();
+        System.out.println("Please enter the source ontology");
+        String pathSource = scanner.nextLine().trim();
+
+        System.out.println("Please enter the target ontology");
+        String pathTarget = scanner.nextLine().trim();
+        File fileSource = new File("test/"+pathSource);
+        File fileTarget = new File("test/"+pathTarget);
+        if(system.equals("2")) {
+            System.out.println("Enter the value of confidence");
+            Double valueOfConf = Double.valueOf(scanner.nextLine().trim());
+            pipe(fileSource, fileTarget, fileSource, fileTarget, valueOfConf);
+        }
+        if(system.equals("1")){
+            pipe(fileSource, fileTarget);
+        }
+
+
+
+
+    }
+
+    private static void pipe(File fileSource, File fileTarget) {
+        StopWatch pipe = new StopWatch();
+        pipe.start();
+        OWLOntology source = loadOntology(fileSource);
+        OWLOntology target = loadOntology(fileTarget);
+        logMap=new CallLogMap("../logmap-matcher-master/target/logmap-matcher-4.0.jar");
+        pipe.stop();
+        runLM(fileSource,fileTarget,source,target);
+
+    }
+
+    private static void runLM(File fileSource, File fileTarget, OWLOntology source, OWLOntology target) {
+        for (int iter = 0; iter < 5; iter++) {
+            logMap.execute(fileSource,fileTarget);
+            String fs;
+            //fs will be the path to the correspondances and instances
+           // saturateOntologies(source, target, fs);
+            //after we saturate ontologies we save them into files and we call logMap
+        }
     }
 
     static OWLOntology loadOntology(File fileSource) {
@@ -60,7 +102,7 @@ public class Main {
         pipe.start();
         OWLOntology source = loadOntology(fileSourceI);
         OWLOntology target = loadOntology(fileTargetI);
-        linkex = new CallLinkex("java", "/home/guilherme/IdeaProjects/DICAP/linkex/LinkkeyDiscovery-1.0-SNAPSHOT-jar-with-dependencies.jar");
+        linkex = new CallLinkex( "../linkex/LinkkeyDiscovery-1.0-SNAPSHOT-jar-with-dependencies.jar");
 
         File f_start = new File("output/startlinkeys");
 
@@ -70,13 +112,13 @@ public class Main {
 
         Set<Linkey> lks = linkex.execute(fileSourceI, fileTargetI, f_start);
 
-        canard = new CallCanard("/home/guilherme/.jdks/openjdk-18/bin/java", "/home/guilherme/IdeaProjects/DICAP/canard/CanardE.jar");
+        canard = new CallCanard( "../canard/CanardE.jar");
         canard.execute(fileSourceI, fileTargetI, fileSource, fileTarget, valueOfConf);
 
         int t1 = fileSource.getName().lastIndexOf(".");
         int t2 = fileTarget.getName().lastIndexOf(".");
 
-        String fs = "output/" + fileSource.getName().substring(0, t1) + "_" + fileTarget.getName().substring(0, t2) + "/th_" + valueOfConf.toString().replace(".", "_") + ".edoal";
+        String fs = "output/" + fileSource.getName().substring(0, t1) + "_" + fileTarget.getName().substring(0, t2) + "/th_" + valueOfConf.toString()+ ".edoal";
 
 
         removeRdfsLabels(source);
@@ -87,7 +129,7 @@ public class Main {
         pr.saveOntologies(target, fileTargetI);
 
         Correspondence c = new Correspondence();
-        Correspondence.separateCorrespondences(fs);
+     //   Correspondence.separateCorrespondences(fs);
 
 
         canard.execute(fileSourceI, fileTargetI, fileSource, fileTarget, valueOfConf);

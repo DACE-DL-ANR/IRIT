@@ -5,11 +5,15 @@ import java.io.File;
 public class CallLogMap {
     String LogmapPath;
 
+    public CallLogMap(String s) {
+        LogmapPath=s;
+    }
+
     public void setLogmapPath(String logmapPath) {
         LogmapPath = logmapPath;
     }
 
-    public void execute(File fileSource, File fileTarget, Double valueOfConf) {
+    public void execute(File fileSource, File fileTarget) {
 
 //java -jar target/logmap-matcher-4.0.jar MATCHER source_temp.ttl  target_temp.ttl  ./output f
 
