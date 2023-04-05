@@ -9,6 +9,7 @@ import utils.Pair;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -28,7 +29,7 @@ public class Linkey {
     }
 
 
-    public void addRoleAss(OWLOntology oa, OWLOntology ob, OWLIndividual a, OWLIndividual b, Set<OWLDataPropertyExpression> sprp) {
+    public static void addRoleAss(OWLOntology oa, OWLOntology ob, OWLIndividual a, OWLIndividual b, Set<OWLDataPropertyExpression> sprp) {
 
         Set<OWLAxiom> axiomsToAdd = new HashSet<>();
         for (OWLDataPropertyExpression pe : sprp) {
@@ -49,7 +50,7 @@ public class Linkey {
         manager.addAxioms(ob, axiomsToAdd);
     }
 
-    public void addClassAss(OWLIndividual a, OWLOntology oa, OWLIndividual b, OWLOntology ob) {
+    public static void addClassAss(OWLIndividual a, OWLOntology oa, OWLIndividual b, OWLOntology ob) {
         Set<OWLAxiom> axiomsToAdd = new HashSet<>();
 
         for (OWLClassExpression c : EntitySearcher.getTypes(a, oa).toList()) {
@@ -116,12 +117,25 @@ public class Linkey {
 
                 if (substring2.contains(substring1) || substring1.contains(substring2)) {
                     i.getAndIncrement();
+                    //add the sameAs assertion
                     manager.addAxiom(o1, factory.getOWLSameIndividualAxiom(a.getKey(), b.getKey()));
                     manager.addAxiom(o2, factory.getOWLSameIndividualAxiom(a.getKey(), b.getKey()));
                     caller(a.getKey(), o1, b.getKey(), o2);
                 }
             }
         }
+    }
+
+    // saturateSameAs, saturateCorrespandences.
+    private static void saturateSameAs(OWLOntology o1, OWLOntology o2){
+   //Alignment.readAlignmentsTxt("");
+        Set<Alignment> alignments = Alignment.readAlignmentsTxt(Paths.get(""));
+        Set<Alignment> instAl = alignments.stream().filter(alignment -> alignment.getElement1().getTag().equals("INST")).collect(Collectors.toSet());
+        for(Alignment al:instAl) {
+           // o1.getIndividualsInSignature().stream().filter(ind->ind.equals(al.getElement1().getName())).collect(Collectors.toSet());
+            caller((OWLIndividual) al.getElement1(), o1, (OWLIndividual) al.getElement2(), o2);
+        }
+        //
     }
 
     private static Map<OWLNamedIndividual, String> getOwlNamedIndividualSetMap(OWLOntology o1, OWLDataPropertyExpression p1) {
@@ -197,7 +211,7 @@ public class Linkey {
         }
     }
 
-    public void caller(OWLIndividual a, OWLOntology o1, OWLIndividual b, OWLOntology o2) {
+    public static void caller(OWLIndividual a, OWLOntology o1, OWLIndividual b, OWLOntology o2) {
         addClassAss(b, o2, a, o1);
         addClassAss(a, o1, b, o2);
         addRoleAss(o1, o2, a, b, EntitySearcher.getDataPropertyValues(a, o1).keySet());

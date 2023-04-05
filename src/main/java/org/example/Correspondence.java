@@ -224,6 +224,17 @@ public class Correspondence {
         return classPairs;
     }
 
+    private static void saturateCorrespondanceSimple(OWLOntology o1, OWLOntology o2){
+        //Alignment.readAlignmentsTxt("");
+        Set<Alignment> alignments = Alignment.readAlignmentsTxt(Paths.get(""));
+        Set<Alignment> ClsAl = alignments.stream().filter(alignment -> alignment.getElement1().getTag().equals("CLS")).collect(Collectors.toSet());
+        for(Alignment al:ClsAl) {
+            //transformed the classes of an individual into a sting
+            o1.getIndividualsInSignature().stream().filter(ind->ind.getClassesInSignature().contains(factory.getOWLClass(al.getElement1().getName()))).collect(Collectors.toSet()).forEach(ind->ind.getClassesInSignature().add(factory.getOWLClass(al.getElement2().getName())));
+            o2.getIndividualsInSignature().stream().filter(ind->ind.getClassesInSignature().contains(factory.getOWLClass(al.getElement2().getName()))).collect(Collectors.toSet()).forEach(ind->ind.getClassesInSignature().add(factory.getOWLClass(al.getElement1().getName())));
+        }
+        //
+    }
 
     // This function allows to check if an instance satisfy class assertion in this case we can saturate this instance by
     // class expressions from the correspondance

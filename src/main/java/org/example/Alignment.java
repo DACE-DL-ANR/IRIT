@@ -20,6 +20,24 @@ public class Alignment {
         public static final List<String> classes = new ArrayList<>();
         public static final List<String> properties = new ArrayList<>();
 
+        public String getTag() {
+            return tag;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public String toString() {
+            return "OntologyNode{" +
+                    "tag='" + tag + '\'' +
+                    ", name='" + name + '\'' +
+                    ", attributes=" + attributes +
+                    ", children=" + children +
+                    '}';
+        }
+
         private String tag, name;
 
 
@@ -119,6 +137,15 @@ public class Alignment {
         return alignments;
     }
 
+    @Override
+    public String toString() {
+        return "Alignment{" +
+                "element1=" + element1 +
+                ", element2=" + element2 +
+                ", relation='" + relation + '\'' +
+                ", measure=" + measure +
+                '}';
+    }
 
     public static Set<Alignment> readAlignmentsTxt(Path path)  {
         Set<Alignment> alignments = new HashSet<>();
