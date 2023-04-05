@@ -10,14 +10,15 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.*;
 
 public class Alignment {
 
 
     static class OntologyNode {
-        public static final ArrayList<String> classes = new ArrayList<>();
-        public static final ArrayList<String> properties = new ArrayList<>();
+        public static final List<String> classes = new ArrayList<>();
+        public static final List<String> properties = new ArrayList<>();
 
         private String tag, name;
 
@@ -49,6 +50,15 @@ public class Alignment {
 
             return ontologyNode;
         }
+
+        public static OntologyNode fromTxt(String name, String tag) {
+            OntologyNode ontologyNode = new OntologyNode();
+            ontologyNode.name = name;
+            ontologyNode.tag = tag;
+            return ontologyNode;
+        }
+
+
 
 
         public String toMergedForm() {
@@ -107,6 +117,27 @@ public class Alignment {
         }
 
         return alignments;
+    }
+
+
+    public static Set<Alignment> readAlignmentsTxt(Path path)  {
+        Set<Alignment> alignments = new HashSet<>();
+        try (Scanner scanner = new Scanner(path)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] split = line.split("\\|");
+                Alignment alignment = new Alignment();
+                alignment.element1 = OntologyNode.fromTxt(split[0], split[4]);
+                alignment.element2 = OntologyNode.fromTxt(split[1], split[4]);
+                alignment.relation = split[2];
+                alignment.measure = Float.parseFloat(split[3]);
+                alignments.add(alignment);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return alignments;
+
     }
 
 
