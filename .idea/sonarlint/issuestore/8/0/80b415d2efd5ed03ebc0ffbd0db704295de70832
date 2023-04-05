@@ -1,13 +1,0 @@
-
-n
-java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ãª¬
-‚
-java:S1319F"mThe return type of this method should be an interface such as "Set" rather than the implementation "HashSet".(Íðä
-
-f	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Û›”È
-{
-java:S14885"`Immediately return this expression instead of assigning it to the temporary variable "hashcode".(øÜÍ¨ÿÿÿÿÿ
-x
-java:S1488O"]Immediately return this expression instead of assigning it to the temporary variable "query".(òÔÏªþÿÿÿÿ
-\
-java:S6201:"AReplace this instanceof check and cast with 'instanceof Query pp'(Ôê’‘þÿÿÿÿ
