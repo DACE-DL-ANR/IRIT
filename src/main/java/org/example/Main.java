@@ -1,7 +1,9 @@
 package org.example;
 
+import eu.sealsproject.platform.res.tool.api.ToolBridgeException;
 import org.apache.commons.lang3.time.StopWatch;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -17,7 +19,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -26,63 +27,120 @@ import java.util.stream.Collectors;
 public class Main {
 
 
+    private static final OWLDataFactory factory = new OWLDataFactoryImpl();
     static CallCanard canard;
     static CallLinkex linkex;
     static CallLogMap logMap;
-    private static final OWLDataFactory factory = new OWLDataFactoryImpl();
 
     public static void main(String[] args) throws Exception {
 
-     //   String pathSource = "cmt_0.ttl";
+        File fileSource = new File(args[0]);
+        File fileTarget = new File(args[1]);
+        String system = args[2];
 
-      //  String pathTarget = "conference_0.ttl";
-
-       // Double valueOfConf = 0.5;
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Which system you need to integrate? 1:LOGMAP, 2:DICAP");
-        String system = scanner.nextLine().trim();
-        System.out.println("Please enter the source ontology");
-        String pathSource = scanner.nextLine().trim();
-
-        System.out.println("Please enter the target ontology");
-        String pathTarget = scanner.nextLine().trim();
-        File fileSource = new File("test/"+pathSource);
-        File fileTarget = new File("test/"+pathTarget);
-        if(system.equals("2")) {
+        if (system.equals("1")) {
             System.out.println("Enter the value of confidence");
-            Double valueOfConf = Double.valueOf(scanner.nextLine().trim());
+            Double valueOfConf = Double.valueOf(args[3]);
             pipe(fileSource, fileTarget, fileSource, fileTarget, valueOfConf);
+        } else if (system.equals("2")) {
+            pipeLogmap(fileSource, fileTarget, args[3], args[4], args[5]);
+        } else if (system.equals("3")) {
+            runAMD(fileSource, fileTarget, args[3], args[4], args[5]);
+        } else if (system.equals("4")) {
+            runMatcha(fileSource, fileTarget, args[3], args[4]);
+        } else if (system.equals("5")) {
+            runAtMatcher(fileSource, fileTarget, args[3], args[4]);
         }
-        if(system.equals("1")){
-            pipe(fileSource, fileTarget);
-        }
-
-
 
 
     }
 
-    private static void pipe(File fileSource, File fileTarget) {
+    private static void runMatcha(File fileSource, File fileTarget, String matchaPath, String output) throws IOException, ToolBridgeException, OWLOntologyStorageException {
+        OWLOntology source = loadOntology(fileSource);
+        OWLOntology target = loadOntology(fileTarget);
+        for (int iter = 0; iter < 5; iter++) {
+
+            String fs = CallMatcha.run(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), matchaPath);
+
+            Correspondence.saturateCorrespondenceSimple(source, target, fs);
+            Linkey.saturateSameAs(source, target, fs);
+
+            fileSource = new File(output + "source_tmp.owl");
+            fileTarget = new File(output + "target_tmp.owl");
+            OWLOntologyManager manager = source.getOWLOntologyManager();
+            OWLOntologyManager manager2 = source.getOWLOntologyManager();
+            manager.saveOntology(source, new RDFXMLDocumentFormat(), IRI.create(fileSource.toURI()));
+            manager2.saveOntology(target, new RDFXMLDocumentFormat(), IRI.create(fileTarget.toURI()));
+        }
+    }
+
+    private static void runAtMatcher(File fileSource, File fileTarget, String matchaPath, String output) throws IOException, ToolBridgeException, OWLOntologyStorageException {
+        OWLOntology source = loadOntology(fileSource);
+        OWLOntology target = loadOntology(fileTarget);
+        for (int iter = 0; iter < 5; iter++) {
+
+            String fs = CallAtMatcher.run(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), matchaPath);
+
+            Correspondence.saturateCorrespondenceSimple(source, target, fs);
+            Linkey.saturateSameAs(source, target, fs);
+
+            fileSource = new File(output + "source_tmp.owl");
+            fileTarget = new File(output + "target_tmp.owl");
+            OWLOntologyManager manager = source.getOWLOntologyManager();
+            OWLOntologyManager manager2 = source.getOWLOntologyManager();
+            manager.saveOntology(source, new RDFXMLDocumentFormat(), IRI.create(fileSource.toURI()));
+            manager2.saveOntology(target, new RDFXMLDocumentFormat(), IRI.create(fileTarget.toURI()));
+        }
+    }
+
+
+    private static void pipeLogmap(File fileSource, File fileTarget, String java, String logmap, String output) throws OWLOntologyStorageException {
         StopWatch pipe = new StopWatch();
         pipe.start();
         OWLOntology source = loadOntology(fileSource);
         OWLOntology target = loadOntology(fileTarget);
-        logMap=new CallLogMap("../logmap-matcher-master/target/logmap-matcher-4.0.jar");
+        logMap = new CallLogMap(java, logmap);
         pipe.stop();
-        runLM(fileSource,fileTarget,source,target);
 
-    }
-
-    private static void runLM(File fileSource, File fileTarget, OWLOntology source, OWLOntology target) {
         for (int iter = 0; iter < 5; iter++) {
-            logMap.execute(fileSource,fileTarget);
-            String fs;
-            //fs will be the path to the correspondances and instances
-           // saturateOntologies(source, target, fs);
-            //after we saturate ontologies we save them into files and we call logMap
+
+            logMap.execute(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), output);
+            String fs = output + "/logmap_overestimation.txt";
+            Correspondence.saturateCorrespondenceSimple(source, target, fs);
+            Linkey.saturateSameAs(source, target, fs);
+
+
+            fileSource = new File(output + "/source_tmp.owl");
+            fileTarget = new File(output + "/target_tmp.owl");
+            OWLOntologyManager manager = source.getOWLOntologyManager();
+            OWLOntologyManager manager2 = source.getOWLOntologyManager();
+            manager.saveOntology(source, new RDFXMLDocumentFormat(), IRI.create(fileSource.toURI()));
+            manager2.saveOntology(target, new RDFXMLDocumentFormat(), IRI.create(fileTarget.toURI()));
+
         }
     }
+
+
+    private static void runAMD(File fileSource, File fileTarget, String python, String amdPath, String output) throws OWLOntologyStorageException, IOException, InterruptedException {
+        OWLOntology source = loadOntology(fileSource);
+        OWLOntology target = loadOntology(fileTarget);
+        CallAMD amd = new CallAMD(python, amdPath);
+        for (int iter = 0; iter < 5; iter++) {
+
+            amd.run(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), output);
+            String fs = output + "out.txt";
+            Correspondence.saturateCorrespondenceSimple(source, target, fs);
+            Linkey.saturateSameAs(source, target, fs);
+
+            fileSource = new File(output + "source_tmp.owl");
+            fileTarget = new File(output + "target_tmp.owl");
+            OWLOntologyManager manager = source.getOWLOntologyManager();
+            OWLOntologyManager manager2 = source.getOWLOntologyManager();
+            manager.saveOntology(source, new RDFXMLDocumentFormat(), IRI.create(fileSource.toURI()));
+            manager2.saveOntology(target, new RDFXMLDocumentFormat(), IRI.create(fileTarget.toURI()));
+        }
+    }
+
 
     static OWLOntology loadOntology(File fileSource) {
 
@@ -102,7 +160,7 @@ public class Main {
         pipe.start();
         OWLOntology source = loadOntology(fileSourceI);
         OWLOntology target = loadOntology(fileTargetI);
-        linkex = new CallLinkex( "../linkex/LinkkeyDiscovery-1.0-SNAPSHOT-jar-with-dependencies.jar");
+        linkex = new CallLinkex("java", "../linkex/LinkkeyDiscovery-1.0-SNAPSHOT-jar-with-dependencies.jar");
 
         File f_start = new File("output/startlinkeys");
 
@@ -112,13 +170,13 @@ public class Main {
 
         Set<Linkey> lks = linkex.execute(fileSourceI, fileTargetI, f_start);
 
-        canard = new CallCanard( "../canard/CanardE.jar");
+        canard = new CallCanard("/home/guilherme/.jdks/openjdk-18/bin/java", "../canard/CanardE.jar");
         canard.execute(fileSourceI, fileTargetI, fileSource, fileTarget, valueOfConf);
 
         int t1 = fileSource.getName().lastIndexOf(".");
         int t2 = fileTarget.getName().lastIndexOf(".");
 
-        String fs = "output/" + fileSource.getName().substring(0, t1) + "_" + fileTarget.getName().substring(0, t2) + "/th_" + valueOfConf.toString()+ ".edoal";
+        String fs = "output/" + fileSource.getName().substring(0, t1) + "_" + fileTarget.getName().substring(0, t2) + "/th_" + valueOfConf.toString() + ".edoal";
 
 
         removeRdfsLabels(source);
@@ -129,7 +187,7 @@ public class Main {
         pr.saveOntologies(target, fileTargetI);
 
         Correspondence c = new Correspondence();
-     //   Correspondence.separateCorrespondences(fs);
+        //   Correspondence.separateCorrespondences(fs);
 
 
         canard.execute(fileSourceI, fileTargetI, fileSource, fileTarget, valueOfConf);
@@ -168,9 +226,7 @@ public class Main {
             Set<Linkey> lks_w = linkex.execute(fileSource, fileTarget, new File("output/linkeys"));
 
             if (lks.size() == lks_w.size()) {
-
                 break;
-
             }
             lks = lks_w;
         }

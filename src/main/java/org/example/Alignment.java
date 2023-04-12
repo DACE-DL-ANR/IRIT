@@ -16,96 +16,10 @@ import java.util.*;
 public class Alignment {
 
 
-    static class OntologyNode {
-        public static final List<String> classes = new ArrayList<>();
-        public static final List<String> properties = new ArrayList<>();
-
-        public String getTag() {
-            return tag;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public String toString() {
-            return "OntologyNode{" +
-                    "tag='" + tag + '\'' +
-                    ", name='" + name + '\'' +
-                    ", attributes=" + attributes +
-                    ", children=" + children +
-                    '}';
-        }
-
-        private String tag, name;
-
-
-        private Map<String, String> attributes = new HashMap<>();
-        private final List<OntologyNode> children = new ArrayList<>();
-
-        private OntologyNode() {
-        }
-
-
-        public static OntologyNode fromXMLNode(Node node) {
-            OntologyNode ontologyNode = new OntologyNode();
-            ontologyNode.tag = node.getNodeName();
-
-            Map<String, String> attributeMap = new HashMap<>();
-            NamedNodeMap attributes = node.getAttributes();
-
-            if (attributes != null) {
-                for (int i = 0; i < attributes.getLength(); i++) {
-                    attributeMap.put(attributes.item(i).getNodeName(), attributes.item(i).getNodeValue());
-                }
-            }
-
-            ontologyNode.attributes = attributeMap;
-            if (ontologyNode.attributes.containsKey("rdf:about")) {
-                ontologyNode.name = ontologyNode.attributes.get("rdf:about");
-            }
-
-            return ontologyNode;
-        }
-
-        public static OntologyNode fromTxt(String name, String tag) {
-            OntologyNode ontologyNode = new OntologyNode();
-            ontologyNode.name = name;
-            ontologyNode.tag = tag;
-            return ontologyNode;
-        }
-
-
-
-
-        public String toMergedForm() {
-            String[] split = tag.split(":");
-            String name = this.name == null ? "" : "_" + this.name;
-            StringBuilder base = new StringBuilder(split[split.length - 1] + name);
-            for (OntologyNode child : children) {
-                base.append("+").append(child.toMergedForm());
-            }
-
-            return base.toString().replace("#", "_");
-        }
-
-    }
-
     private OntologyNode element1, element2;
     private String relation;
     private float measure;
-
     Alignment() {
-    }
-
-
-    public OntologyNode getElement1() {
-        return element1;
-    }
-
-    public OntologyNode getElement2() {
-        return element2;
     }
 
     public static Set<Alignment> readAlignments(String path) throws IOException, SAXException, ParserConfigurationException {
@@ -137,17 +51,7 @@ public class Alignment {
         return alignments;
     }
 
-    @Override
-    public String toString() {
-        return "Alignment{" +
-                "element1=" + element1 +
-                ", element2=" + element2 +
-                ", relation='" + relation + '\'' +
-                ", measure=" + measure +
-                '}';
-    }
-
-    public static Set<Alignment> readAlignmentsTxt(Path path)  {
+    public static Set<Alignment> readAlignmentsTxt(Path path) {
         Set<Alignment> alignments = new HashSet<>();
         try (Scanner scanner = new Scanner(path)) {
             while (scanner.hasNextLine()) {
@@ -167,7 +71,6 @@ public class Alignment {
 
     }
 
-
     public static OntologyNode parseNode(Node node) {
 
         OntologyNode ontologyNode = OntologyNode.fromXMLNode(node);
@@ -180,6 +83,93 @@ public class Alignment {
         }
 
         return ontologyNode;
+    }
+
+    public OntologyNode getElement1() {
+        return element1;
+    }
+
+    public OntologyNode getElement2() {
+        return element2;
+    }
+
+    @Override
+    public String toString() {
+        return "Alignment{" +
+                "element1=" + element1 +
+                ", element2=" + element2 +
+                ", relation='" + relation + '\'' +
+                ", measure=" + measure +
+                '}';
+    }
+
+    public static class OntologyNode {
+        public static final List<String> classes = new ArrayList<>();
+        public static final List<String> properties = new ArrayList<>();
+        private final List<OntologyNode> children = new ArrayList<>();
+        private String tag, name;
+        private Map<String, String> attributes = new HashMap<>();
+
+        private OntologyNode() {
+        }
+
+        public static OntologyNode fromXMLNode(Node node) {
+            OntologyNode ontologyNode = new OntologyNode();
+            ontologyNode.tag = node.getNodeName();
+
+            Map<String, String> attributeMap = new HashMap<>();
+            NamedNodeMap attributes = node.getAttributes();
+
+            if (attributes != null) {
+                for (int i = 0; i < attributes.getLength(); i++) {
+                    attributeMap.put(attributes.item(i).getNodeName(), attributes.item(i).getNodeValue());
+                }
+            }
+
+            ontologyNode.attributes = attributeMap;
+            if (ontologyNode.attributes.containsKey("rdf:about")) {
+                ontologyNode.name = ontologyNode.attributes.get("rdf:about");
+            }
+
+            return ontologyNode;
+        }
+
+        public static OntologyNode fromTxt(String name, String tag) {
+            OntologyNode ontologyNode = new OntologyNode();
+            ontologyNode.name = name;
+            ontologyNode.tag = tag;
+            return ontologyNode;
+        }
+
+        public String getTag() {
+            return tag;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public String toString() {
+            return "OntologyNode{" +
+                    "tag='" + tag + '\'' +
+                    ", name='" + name + '\'' +
+                    ", attributes=" + attributes +
+                    ", children=" + children +
+                    '}';
+        }
+
+        public String toMergedForm() {
+            String[] split = tag.split(":");
+            String name = this.name == null ? "" : "_" + this.name;
+            StringBuilder base = new StringBuilder(split[split.length - 1] + name);
+            for (OntologyNode child : children) {
+                base.append("+").append(child.toMergedForm());
+            }
+
+            return base.toString().replace("#", "_");
+        }
+
     }
 
 
