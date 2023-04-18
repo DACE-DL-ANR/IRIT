@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.util.*;
 
@@ -166,6 +167,25 @@ public class Alignment {
         return alignments;
 
     }
+    public static void filterAlignmentsTxt(Path path) throws IOException {
+        PrintWriter writer = new PrintWriter("temp.txt");
+        try (Scanner scanner = new Scanner(path)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] split = line.split("\\|");
+                String[] splitbase1=split[0].split("\\/");
+                String base1=splitbase1[3];
+                String[] splitbase2=split[1].split("\\/");
+                String base2=splitbase2[3];
+                if(base1.equals(base2)){
+                    //remove the line
+                    continue;
+                }
+                writer.println(line);
+            }
+        }
+    }
+
 
 
     public static OntologyNode parseNode(Node node) {

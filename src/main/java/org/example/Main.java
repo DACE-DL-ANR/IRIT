@@ -1,26 +1,33 @@
 package org.example;
-
 import org.apache.commons.lang3.time.StopWatch;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.reasoner.Node;
+import org.semanticweb.owlapi.reasoner.NodeSet;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import utils.Pair;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
+import java.io.*;
+import java.nio.file.Path;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+
+import static org.example.AlignmentOWL.parseAlignment;
 
 
 public class Main {
@@ -29,17 +36,21 @@ public class Main {
     static CallCanard canard;
     static CallLinkex linkex;
     static CallLogMap logMap;
+    static CallAMLC amlc;
     private static final OWLDataFactory factory = new OWLDataFactoryImpl();
 
     public static void main(String[] args) throws Exception {
 
-     //   String pathSource = "cmt_0.ttl";
 
-      //  String pathTarget = "conference_0.ttl";
 
-       // Double valueOfConf = 0.5;
+       /*  //   String pathSource = "cmt_0.ttl";
 
-        Scanner scanner = new Scanner(System.in);
+        //  String pathTarget = "conference_0.ttl";
+
+        // Double valueOfConf = 0.5;*/
+       // Alignment.filterAlignmentsTxt(Path.of("t.txt"));
+
+    Scanner scanner = new Scanner(System.in);
         System.out.println("Which system you need to integrate? 1:LOGMAP, 2:DICAP");
         String system = scanner.nextLine().trim();
         System.out.println("Please enter the source ontology");
@@ -49,19 +60,92 @@ public class Main {
         String pathTarget = scanner.nextLine().trim();
         File fileSource = new File("test/"+pathSource);
         File fileTarget = new File("test/"+pathTarget);
-        if(system.equals("2")) {
+       // if(system.equals("2")) {
             System.out.println("Enter the value of confidence");
             Double valueOfConf = Double.valueOf(scanner.nextLine().trim());
             pipe(fileSource, fileTarget, fileSource, fileTarget, valueOfConf);
-        }
+
+
+
+
+       // }
         if(system.equals("1")){
             pipe(fileSource, fileTarget);
         }
 
 
+          OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        OWLOntology o = loadOntology(new File("test/ekaw_100.ttl"));
+        // Get the data properties to be removed
+        Set<OWLDataPropertyAssertionAxiom> dataPropertyAxiomsToRemove = o.axioms(AxiomType.DATA_PROPERTY_ASSERTION).collect(Collectors.toSet());
 
+// Remove the data property axioms from the ontology
+        manager.applyChanges(dataPropertyAxiomsToRemove.stream()
+                .map(axiom -> new RemoveAxiom(o, axiom))
+                .collect(Collectors.toList()));
 
+     //   OWLReasonerFactory reasonerFactory = new ElkReasonerFactory();
+       // OWLReasoner reasoner = reasonerFactory.createReasoner(o);
+        // Create a HermiT reasoner factory
+        OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
+
+// Create an OWL reasoner using the HermiT reasoner factory
+        OWLReasoner reasoner = reasonerFactory.createReasoner(o);
+
+// Check if the ontology is consistent
+        boolean consistent = reasoner.isConsistent();
+        System.out.println(consistent);
+        OWLAxiom axiomToRemove1, axiomToRemove2, axiomToRemove3;
+
+      for (OWLDataProperty prop : o.getDataPropertiesInSignature()) {
+       //     System.out.println(prop.isDataPropertyExpression());
+            axiomToRemove1 = o.axioms(prop)
+                    .filter(ax -> ax.isOfType(AxiomType.DATA_PROPERTY_RANGE))
+                    .findFirst().orElse(null);
+            axiomToRemove2 = o.axioms(prop)
+                    .filter(ax -> ax.isOfType(AxiomType.DATA_PROPERTY_ASSERTION))
+                    .findFirst().orElse(null);
+            axiomToRemove3 = o.axioms(prop)
+                    .filter(ax -> ax.isOfType( AxiomType.OBJECT_PROPERTY_DOMAIN))
+                    .findFirst().orElse(null);
+            if(axiomToRemove1!=null) {
+                manager.applyChanges(Collections.singletonList(new RemoveAxiom(o, axiomToRemove1)));
+            }
+            if(axiomToRemove2!=null) {
+
+                manager.applyChanges(Collections.singletonList(new RemoveAxiom(o, axiomToRemove2)));
+            }
+            if(axiomToRemove3!=null) {
+
+                manager.applyChanges(Collections.singletonList(new RemoveAxiom(o, axiomToRemove3)));
+            }
+
+        }
+
+// Get the class hierarchy
+        Node<OWLClass> topNode = reasoner.getEquivalentClasses(factory.getOWLClass("http://edas#attendeeAt"));
+        if (consistent) {
+            System.out.println("The ontology is consistent.");
+
+            // Get the inferred superclass hierarchy for a given class
+            OWLClass cls = manager.getOWLDataFactory().getOWLClass(IRI.create("http://edas#attendeeAt"));
+            NodeSet<OWLClass> superclasses = reasoner.getSuperClasses(cls, false);
+
+            // Print the inferred superclass hierarchy
+            System.out.println("Inferred superclasses of " + cls + ":");
+            for (Node<OWLClass> superClass : superclasses) {
+                System.out.println(superClass);
+            }
+        } else {
+            System.out.println("The ontology is inconsistent.");
+        }
+
+// Dispose of the reasoner when you are done using it
+        reasoner.dispose();
     }
+
+
+
 
     private static void pipe(File fileSource, File fileTarget) {
         StopWatch pipe = new StopWatch();
@@ -99,6 +183,7 @@ public class Main {
 
     static void pipe(File fileSourceI, File fileTargetI, File fileSource, File fileTarget, Double valueOfConf) throws Exception {
         StopWatch pipe = new StopWatch();
+
         pipe.start();
         OWLOntology source = loadOntology(fileSourceI);
         OWLOntology target = loadOntology(fileTargetI);
@@ -111,9 +196,11 @@ public class Main {
         }
 
         Set<Linkey> lks = linkex.execute(fileSourceI, fileTargetI, f_start);
-
-        canard = new CallCanard( "../canard/CanardE.jar");
-        canard.execute(fileSourceI, fileTargetI, fileSource, fileTarget, valueOfConf);
+        System.out.println(valueOfConf);
+        amlc = new CallAMLC("../AML/bin/AML.jar");
+        amlc.execute(fileSource, fileTarget);
+      //  canard = new CallCanard( "../canard/CanardE.jar");
+       // canard.execute(fileSourceI, fileTargetI, fileSource, fileTarget, valueOfConf);
 
         int t1 = fileSource.getName().lastIndexOf(".");
         int t2 = fileTarget.getName().lastIndexOf(".");
@@ -121,18 +208,19 @@ public class Main {
         String fs = "output/" + fileSource.getName().substring(0, t1) + "_" + fileTarget.getName().substring(0, t2) + "/th_" + valueOfConf.toString()+ ".edoal";
 
 
-        removeRdfsLabels(source);
-        removeRdfsLabels(target);
+       // removeRdfsLabels(source);
+      //  removeRdfsLabels(target);
 
         ParseEdoal pr = new ParseEdoal();
-        pr.saveOntologies(source, fileSourceI);
-        pr.saveOntologies(target, fileTargetI);
+       // pr.saveOntologies(source, fileSourceI);
+      //  pr.saveOntologies(target, fileTargetI);
 
         Correspondence c = new Correspondence();
      //   Correspondence.separateCorrespondences(fs);
 
 
-        canard.execute(fileSourceI, fileTargetI, fileSource, fileTarget, valueOfConf);
+       // canard.execute(fileSourceI, fileTargetI, fileSource, fileTarget, valueOfConf);
+        amlc.execute(fileSource, fileTarget);
 
         pipe.stop();
         System.out.println("Pipe: " + pipe.getTime(TimeUnit.SECONDS));
@@ -149,20 +237,21 @@ public class Main {
         for (int iter = 0; iter < 5; iter++) {
             saturateOntologies(source, target, lks, fs, c);
 
-            removeRdfsLabels(source);
-            removeRdfsLabels(target);
+            // removeRdfsLabels(source);
+           // removeRdfsLabels(target);
 
             File fileSource = new File("test/source_temp.ttl");
             File fileTarget = new File("test/target_temp.ttl");
 
-            pr.saveOntologies(source, fileSource);
-            pr.saveOntologies(target, fileTarget);
+          //  pr.saveOntologies(source, fileSource);
+           // pr.saveOntologies(target, fileTarget);
+            amlc.execute(fileSource, fileTarget);
 
-            canard.execute(fileSourceI, fileTargetI, fileSource, fileTarget, valueOfConf);
+           // canard.execute(fileSourceI, fileTargetI, fileSource, fileTarget, valueOfConf);
 
             int t1 = fileSource.getName().lastIndexOf(".");
             int t2 = fileTarget.getName().lastIndexOf(".");
-            fs = "output/" + fileSource.getName().substring(0, t1) + "_" + fileTarget.getName().substring(0, t2) + "/th_" + valueOfConf.toString().replace(".", "_") + ".edoal";
+            fs = "output/" + fileSource.getName().substring(0, t1) + "_" + fileTarget.getName().substring(0, t2) + "/th_" + valueOfConf + ".edoal";
 
 
             Set<Linkey> lks_w = linkex.execute(fileSource, fileTarget, new File("output/linkeys"));
@@ -178,7 +267,7 @@ public class Main {
     }
 
     private static void saturateOntologies(OWLOntology source, OWLOntology target, Set<Linkey> lks, String fs, Correspondence c) throws IOException, ParserConfigurationException, SAXException, OWLOntologyStorageException {
-        c.saturateCorrespondence(source, target, fs);
+     //   c.saturateCorrespondence(source, target, fs);
 
         if (lks.isEmpty()) return;
 
@@ -279,7 +368,6 @@ public class Main {
                         .anyMatch(annotation -> annotation.getProperty().equals(rdfsLabel)))
                 .map(axiom -> new RemoveAxiom(ontology, axiom))
                 .collect(Collectors.toList());
-
 
         manager.applyChanges(removeAxiomList);
 
