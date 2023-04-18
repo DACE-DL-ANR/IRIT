@@ -89,6 +89,54 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.sample1</groupId>
+            <artifactId>sample1</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/align.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sample2</groupId>
+            <artifactId>sample2</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/alignsvc.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sample3</groupId>
+            <artifactId>sample3</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/ontowrap.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sample4</groupId>
+            <artifactId>sample4</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/procalign.jar</systemPath>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.jena/jena-arq -->
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-arq</artifactId>
+            <version>4.7.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-text -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.10.0</version>
+        </dependency>
+
+
+
 
     </dependencies>
 

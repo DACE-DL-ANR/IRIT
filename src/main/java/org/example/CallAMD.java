@@ -1,6 +1,7 @@
 package org.example;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class CallAMD {
 
@@ -21,6 +22,13 @@ public class CallAMD {
                 out;
         ProcessBuilder processBuilder = new ProcessBuilder(sb.split(" "));
         Process start = processBuilder.start();
+
+        Scanner scanner = new Scanner(start.getErrorStream());
+
+        while (scanner.hasNextLine()) {
+            System.out.println(scanner.nextLine());
+        }
+
         start.waitFor();
     }
 }

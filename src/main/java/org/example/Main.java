@@ -47,9 +47,7 @@ public class Main {
         } else if (system.equals("3")) {
             runAMD(fileSource, fileTarget, args[3], args[4], args[5]);
         } else if (system.equals("4")) {
-            runMatcha(fileSource, fileTarget, args[3], args[4]);
-        } else if (system.equals("5")) {
-            runAtMatcher(fileSource, fileTarget, args[3], args[4]);
+            runAtMatcher(fileSource, fileTarget, args[3], args[4], args[5]);
         }
 
 
@@ -74,12 +72,15 @@ public class Main {
         }
     }
 
-    private static void runAtMatcher(File fileSource, File fileTarget, String matchaPath, String output) throws IOException, ToolBridgeException, OWLOntologyStorageException {
+    private static void runAtMatcher(File fileSource, File fileTarget, String java, String path, String output) throws IOException, OWLOntologyStorageException, InterruptedException {
+        CallAtMatcher callAtMatcher = new CallAtMatcher(java, path);
+        callAtMatcher.start();
         OWLOntology source = loadOntology(fileSource);
         OWLOntology target = loadOntology(fileTarget);
         for (int iter = 0; iter < 5; iter++) {
 
-            String fs = CallAtMatcher.run(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), matchaPath);
+            String fs = output + "atmr.rdf";
+            callAtMatcher.run(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), fs);
 
             Correspondence.saturateCorrespondenceSimple(source, target, fs);
             Linkey.saturateSameAs(source, target, fs);
@@ -91,6 +92,8 @@ public class Main {
             manager.saveOntology(source, new RDFXMLDocumentFormat(), IRI.create(fileSource.toURI()));
             manager2.saveOntology(target, new RDFXMLDocumentFormat(), IRI.create(fileTarget.toURI()));
         }
+
+        callAtMatcher.close();
     }
 
 
