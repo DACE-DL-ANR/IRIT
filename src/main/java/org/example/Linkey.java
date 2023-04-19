@@ -132,8 +132,12 @@ public class Linkey {
         Set<Alignment> alignments = Alignment.readAlignmentsTxt(Paths.get(""));
         Set<Alignment> instAl = alignments.stream().filter(alignment -> alignment.getElement1().getTag().equals("INST")).collect(Collectors.toSet());
         for(Alignment al:instAl) {
+            OWLNamedIndividual a= factory.getOWLNamedIndividual(al.getElement1().getName());
+            OWLNamedIndividual b= factory.getOWLNamedIndividual(al.getElement2().getName());
            // o1.getIndividualsInSignature().stream().filter(ind->ind.equals(al.getElement1().getName())).collect(Collectors.toSet());
-            caller((OWLIndividual) al.getElement1(), o1, (OWLIndividual) al.getElement2(), o2);
+            caller(a, o1, b, o2);
+            manager.addAxiom(o1, factory.getOWLSameIndividualAxiom(a, b));
+            manager.addAxiom(o2, factory.getOWLSameIndividualAxiom(a, b));
         }
         //
     }

@@ -16,6 +16,10 @@ public class CallLinkex {
         this.javaPath = javaPath;
         this.linkexPath = linkexPath;
     }
+    public CallLinkex( String linkexPath) {
+    //    this.javaPath = javaPath;
+        this.linkexPath = linkexPath;
+    }
 
     Set<Linkey> execute(File source, File target, File result) throws IOException, ParserConfigurationException, SAXException {
 
@@ -24,7 +28,7 @@ public class CallLinkex {
         String s = "*********";
 
         StringBuilder arguments = new StringBuilder();
-        arguments.append(javaPath).append(" -jar ").append(linkexPath).append(" ");
+        arguments.append("java -jar ").append(linkexPath).append(" ");
         arguments.append("-i -c -o output/").append(result.getName()).append(" ");
         arguments.append("-t eq -f edoal -c1 http://www.w3.org/2002/07/owl#Thing ").append(source).append(" ").append(target);
 

@@ -230,8 +230,8 @@ public class Correspondence {
         Set<Alignment> ClsAl = alignments.stream().filter(alignment -> alignment.getElement1().getTag().equals("CLS")).collect(Collectors.toSet());
         for(Alignment al:ClsAl) {
             //transformed the classes of an individual into a sting
-            o1.getIndividualsInSignature().stream().filter(ind->ind.getClassesInSignature().contains(factory.getOWLClass(al.getElement1().getName()))).collect(Collectors.toSet()).forEach(ind->ind.getClassesInSignature().add(factory.getOWLClass(al.getElement2().getName())));
-            o2.getIndividualsInSignature().stream().filter(ind->ind.getClassesInSignature().contains(factory.getOWLClass(al.getElement2().getName()))).collect(Collectors.toSet()).forEach(ind->ind.getClassesInSignature().add(factory.getOWLClass(al.getElement1().getName())));
+            o1.getAnonymousIndividuals().stream().filter(ind->EntitySearcher.getTypes(ind, o1).toList().contains(factory.getOWLClass(al.getElement1().getName()))).collect(Collectors.toSet()).forEach(ind->EntitySearcher.getTypes(ind, o1).toList().add(factory.getOWLClass(al.getElement2().getName())));
+            o2.getIndividualsInSignature().stream().filter(ind->EntitySearcher.getTypes(ind, o2).toList().contains(factory.getOWLClass(al.getElement2().getName()))).collect(Collectors.toSet()).forEach(ind->EntitySearcher.getTypes(ind, o1).toList().add(factory.getOWLClass(al.getElement1().getName())));
         }
         //
     }
