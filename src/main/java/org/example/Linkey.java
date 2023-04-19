@@ -1,14 +1,11 @@
 package org.example;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.search.EntitySearcher;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import utils.Pair;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -16,12 +13,9 @@ import java.util.stream.Collectors;
 
 public class Linkey {
 
-    private Pair<OWLClassExpression, OWLClassExpression> pairsOfConcepts;
-
     private static final OWLDataFactory factory = new OWLDataFactoryImpl();
-
-
     private static final OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+    private Pair<OWLClassExpression, OWLClassExpression> pairsOfConcepts;
     private Set<Pair<OWLPropertyExpression, OWLPropertyExpression>> propertySetIn;
     private Set<Pair<OWLPropertyExpression, OWLPropertyExpression>> propertySetEq;
 
@@ -61,6 +55,33 @@ public class Linkey {
         manager.addAxioms(ob, axiomsToAdd);
     }
 
+    public static void saturateSameAs(OWLOntology o1, OWLOntology o2, String path) {
+        Set<Alignment> alignments = Alignment.readAlignmentsTxt(Paths.get(path));
+        Set<Alignment> instAl = alignments.stream().filter(alignment -> alignment.getElement1().getTag().equals("INST")).collect(Collectors.toSet());
+        for (Alignment al : instAl) {
+            OWLNamedIndividual a = factory.getOWLNamedIndividual(al.getElement1().getName());
+            OWLNamedIndividual b = factory.getOWLNamedIndividual(al.getElement2().getName());
+            caller(a, o1, b, o2);
+            manager.addAxiom(o1, factory.getOWLSameIndividualAxiom(a, b));
+        }
+    }
+
+    private static Map<OWLNamedIndividual, String> getOwlNamedIndividualSetMap(OWLOntology o1, OWLDataPropertyExpression p1) {
+        return o1.getIndividualsInSignature()
+                .stream()
+                .map(a -> Map.entry(a, EntitySearcher.getDataPropertyValues(a, p1, o1).collect(Collectors.toSet())))
+                .filter(a -> a.getValue().size() > 0)
+                .map(a -> Map.entry(a.getKey(), a.getValue().toString().substring(1, a.getValue().toString().length() - 1)))
+                .filter(a -> a.getValue().length() > 0)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    public static void caller(OWLIndividual a, OWLOntology o1, OWLIndividual b, OWLOntology o2) {
+        addClassAss(b, o2, a, o1);
+        addClassAss(a, o1, b, o2);
+        addRoleAss(o1, o2, a, b, EntitySearcher.getDataPropertyValues(a, o1).keySet());
+        addRoleAss(o2, o1, b, a, EntitySearcher.getDataPropertyValues(b, o2).keySet());
+    }
 
     void saturateLinkey(OWLOntology o1, OWLOntology o2) throws OWLOntologyStorageException {
 
@@ -98,7 +119,6 @@ public class Linkey {
 
     }
 
-
     private void case3(OWLOntology o1, OWLOntology o2, AtomicInteger i, OWLDataPropertyExpression p1, OWLDataPropertyExpression p2) {
 
         Map<OWLNamedIndividual, String> dataPropertyValues1 = getOwlNamedIndividualSetMap(o1, p1);
@@ -124,28 +144,6 @@ public class Linkey {
                 }
             }
         }
-    }
-
-    // saturateSameAs, saturateCorrespandences.
-    private static void saturateSameAs(OWLOntology o1, OWLOntology o2){
-   //Alignment.readAlignmentsTxt("");
-        Set<Alignment> alignments = Alignment.readAlignmentsTxt(Paths.get(""));
-        Set<Alignment> instAl = alignments.stream().filter(alignment -> alignment.getElement1().getTag().equals("INST")).collect(Collectors.toSet());
-        for(Alignment al:instAl) {
-           // o1.getIndividualsInSignature().stream().filter(ind->ind.equals(al.getElement1().getName())).collect(Collectors.toSet());
-            caller((OWLIndividual) al.getElement1(), o1, (OWLIndividual) al.getElement2(), o2);
-        }
-        //
-    }
-
-    private static Map<OWLNamedIndividual, String> getOwlNamedIndividualSetMap(OWLOntology o1, OWLDataPropertyExpression p1) {
-        return o1.getIndividualsInSignature()
-                .stream()
-                .map(a -> Map.entry(a, EntitySearcher.getDataPropertyValues(a, p1, o1).collect(Collectors.toSet())))
-                .filter(a -> a.getValue().size() > 0)
-                .map(a -> Map.entry(a.getKey(), a.getValue().toString().substring(1, a.getValue().toString().length() - 1)))
-                .filter(a -> a.getValue().length() > 0)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     private void case2(OWLOntology o1, OWLOntology o2, AtomicInteger i, OWLPropertyExpression p1) {
@@ -176,7 +174,6 @@ public class Linkey {
                 }
             }
         }
-
 
 
     }
@@ -211,33 +208,25 @@ public class Linkey {
         }
     }
 
-    public static void caller(OWLIndividual a, OWLOntology o1, OWLIndividual b, OWLOntology o2) {
-        addClassAss(b, o2, a, o1);
-        addClassAss(a, o1, b, o2);
-        addRoleAss(o1, o2, a, b, EntitySearcher.getDataPropertyValues(a, o1).keySet());
-        addRoleAss(o2, o1, b, a, EntitySearcher.getDataPropertyValues(b, o2).keySet());
-    }
-
     public void setPairsOfConcepts(Pair<OWLClassExpression, OWLClassExpression> pairsOfConcepts) {
         this.pairsOfConcepts = pairsOfConcepts;
-    }
-
-    public void setPropertySetIn(Set<Pair<OWLPropertyExpression, OWLPropertyExpression>> propertySetIn) {
-        this.propertySetIn = propertySetIn;
-    }
-
-    public void setPropertySetEq(Set<Pair<OWLPropertyExpression, OWLPropertyExpression>> propertySetEq) {
-        this.propertySetEq = propertySetEq;
     }
 
     public Set<Pair<OWLPropertyExpression, OWLPropertyExpression>> getPropertySetIn() {
         return propertySetIn;
     }
 
+    public void setPropertySetIn(Set<Pair<OWLPropertyExpression, OWLPropertyExpression>> propertySetIn) {
+        this.propertySetIn = propertySetIn;
+    }
+
     public Set<Pair<OWLPropertyExpression, OWLPropertyExpression>> getPropertySetEq() {
         return propertySetEq;
     }
 
+    public void setPropertySetEq(Set<Pair<OWLPropertyExpression, OWLPropertyExpression>> propertySetEq) {
+        this.propertySetEq = propertySetEq;
+    }
 
     public void printLk() {
 

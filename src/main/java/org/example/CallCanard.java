@@ -4,8 +4,8 @@ import java.io.File;
 
 public class CallCanard {
 
-    private String canardPath;
-    private String javaPath;
+    private final String canardPath;
+    private final String javaPath;
 
     public CallCanard(String javaPath, String canardPath) {
         this.javaPath = javaPath;
@@ -28,7 +28,7 @@ public class CallCanard {
         try {
 
             Run.runProcess(arguments.toString());
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
