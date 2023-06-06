@@ -9,13 +9,10 @@ import java.util.Set;
 
 public class CallLinkex {
 
-    private String javaPath;
-    private String linkexPath;
 
-    public CallLinkex(String javaPath, String linkexPath) {
-        this.javaPath = javaPath;
-        this.linkexPath = linkexPath;
-    }
+    private final String linkexPath;
+
+
     public CallLinkex( String linkexPath) {
     //    this.javaPath = javaPath;
         this.linkexPath = linkexPath;
@@ -26,6 +23,11 @@ public class CallLinkex {
         if(!result.exists()) {
             result.createNewFile();
         }
+
+
+
+        String s = "*********";
+
 
         StringBuilder arguments = new StringBuilder();
         arguments.append("java -jar ").append(linkexPath).append(" ");

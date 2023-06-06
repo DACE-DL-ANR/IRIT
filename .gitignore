@@ -5,3 +5,6 @@ test/source_temp.ttl
 test/target_temp.ttl
 canard/
 linkex/
+logmap/
+matcha/
+out/

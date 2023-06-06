@@ -1,0 +1,2130 @@
+<?xml version='1.0' encoding='utf-8' standalone='no'?>
+<rdf:RDF xmlns='http://knowledgeweb.semanticweb.org/heterogeneity/alignment#'
+         xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+         xmlns:xsd='http://www.w3.org/2001/XMLSchema#'
+         xmlns:alext='http://exmo.inrialpes.fr/align/ext/1.0/'
+         xmlns:align='http://knowledgeweb.semanticweb.org/heterogeneity/alignment#'
+         xmlns:edoal='http://ns.inria.org/edoal/1.0/#'>
+<Alignment>
+  <xml>yes</xml>
+  <level>2EDOAL</level>
+  <type>**</type>
+  <onto1>
+    <Ontology rdf:about="http://localhost:3030/cmt_100/">
+      <location>http://localhost:3030/cmt_100/</location>
+      <formalism>
+        <Formalism align:name="owl" align:uri="http://www.w3.org/TR/owl-guide/"/>
+      </formalism>
+    </Ontology>
+  </onto1>
+  <onto2>
+    <Ontology rdf:about="http://localhost:3030/confOf_100/">
+      <location>http://localhost:3030/confOf_100/</location>
+      <formalism>
+        <Formalism align:name="owl" align:uri="http://www.w3.org/TR/owl-guide/"/>
+      </formalism>
+    </Ontology>
+  </onto2>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Relation>
+          <edoal:or rdf:parseType="Collection">
+            <edoal:Relation>
+              <edoal:and rdf:parseType="Collection">
+                <edoal:RelationCoDomainRestriction>
+                  <edoal:class>
+                    <edoal:Class rdf:about="http://cmt#PaperFullVersion"/>
+                  </edoal:class>
+                </edoal:RelationCoDomainRestriction>
+                <edoal:Relation rdf:about="http://cmt#writePaper"/>
+              </edoal:and>
+            </edoal:Relation>
+            <edoal:Relation>
+              <edoal:and rdf:parseType="Collection">
+                <edoal:RelationCoDomainRestriction>
+                  <edoal:class>
+                    <edoal:Class rdf:about="http://cmt#PaperFullVersion"/>
+                  </edoal:class>
+                </edoal:RelationCoDomainRestriction>
+                <edoal:Relation rdf:about="http://cmt#co-writePaper"/>
+              </edoal:and>
+            </edoal:Relation>
+          </edoal:or>
+        </edoal:Relation>
+      </entity1>
+      <entity2>
+        <edoal:Relation>
+          <edoal:inverse>
+            <edoal:Relation rdf:about="http://confOf#writtenBy"/>
+          </edoal:inverse>
+        </edoal:Relation>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.9000000000000008</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Relation>
+          <edoal:or rdf:parseType="Collection">
+            <edoal:Relation>
+              <edoal:and rdf:parseType="Collection">
+                <edoal:RelationCoDomainRestriction>
+                  <edoal:class>
+                    <edoal:Class rdf:about="http://cmt#PaperFullVersion"/>
+                  </edoal:class>
+                </edoal:RelationCoDomainRestriction>
+                <edoal:Relation rdf:about="http://cmt#writePaper"/>
+              </edoal:and>
+            </edoal:Relation>
+            <edoal:Relation>
+              <edoal:and rdf:parseType="Collection">
+                <edoal:RelationCoDomainRestriction>
+                  <edoal:class>
+                    <edoal:Class rdf:about="http://cmt#PaperFullVersion"/>
+                  </edoal:class>
+                </edoal:RelationCoDomainRestriction>
+                <edoal:Relation rdf:about="http://cmt#co-writePaper"/>
+              </edoal:and>
+            </edoal:Relation>
+          </edoal:or>
+        </edoal:Relation>
+      </entity1>
+      <entity2>
+        <edoal:Relation rdf:about="http://confOf#writes"/>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class rdf:about="http://cmt#ExternalReviewer"/>
+      </entity1>
+      <entity2>
+        <edoal:Class>
+          <edoal:or rdf:parseType="Collection">
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#writtenBy"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-158584339838257"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#writtenBy"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper8654177606562198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#writtenBy"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-5415075797341114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#writtenBy"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper19399193732591114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#writtenBy"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-4759055061162198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#writtenBy"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper13363489034322198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#writtenBy"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper14638892855611114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#writtenBy"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-188946810856257"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+          </edoal:or>
+        </edoal:Class>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.1328125</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class rdf:about="http://cmt#Conference"/>
+      </entity1>
+      <entity2>
+        <edoal:Class rdf:about="http://confOf#Conference"/>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class rdf:about="http://cmt#Conference"/>
+      </entity1>
+      <entity2>
+        <edoal:AttributeDomainRestriction>
+          <edoal:onAttribute>
+            <edoal:Relation rdf:about="http://confOf#hasTopic"/>
+          </edoal:onAttribute>
+          <edoal:exists>
+            <edoal:Class rdf:about="http://confOf#Topic"/>
+          </edoal:exists>
+        </edoal:AttributeDomainRestriction>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.8026461209528586</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class>
+          <edoal:or rdf:parseType="Collection">
+            <edoal:AttributeDomainRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://cmt#hasDecision"/>
+              </edoal:onAttribute>
+              <edoal:exists>
+                <edoal:Class rdf:about="http://cmt#Rejection"/>
+              </edoal:exists>
+            </edoal:AttributeDomainRestriction>
+            <edoal:AttributeOccurenceRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://cmt#rejectedBy"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#greater-than"/>
+              <edoal:value>0</edoal:value>
+            </edoal:AttributeOccurenceRestriction>
+          </edoal:or>
+        </edoal:Class>
+      </entity1>
+      <entity2>
+        <edoal:AttributeValueRestriction>
+          <edoal:onAttribute>
+            <edoal:Relation>
+              <edoal:inverse>
+                <edoal:Relation rdf:about="http://confOf#writes"/>
+              </edoal:inverse>
+            </edoal:Relation>
+          </edoal:onAttribute>
+          <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+          <edoal:value>
+            <edoal:Instance rdf:about="http://confOf-instances#person547388425"/>
+          </edoal:value>
+        </edoal:AttributeValueRestriction>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.898989898989899</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class>
+          <edoal:or rdf:parseType="Collection">
+            <edoal:AttributeDomainRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://cmt#hasDecision"/>
+              </edoal:onAttribute>
+              <edoal:exists>
+                <edoal:Class rdf:about="http://cmt#Rejection"/>
+              </edoal:exists>
+            </edoal:AttributeDomainRestriction>
+            <edoal:AttributeOccurenceRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://cmt#rejectedBy"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#greater-than"/>
+              <edoal:value>0</edoal:value>
+            </edoal:AttributeOccurenceRestriction>
+          </edoal:or>
+        </edoal:Class>
+      </entity1>
+      <entity2>
+        <edoal:Class>
+          <edoal:or rdf:parseType="Collection">
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#hasKeyword"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Literal edoal:string="annotation"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#hasKeyword"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Literal edoal:string=" ctr prediction"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#hasKeyword"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Literal edoal:string=" bias correction"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#hasKeyword"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Literal edoal:string=" web application"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#hasKeyword"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Literal edoal:string=" face detection"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#hasKeyword"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Literal edoal:string=" television"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#hasKeyword"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Literal edoal:string=" parallelization"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#hasKeyword"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Literal edoal:string=" relation extraction"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#hasKeyword"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Literal edoal:string=" representation"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#hasKeyword"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Literal edoal:string=" rdf generation"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#hasKeyword"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Literal edoal:string=" sparql generation"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#hasKeyword"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Literal edoal:string=" event extraction"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#hasKeyword"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Literal edoal:string=" selection"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#hasKeyword"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Literal edoal:string=" routing selection"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+          </edoal:or>
+        </edoal:Class>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.6605181985074733</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class>
+          <edoal:or rdf:parseType="Collection">
+            <edoal:AttributeDomainRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://cmt#hasDecision"/>
+              </edoal:onAttribute>
+              <edoal:exists>
+                <edoal:Class rdf:about="http://cmt#Rejection"/>
+              </edoal:exists>
+            </edoal:AttributeDomainRestriction>
+            <edoal:AttributeOccurenceRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://cmt#rejectedBy"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#greater-than"/>
+              <edoal:value>0</edoal:value>
+            </edoal:AttributeOccurenceRestriction>
+          </edoal:or>
+        </edoal:Class>
+      </entity1>
+      <entity2>
+        <edoal:Class>
+          <edoal:or rdf:parseType="Collection">
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic-1085206403"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic-1429363305"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic-1075734747"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic-1715965556"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic-1548802290"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic805778562"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic-1317750766"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic-1028636743"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic-1116280523"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic-367775188"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+          </edoal:or>
+        </edoal:Class>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.7572005772005772</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Relation>
+          <edoal:and rdf:parseType="Collection">
+            <edoal:RelationDomainRestriction>
+              <edoal:class>
+                <edoal:Class rdf:about="http://cmt#PaperFullVersion"/>
+              </edoal:class>
+            </edoal:RelationDomainRestriction>
+            <edoal:Relation rdf:about="http://cmt#hasSubjectArea"/>
+          </edoal:and>
+        </edoal:Relation>
+      </entity1>
+      <entity2>
+        <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.5</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Relation rdf:about="http://cmt#date"/>
+      </entity1>
+      <entity2>
+        <edoal:Relation rdf:about="http://confOf#starts_on"/>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.5</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Relation>
+          <edoal:and rdf:parseType="Collection">
+            <edoal:RelationDomainRestriction>
+              <edoal:class>
+                <edoal:Class rdf:about="http://cmt#PaperFullVersion"/>
+              </edoal:class>
+            </edoal:RelationDomainRestriction>
+            <edoal:Relation rdf:about="http://cmt#title"/>
+          </edoal:and>
+        </edoal:Relation>
+      </entity1>
+      <entity2>
+        <edoal:Relation rdf:about="http://confOf#hasTitle"/>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class rdf:about="http://cmt#Administrator"/>
+      </entity1>
+      <entity2>
+        <edoal:Class rdf:about="http://confOf#Administrator"/>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class rdf:about="http://cmt#Co-author"/>
+      </entity1>
+      <entity2>
+        <edoal:AttributeDomainRestriction>
+          <edoal:onAttribute>
+            <edoal:Relation rdf:about="http://confOf#reviewes"/>
+          </edoal:onAttribute>
+          <edoal:exists>
+            <edoal:Class rdf:about="http://confOf#Contribution"/>
+          </edoal:exists>
+        </edoal:AttributeDomainRestriction>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.861111111111111</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class rdf:about="http://cmt#Co-author"/>
+      </entity1>
+      <entity2>
+        <edoal:Class rdf:about="http://confOf#Author"/>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class rdf:about="http://cmt#Co-author"/>
+      </entity1>
+      <entity2>
+        <edoal:Class>
+          <edoal:or rdf:parseType="Collection">
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#hasFirstName"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Literal edoal:string="Colter"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#hasFirstName"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Literal edoal:string=" Arthur"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+          </edoal:or>
+        </edoal:Class>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.8888888888888888</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class rdf:about="http://cmt#Co-author"/>
+      </entity1>
+      <entity2>
+        <edoal:AttributeDomainRestriction>
+          <edoal:onAttribute>
+            <edoal:Relation rdf:about="http://confOf#writes"/>
+          </edoal:onAttribute>
+          <edoal:exists>
+            <edoal:Class rdf:about="http://confOf#Contribution"/>
+          </edoal:exists>
+        </edoal:AttributeDomainRestriction>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class rdf:about="http://cmt#Co-author"/>
+      </entity1>
+      <entity2>
+        <edoal:AttributeDomainRestriction>
+          <edoal:onAttribute>
+            <edoal:Relation>
+              <edoal:inverse>
+                <edoal:Relation rdf:about="http://confOf#writtenBy"/>
+              </edoal:inverse>
+            </edoal:Relation>
+          </edoal:onAttribute>
+          <edoal:exists>
+            <edoal:Class rdf:about="http://confOf#Contribution"/>
+          </edoal:exists>
+        </edoal:AttributeDomainRestriction>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Relation>
+          <edoal:and rdf:parseType="Collection">
+            <edoal:RelationDomainRestriction>
+              <edoal:class>
+                <edoal:Class rdf:about="http://cmt#Conference"/>
+              </edoal:class>
+            </edoal:RelationDomainRestriction>
+            <edoal:Relation rdf:about="http://cmt#name"/>
+          </edoal:and>
+        </edoal:Relation>
+      </entity1>
+      <entity2>
+        <edoal:Relation>
+          <edoal:and rdf:parseType="Collection">
+            <edoal:RelationDomainRestriction>
+              <edoal:class>
+                <edoal:Class rdf:about="http://confOf#Conference"/>
+              </edoal:class>
+            </edoal:RelationDomainRestriction>
+            <edoal:Relation rdf:about="http://confOf#has_title"/>
+          </edoal:and>
+        </edoal:Relation>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class rdf:about="http://cmt#ConferenceChair"/>
+      </entity1>
+      <entity2>
+        <edoal:AttributeValueRestriction>
+          <edoal:onAttribute>
+            <edoal:Relation rdf:about="http://confOf#reviewes"/>
+          </edoal:onAttribute>
+          <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+          <edoal:value>
+            <edoal:Instance rdf:about="http://confOf-instances#paper12890443247612198"/>
+          </edoal:value>
+        </edoal:AttributeValueRestriction>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.4</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class>
+          <edoal:or rdf:parseType="Collection">
+            <edoal:AttributeDomainRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://cmt#hasDecision"/>
+              </edoal:onAttribute>
+              <edoal:exists>
+                <edoal:Class rdf:about="http://cmt#Acceptance"/>
+              </edoal:exists>
+            </edoal:AttributeDomainRestriction>
+            <edoal:AttributeOccurenceRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://cmt#acceptedBy"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#greater-than"/>
+              <edoal:value>0</edoal:value>
+            </edoal:AttributeOccurenceRestriction>
+          </edoal:or>
+        </edoal:Class>
+      </entity1>
+      <entity2>
+        <edoal:AttributeOccurenceRestriction>
+          <edoal:onAttribute>
+            <edoal:Relation rdf:about="http://confOf#writtenBy"/>
+          </edoal:onAttribute>
+          <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#greater-than"/>
+          <edoal:value>0</edoal:value>
+        </edoal:AttributeOccurenceRestriction>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.4808324205914561</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class>
+          <edoal:or rdf:parseType="Collection">
+            <edoal:Class rdf:about="http://cmt#Reviewer"/>
+            <edoal:Class rdf:about="http://cmt#ExternalReviewer"/>
+          </edoal:or>
+        </edoal:Class>
+      </entity1>
+      <entity2>
+        <edoal:Class rdf:about="http://confOf#Member_PC"/>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class>
+          <edoal:or rdf:parseType="Collection">
+            <edoal:Class rdf:about="http://cmt#Reviewer"/>
+            <edoal:Class rdf:about="http://cmt#ExternalReviewer"/>
+          </edoal:or>
+        </edoal:Class>
+      </entity1>
+      <entity2>
+        <edoal:AttributeOccurenceRestriction>
+          <edoal:onAttribute>
+            <edoal:Relation rdf:about="http://confOf#reviewes"/>
+          </edoal:onAttribute>
+          <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#greater-than"/>
+          <edoal:value>0</edoal:value>
+        </edoal:AttributeOccurenceRestriction>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class rdf:about="http://cmt#Person"/>
+      </entity1>
+      <entity2>
+        <edoal:Class rdf:about="http://confOf#Person"/>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class rdf:about="http://cmt#Person"/>
+      </entity1>
+      <entity2>
+        <edoal:AttributeValueRestriction>
+          <edoal:onAttribute>
+            <edoal:Relation rdf:about="http://confOf#hasSurname"/>
+          </edoal:onAttribute>
+          <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+          <edoal:value>
+            <edoal:Literal edoal:string="Benson"/>
+          </edoal:value>
+        </edoal:AttributeValueRestriction>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.6666666666666667</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class rdf:about="http://cmt#Author"/>
+      </entity1>
+      <entity2>
+        <edoal:AttributeValueRestriction>
+          <edoal:onAttribute>
+            <edoal:Relation rdf:about="http://confOf#hasFirstName"/>
+          </edoal:onAttribute>
+          <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+          <edoal:value>
+            <edoal:Literal edoal:string="Arthur"/>
+          </edoal:value>
+        </edoal:AttributeValueRestriction>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.6666666666666667</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class rdf:about="http://cmt#Author"/>
+      </entity1>
+      <entity2>
+        <edoal:Class rdf:about="http://confOf#Author"/>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class rdf:about="http://cmt#Author"/>
+      </entity1>
+      <entity2>
+        <edoal:AttributeValueRestriction>
+          <edoal:onAttribute>
+            <edoal:Relation rdf:about="http://confOf#reviewes"/>
+          </edoal:onAttribute>
+          <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+          <edoal:value>
+            <edoal:Instance rdf:about="http://confOf-instances#paper-850973303141114"/>
+          </edoal:value>
+        </edoal:AttributeValueRestriction>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.6666666666666667</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Relation rdf:about="http://cmt#assignExternalReviewer"/>
+      </entity1>
+      <entity2>
+        <edoal:Relation>
+          <edoal:compose rdf:parseType="Collection">
+            <edoal:Relation rdf:about="http://confOf#reviewes"/>
+            <edoal:Relation rdf:about="http://confOf#writtenBy"/>
+          </edoal:compose>
+        </edoal:Relation>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.5</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class rdf:about="http://cmt#SubjectArea"/>
+      </entity1>
+      <entity2>
+        <edoal:Class>
+          <edoal:or rdf:parseType="Collection">
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper11605072072381114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-18603233311901114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-4038990767442198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper5073181783131114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper2742683421621114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper3781391546571114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-1165037071892198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper1339598152842198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-15699165408311114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-16677545845022198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-16959092122472198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-16923159965342198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-3035273742441114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper1103567549881263"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-2482640998092198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-14995117155632198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-15763856172892198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-10166753551282198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-19397468456982198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper1434203523155257"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper10427514344982198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-20563420611292198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper20532585162012198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-2179792546932198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-7174665623621114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper12368767441052198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper21437935361941114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-5283698573872198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-2519680485322198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-11886474781721114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-43267148130257"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper14830711755931114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper8231667705272198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper9576081967331114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-16657167746872198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation>
+                  <edoal:inverse>
+                    <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+                  </edoal:inverse>
+                </edoal:Relation>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-10680551134921114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+          </edoal:or>
+        </edoal:Class>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.012626262626262628</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class rdf:about="http://cmt#ProgramCommitteeMember"/>
+      </entity1>
+      <entity2>
+        <edoal:Class>
+          <edoal:or rdf:parseType="Collection">
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper626956663191311"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper2481698287862198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper7363026363901114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper2947704423772198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-11921963886712198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper109232501114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper10171393531522198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper25286380583257"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper259226493301311"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-19171767184381114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper1816705647851114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper4896929073062198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-10161490687491114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-226096409191114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-7900045585242198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper165443900501114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper7495729491902198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-3034757995091114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-10197076583581114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper1618326996218257"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-16005311345812198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-10318174732262198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-13483611524092198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper8637291596142198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-5813662398532198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper12937146316862198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-4716789332661114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper18496420393461114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper3514067371121114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-850973303141114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-11928254536371114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper13739100688001114"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper-176956395181311"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper4058746518492198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#reviewes"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#paper5561512612712198"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+          </edoal:or>
+        </edoal:Class>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.039473684210526314</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class rdf:about="http://cmt#PaperFullVersion"/>
+      </entity1>
+      <entity2>
+        <edoal:Class>
+          <edoal:or rdf:parseType="Collection">
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic1989774883"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic781330207"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic-696654433"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic1072938669"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic112518608"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic-94688146"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic-1021130956"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic1513621137"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic-1085206403"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic-1262874520"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic-197681426"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic192793678"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic345519205"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic-1417475850"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic-1318811949"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic1774447792"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic1092109444"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic-1116280523"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic-1799563971"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#dealsWith"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Instance rdf:about="http://confOf-instances#topic1527139799"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+          </edoal:or>
+        </edoal:Class>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.021875</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:AttributeOccurenceRestriction>
+          <edoal:onAttribute>
+            <edoal:Relation>
+              <edoal:inverse>
+                <edoal:Relation rdf:about="http://cmt#hasAuthor"/>
+              </edoal:inverse>
+            </edoal:Relation>
+          </edoal:onAttribute>
+          <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#greater-than"/>
+          <edoal:value>0</edoal:value>
+        </edoal:AttributeOccurenceRestriction>
+      </entity1>
+      <entity2>
+        <edoal:Class rdf:about="http://confOf#Author"/>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.6666666666666667</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:AttributeOccurenceRestriction>
+          <edoal:onAttribute>
+            <edoal:Relation>
+              <edoal:inverse>
+                <edoal:Relation rdf:about="http://cmt#hasAuthor"/>
+              </edoal:inverse>
+            </edoal:Relation>
+          </edoal:onAttribute>
+          <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#greater-than"/>
+          <edoal:value>0</edoal:value>
+        </edoal:AttributeOccurenceRestriction>
+      </entity1>
+      <entity2>
+        <edoal:Class>
+          <edoal:or rdf:parseType="Collection">
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#hasSurname"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Literal edoal:string="Hamilton"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#hasSurname"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Literal edoal:string=" Gauthier"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+            <edoal:AttributeValueRestriction>
+              <edoal:onAttribute>
+                <edoal:Relation rdf:about="http://confOf#hasSurname"/>
+              </edoal:onAttribute>
+              <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#equals"/>
+              <edoal:value>
+                <edoal:Literal edoal:string=" Haast"/>
+              </edoal:value>
+            </edoal:AttributeValueRestriction>
+          </edoal:or>
+        </edoal:Class>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.8444444444444444</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Relation>
+          <edoal:and rdf:parseType="Collection">
+            <edoal:RelationDomainRestriction>
+              <edoal:class>
+                <edoal:Class rdf:about="http://cmt#Person"/>
+              </edoal:class>
+            </edoal:RelationDomainRestriction>
+            <edoal:Relation rdf:about="http://cmt#name"/>
+          </edoal:and>
+        </edoal:Relation>
+      </entity1>
+      <entity2>
+        <edoal:Relation>
+          <edoal:and rdf:parseType="Collection">
+            <edoal:RelationDomainRestriction>
+              <edoal:class>
+                <edoal:Class rdf:about="http://confOf#Person"/>
+              </edoal:class>
+            </edoal:RelationDomainRestriction>
+            <edoal:Relation rdf:about="http://confOf#hasSurname"/>
+          </edoal:and>
+        </edoal:Relation>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Relation rdf:about="http://cmt#hasBeenAssigned"/>
+      </entity1>
+      <entity2>
+        <edoal:Relation rdf:about="http://confOf#reviewes"/>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.5</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class rdf:about="http://cmt#Reviewer"/>
+      </entity1>
+      <entity2>
+        <edoal:AttributeOccurenceRestriction>
+          <edoal:onAttribute>
+            <edoal:Relation rdf:about="http://confOf#reviewes"/>
+          </edoal:onAttribute>
+          <edoal:comparator rdf:resource="http://ns.inria.org/edoal/1.0/#greater-than"/>
+          <edoal:value>0</edoal:value>
+        </edoal:AttributeOccurenceRestriction>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.8822495108639687</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1>
+        <edoal:Class rdf:about="http://cmt#Reviewer"/>
+      </entity1>
+      <entity2>
+        <edoal:Class rdf:about="http://confOf#Member_PC"/>
+      </entity2>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>1.0</measure>
+    </Cell>
+  </map>
+</Alignment>
+</rdf:RDF>

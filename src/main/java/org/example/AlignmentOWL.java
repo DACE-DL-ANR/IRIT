@@ -163,6 +163,7 @@ public class AlignmentOWL {
             switch (item.getNodeName()) {
                 case "edoal:and" -> expression = parseClassAnd(item);
             }
+
         }
 
         return expression;

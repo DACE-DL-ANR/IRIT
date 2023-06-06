@@ -1,5 +1,6 @@
 package org.example;
 
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.search.EntitySearcher;
 import org.w3c.dom.Document;
@@ -24,16 +25,13 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Correspondence {
+    private static final OWLDataFactory factory = new OWLDataFactoryImpl();
     OWLClassExpression c1;
     OWLClassExpression c2;
-    private static final OWLDataFactory factory = new OWLDataFactoryImpl();
 
     public Correspondence() {
     }
@@ -41,78 +39,6 @@ public class Correspondence {
     public Correspondence(OWLClassExpression cls1, OWLClassExpression cls2) {
         this.c1 = cls1;
         this.c2 = cls2;
-    }
-
-    public OWLClassExpression getC1() {
-        return c1;
-    }
-
-    public OWLClassExpression getC2() {
-        return c2;
-    }
-
-
-    public void saturateCorrespondence(OWLOntology o1, OWLOntology o2, String f) throws IOException, ParserConfigurationException, SAXException {
-        Set<Alignment> alignments = Alignment.readAlignments(f)
-                .stream()
-                .filter(alignment -> !alignment.getElement1().toMergedForm().startsWith("Relation"))
-                .collect(Collectors.toSet());
-
-        Map<String, OWLClass> classMap = getStringOWLClassMap(alignments);
-
-        int j = getJ(o1, o2, alignments, classMap);
-
-    }
-
-    private int getJ(OWLOntology o1, OWLOntology o2, Set<Alignment> alignments, Map<String, OWLClass> classMap) {
-        int j = 0;
-        for (Alignment alignment : alignments) {
-            String uri1 = "", uri2 = "";
-
-            String e1MergedForm = alignment.getElement1().toMergedForm();
-            String e2MergedForm = alignment.getElement2().toMergedForm();
-
-            if (e1MergedForm.startsWith("Class") && e2MergedForm.startsWith("Class")) {
-                uri1 = e1MergedForm.substring(6).replace("_", "#");
-                uri2 = e2MergedForm.substring(6).replace("_", "#");
-            }
-
-            if (e1MergedForm.startsWith("Class") && e2MergedForm.startsWith("AttributeDomainRestriction")) {
-                uri1 = e1MergedForm.substring(6).replace("_", "#");
-                uri2 = e2MergedForm.replace("_", "+");
-            }
-
-            if (e1MergedForm.startsWith("AttributeDomainRestriction") && e2MergedForm.startsWith("Class")) {
-                uri1 = e1MergedForm.substring(6).replace("_", "#");
-                uri2 = e2MergedForm.replace("_", "+");
-            }
-
-            OWLClass cls1 = classMap.get(uri1);
-            OWLClass cls2 = classMap.get(uri2);
-
-            Set<OWLIndividual> indSatisfy1 = o1.getIndividualsInSignature()
-                    .stream()
-                    .filter(a -> !EntitySearcher.getTypes(a, o1).toList().isEmpty() && satisfy(a, o1, cls1))
-                    .collect(Collectors.toSet());
-
-            Set<OWLIndividual> indSatisfy2 = o2.getIndividualsInSignature()
-                    .stream()
-                    .filter(a -> !EntitySearcher.getTypes(a, o2).toList().isEmpty() && satisfy(a, o2, cls2))
-                    .collect(Collectors.toSet());
-
-            Set<OWLIndividual> individuals = new HashSet<>(indSatisfy1);
-            individuals.addAll(indSatisfy2);
-            j += individuals.size();
-
-            for (OWLIndividual i : individuals) {
-                OWLClassAssertionAxiom assertion1 = factory.getOWLClassAssertionAxiom(cls1, i);
-                OWLClassAssertionAxiom assertion2 = factory.getOWLClassAssertionAxiom(cls2, i);
-                o1.getOWLOntologyManager().addAxiom(o1, assertion1);
-                o2.getOWLOntologyManager().addAxiom(o2, assertion2);
-            }
-        }
-
-        return j;
     }
 
     private static Map<String, OWLClass> getStringOWLClassMap(Set<Alignment> alignments) {
@@ -150,35 +76,6 @@ public class Correspondence {
         return classMap;
     }
 
-
-    public boolean satisfy(OWLNamedIndividual a, OWLOntology o1, OWLClass cls1) {
-
-        if (cls1 == null) {
-            return false;
-        }
-
-        boolean satisfy = false;
-
-        if (cls1.toString().startsWith("AttributeDomainRestriction") && !cls1.toString().contains("inverse")) {
-            String p = cls1.toString().substring(cls1.toString().indexOf("Relation") + 8, cls1.toString().indexOf("Class") - 1);
-            String c = cls1.toString().substring(cls1.toString().indexOf("Class") + 6);
-            OWLObjectProperty property = factory.getOWLObjectProperty(IRI.create(p));
-            OWLClass cls = factory.getOWLClass(IRI.create(c));
-            for (OWLIndividual v : EntitySearcher.getObjectPropertyValues(a, property, o1).toList()) {
-                satisfy = EntitySearcher.getTypes(v, o1).toList().contains(cls);
-            }
-        } else {
-
-            return EntitySearcher.getTypes(a, o1).toList().contains(cls1);
-
-        }
-
-        return satisfy;
-    }
-
-    // create a reasoner for the ontology
-
-
     public static Set<Correspondence> extractClassPairs(String f) {
         Set<Correspondence> classPairs = new HashSet<>();
 
@@ -198,8 +95,8 @@ public class Correspondence {
                 // Get the entity1 and entity2 elements
                 Element entity1Element = (Element) cellElement.getElementsByTagName("entity1").item(0);
                 Element entity2Element = (Element) cellElement.getElementsByTagName("entity2").item(0);
-                System.out.println("Entity 11: " + (Element) cellElement.getElementsByTagName("entity1").item(1));
-                System.out.println("Entity 21: " + (Element) cellElement.getElementsByTagName("entity1").item(1));
+                System.out.println("Entity 11: " + cellElement.getElementsByTagName("entity1").item(1));
+                System.out.println("Entity 21: " + cellElement.getElementsByTagName("entity1").item(1));
                 System.out.println("Entity 1: " + entity1Element);
                 System.out.println("Entity 2: " + entity2Element);
 
@@ -224,16 +121,38 @@ public class Correspondence {
         return classPairs;
     }
 
-    private static void saturateCorrespondanceSimple(OWLOntology o1, OWLOntology o2){
-        //Alignment.readAlignmentsTxt("");
-        Set<Alignment> alignments = Alignment.readAlignmentsTxt(Paths.get(""));
-        Set<Alignment> ClsAl = alignments.stream().filter(alignment -> alignment.getElement1().getTag().equals("CLS")).collect(Collectors.toSet());
-        for(Alignment al:ClsAl) {
-            //transformed the classes of an individual into a sting
-            o1.getAnonymousIndividuals().stream().filter(ind->EntitySearcher.getTypes(ind, o1).toList().contains(factory.getOWLClass(al.getElement1().getName()))).collect(Collectors.toSet()).forEach(ind->EntitySearcher.getTypes(ind, o1).toList().add(factory.getOWLClass(al.getElement2().getName())));
-            o2.getIndividualsInSignature().stream().filter(ind->EntitySearcher.getTypes(ind, o2).toList().contains(factory.getOWLClass(al.getElement2().getName()))).collect(Collectors.toSet()).forEach(ind->EntitySearcher.getTypes(ind, o1).toList().add(factory.getOWLClass(al.getElement1().getName())));
+
+
+    public static void saturateCorrespondenceSimple(OWLOntology ontology1, OWLOntology ontology2, String fs) {
+        Path path = Paths.get(fs);
+        Set<Alignment> alignments = Alignment.readAlignmentsTxt(path)
+                .stream()
+                .filter(alignment -> alignment.getElement1().getTag().equals("CLS"))
+                .collect(Collectors.toSet());
+
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+
+        for (Alignment al : alignments) {
+
+            String name1 = "<" + al.getElement1().getName() + ">";
+            String name2 = "<" + al.getElement2().getName() + ">";
+
+            for (OWLNamedIndividual e1 : ontology1.getIndividualsInSignature()) {
+                Set<String> collect = EntitySearcher.getTypes(e1, ontology1).map(Objects::toString).collect(Collectors.toSet());
+                if (collect.contains(name1)) {
+                    OWLClassAssertionAxiom owlClassAssertionAxiom = factory.getOWLClassAssertionAxiom(factory.getOWLClass(al.getElement2().getName()), e1);
+                    manager.addAxiom(ontology1, owlClassAssertionAxiom);
+                }
+            }
+
+            for (OWLNamedIndividual e2 : ontology2.getIndividualsInSignature()) {
+                Set<String> collect = EntitySearcher.getTypes(e2, ontology2).map(Objects::toString).collect(Collectors.toSet());
+                if (collect.contains(name2)) {
+                    OWLClassAssertionAxiom owlClassAssertionAxiom = factory.getOWLClassAssertionAxiom(factory.getOWLClass(al.getElement1().getName()), e2);
+                    manager.addAxiom(ontology2, owlClassAssertionAxiom);
+                }
+            }
         }
-        //
     }
 
     // This function allows to check if an instance satisfy class assertion in this case we can saturate this instance by
@@ -346,13 +265,110 @@ public class Correspondence {
 
     }
 
+    public OWLClassExpression getC1() {
+        return c1;
+    }
 
     public void setC1(OWLClassExpression c1) {
         this.c1 = c1;
     }
 
+    // create a reasoner for the ontology
+
+    public OWLClassExpression getC2() {
+        return c2;
+    }
+
     public void setC2(OWLClassExpression c2) {
         this.c2 = c2;
+    }
+
+    public void saturateCorrespondence(OWLOntology o1, OWLOntology o2, String f) throws IOException, ParserConfigurationException, SAXException {
+        Set<Alignment> alignments = Alignment.readAlignments(f)
+                .stream()
+                .filter(alignment -> !alignment.getElement1().toMergedForm().startsWith("Relation"))
+                .collect(Collectors.toSet());
+
+        Map<String, OWLClass> classMap = getStringOWLClassMap(alignments);
+
+        int j = getJ(o1, o2, alignments, classMap);
+
+    }
+
+    private int getJ(OWLOntology o1, OWLOntology o2, Set<Alignment> alignments, Map<String, OWLClass> classMap) {
+        int j = 0;
+        for (Alignment alignment : alignments) {
+            String uri1 = "", uri2 = "";
+
+            String e1MergedForm = alignment.getElement1().toMergedForm();
+            String e2MergedForm = alignment.getElement2().toMergedForm();
+
+            if (e1MergedForm.startsWith("Class") && e2MergedForm.startsWith("Class")) {
+                uri1 = e1MergedForm.substring(6).replace("_", "#");
+                uri2 = e2MergedForm.substring(6).replace("_", "#");
+            }
+
+            if (e1MergedForm.startsWith("Class") && e2MergedForm.startsWith("AttributeDomainRestriction")) {
+                uri1 = e1MergedForm.substring(6).replace("_", "#");
+                uri2 = e2MergedForm.replace("_", "+");
+            }
+
+            if (e1MergedForm.startsWith("AttributeDomainRestriction") && e2MergedForm.startsWith("Class")) {
+                uri1 = e1MergedForm.substring(6).replace("_", "#");
+                uri2 = e2MergedForm.replace("_", "+");
+            }
+
+            OWLClass cls1 = classMap.get(uri1);
+            OWLClass cls2 = classMap.get(uri2);
+
+            Set<OWLIndividual> indSatisfy1 = o1.getIndividualsInSignature()
+                    .stream()
+                    .filter(a -> !EntitySearcher.getTypes(a, o1).toList().isEmpty() && satisfy(a, o1, cls1))
+                    .collect(Collectors.toSet());
+
+            Set<OWLIndividual> indSatisfy2 = o2.getIndividualsInSignature()
+                    .stream()
+                    .filter(a -> !EntitySearcher.getTypes(a, o2).toList().isEmpty() && satisfy(a, o2, cls2))
+                    .collect(Collectors.toSet());
+
+            Set<OWLIndividual> individuals = new HashSet<>(indSatisfy1);
+            individuals.addAll(indSatisfy2);
+            j += individuals.size();
+
+            for (OWLIndividual i : individuals) {
+                OWLClassAssertionAxiom assertion1 = factory.getOWLClassAssertionAxiom(cls1, i);
+                OWLClassAssertionAxiom assertion2 = factory.getOWLClassAssertionAxiom(cls2, i);
+                o1.getOWLOntologyManager().addAxiom(o1, assertion1);
+                o2.getOWLOntologyManager().addAxiom(o2, assertion2);
+            }
+        }
+
+        return j;
+    }
+
+    public boolean satisfy(OWLNamedIndividual a, OWLOntology o1, OWLClass cls1) {
+
+        if (cls1 == null) {
+            return false;
+        }
+
+        boolean satisfy = false;
+
+        if (cls1.toString().startsWith("AttributeDomainRestriction") && !cls1.toString().contains("inverse")) {
+            String p = cls1.toString().substring(cls1.toString().indexOf("Relation") + 8, cls1.toString().indexOf("Class") - 1);
+            String c = cls1.toString().substring(cls1.toString().indexOf("Class") + 6);
+            OWLObjectProperty property = factory.getOWLObjectProperty(IRI.create(p));
+            OWLClass cls = factory.getOWLClass(IRI.create(c));
+            for (OWLIndividual v : EntitySearcher.getObjectPropertyValues(a, property, o1).toList()) {
+                satisfy = EntitySearcher.getTypes(v, o1).toList().contains(cls);
+            }
+        } else {
+
+            return EntitySearcher.getTypes(a, o1).toList().contains(cls1);
+
+        }
+
+        return satisfy;
     }
 }
 
