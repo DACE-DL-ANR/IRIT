@@ -101,7 +101,7 @@ public class Main {
         }
     }
 
-    private static void runAtMatcher(File fileSource, File fileTarget, String java, String path, String output) throws IOException, OWLOntologyStorageException, InterruptedException {
+    private static void runAtMatcher(File fileSource, File fileTarget, String java, String path, String output) throws IOException, OWLOntologyStorageException, InterruptedException, ParserConfigurationException, SAXException {
         CallAtMatcher callAtMatcher = new CallAtMatcher(java, path);
         callAtMatcher.start();
         OWLOntology source = loadOntology(fileSource);
@@ -112,7 +112,9 @@ public class Main {
             callAtMatcher.run(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), fs);
 
             Correspondence.saturateCorrespondenceSimple(source, target, fs);
-            Linkey.saturateSameAs(source, target, fs);
+            Set<Linkey> lks = linkex.execute(fileSource, fileTarget, new File("output/linkeys"));
+            saturateOntologies(source, target, lks, fs);
+          //  Linkey.saturateSameAs(source, target, fs);
 
             fileSource = new File(output + "source_tmp.owl");
             fileTarget = new File(output + "target_tmp.owl");
