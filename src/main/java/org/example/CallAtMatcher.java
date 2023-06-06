@@ -5,10 +5,14 @@ import eu.sealsproject.platform.res.tool.api.ToolBridgeException;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.SequenceInputStream;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CallAtMatcher {
 
@@ -27,17 +31,79 @@ public class CallAtMatcher {
     }
 
 
-    public void start() throws IOException {
+    public void start() throws IOException, InterruptedException {
         process = processBuilder.start();
 
-        Scanner s = new Scanner(process.getInputStream());
+        InputStream inputStream = process.getInputStream();
+        InputStream errorStream = process.getErrorStream();
+        AtomicBoolean started = new AtomicBoolean(false);
 
-        while (s.hasNextLine()) {
-            String x = s.nextLine();
-            if (x.contains("- Started @")) {
-                break;
+        Thread t1 = new Thread(() -> {
+
+            for (int i = 0; i < 10; i++) {
+
+                try {
+                    if (inputStream.available() > 0) {
+                        started.set(true);
+                        break;
+                    }
+                    Thread.sleep(1000);
+                } catch (IOException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                if (started.get()) {
+                    return;
+                }
             }
-        }
+
+            Scanner s = new Scanner(inputStream);
+            while (s.hasNextLine()) {
+                String x = s.nextLine();
+                if (x.contains("- Started @")) {
+                    break;
+                }
+            }
+        });
+
+        Thread t2 = new Thread(() -> {
+
+            for (int i = 0; i < 10; i++) {
+
+                try {
+                    if (errorStream.available() > 0) {
+                        started.set(true);
+                        break;
+                    }
+                    Thread.sleep(1000);
+                } catch (IOException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                if (started.get()) {
+                    return;
+                }
+            }
+
+            Scanner s = new Scanner(errorStream);
+            while (s.hasNextLine()) {
+                String x = s.nextLine();
+                if (x.contains("- Started @")) {
+                    break;
+                }
+            }
+        });
+
+
+
+        t1.start();
+        t2.start();
+        t1.join();
+        t2.join();
+
+
+
+        System.out.println("Started.");
     }
 
     public void run(String source, String target, String output) throws IOException, InterruptedException {
