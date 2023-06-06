@@ -130,6 +130,6 @@ public class ParseEdoal {
 
         file.createNewFile();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
-        manager.saveOntology(ontology, new TurtleDocumentFormat(), IRI.create(file.toURI()));
+        manager.saveOntology(ontology, ontology.getFormat(), IRI.create(file.toURI()));
     }
 }

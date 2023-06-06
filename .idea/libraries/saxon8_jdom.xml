@@ -2,6 +2,7 @@
   <library name="saxon8-jdom">
     <CLASSES>
       <root url="jar://$USER_HOME$/Downloads/saxon8-jdom.jar!/" />
+      <root url="file://$PROJECT_DIR$/../align-4.10" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

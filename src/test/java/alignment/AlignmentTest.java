@@ -29,7 +29,7 @@ public class AlignmentTest {
         URL resource = getClass().getResource("/example1.txt");
         Path path = Paths.get(resource.toURI());
         Set<Alignment> alignments = Alignment.readAlignmentsTxt(path);
-
+        System.out.println(alignments);
         Assert.assertEquals(137, alignments.size());
 
 

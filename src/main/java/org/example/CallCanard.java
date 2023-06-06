@@ -7,10 +7,7 @@ public class CallCanard {
     private String canardPath;
     private String javaPath;
 
-    public CallCanard(String javaPath, String canardPath) {
-        this.javaPath = javaPath;
-        this.canardPath = canardPath;
-    }
+
     public CallCanard(String canardPath) {
 
         this.canardPath = canardPath;
@@ -29,9 +26,9 @@ public class CallCanard {
         arguments.append("--range ").append(valueOfConf);
 
         try {
-          //  System.out.println(arguments);
-         //   Run.runProcess("java -jar ../canard/CanardE.jar"+" "+ fileSource+" "+fileTarget+ " "+ s + " --range "+valueOfConf);
-            Run.runProcess(arguments.toString());
+         //   System.out.println(arguments);
+           // Run.runProcess("java -jar ../canard/CanardE.jar"+" "+ fileSource+" "+fileTarget+ " "+ s + " --range "+valueOfConf);
+           Run.runProcess(arguments.toString());
             
         } catch (Exception e) {
             e.printStackTrace();

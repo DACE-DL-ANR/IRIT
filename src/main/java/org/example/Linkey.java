@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Linkey {
 
@@ -27,6 +28,34 @@ public class Linkey {
 
     public Linkey() {
     }
+    public static int calculateDistance(String word1, String word2) {
+        int[][] dp = new int[word1.length() + 1][word2.length() + 1];
+
+        for (int i = 0; i <= word1.length(); i++) {
+            dp[i][0] = i;
+        }
+
+        for (int j = 0; j <= word2.length(); j++) {
+            dp[0][j] = j;
+        }
+
+        for (int i = 1; i <= word1.length(); i++) {
+            for (int j = 1; j <= word2.length(); j++) {
+                if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else {
+                    int deletion = dp[i - 1][j] + 1;
+                    int insertion = dp[i][j - 1] + 1;
+                    int substitution = dp[i - 1][j - 1] + 1;
+
+                    dp[i][j] = Math.min(deletion, Math.min(insertion, substitution));
+                }
+            }
+        }
+
+        return dp[word1.length()][word2.length()];
+    }
+
 
 
     public static void addRoleAss(OWLOntology oa, OWLOntology ob, OWLIndividual a, OWLIndividual b, Set<OWLDataPropertyExpression> sprp) {
@@ -81,15 +110,18 @@ public class Linkey {
         for (OWLPropertyExpression p1 : slkp1Eq) {
             for (OWLPropertyExpression p2 : slkp2Eq) {
 
+
                 if (p2.toString().equals("rdfs:label") && p1.toString().equals("rdfs:label")) {
 
                     case1(o1, o2, i);
-
                 }
                 if (p2.toString().equals("rdfs:label")) {
+
                     case2(o1, o2, i, p1);
 
-                } else {
+                }
+                else {
+
                     case3(o1, o2, i, (OWLDataPropertyExpression) p1, (OWLDataPropertyExpression) p2);
                 }
             }
@@ -114,19 +146,64 @@ public class Linkey {
             for (Map.Entry<OWLNamedIndividual, String> b : dataPropertyValues2.entrySet()) {
 
                 String substring2 = b.getValue();
-
-                if (substring2.contains(substring1) || substring1.contains(substring2)) {
+                if (calculateDistance(substring2,substring1)>0.7) {
                     i.getAndIncrement();
                     //add the sameAs assertion
+
                     manager.addAxiom(o1, factory.getOWLSameIndividualAxiom(a.getKey(), b.getKey()));
                     manager.addAxiom(o2, factory.getOWLSameIndividualAxiom(a.getKey(), b.getKey()));
-                    caller(a.getKey(), o1, b.getKey(), o2);
+
+                    // Retrieve the value of the rdfs:label property for the specified instance
+                    OWLDataFactory factory = manager.getOWLDataFactory();
+                    OWLAnnotationProperty labelProperty = factory.getRDFSLabel();
+
+
+                    OWLAnnotation labelAnnotation = o1.getAnnotationAssertionAxioms(a.getKey().getIRI())
+                            .stream()
+                            .findFirst()
+                            .map(OWLAnnotationAssertionAxiom::getAnnotation)
+                            .orElse(null);
+
+                    OWLAnnotationAssertionAxiom axiom2=factory.getOWLAnnotationAssertionAxiom(factory.getRDFSLabel(), b.getKey().getIRI(), factory.getOWLLiteral(b.getValue()));
+
+                    manager.addAxiom(o2,axiom2);
+
+
+
+
+                    if (labelAnnotation != null) {
+                        OWLLiteral labelValue = (OWLLiteral) labelAnnotation.getValue();
+                        String label = labelValue.getLiteral();
+
+
+                        OWLAnnotationAssertionAxiom axiom1=factory.getOWLAnnotationAssertionAxiom(factory.getRDFSLabel(), b.getKey().getIRI(), factory.getOWLLiteral(label));
+                        manager.addAxiom(o2,axiom1);
+
+                    }
+                    OWLAnnotation labelAnnotation2 = o2.getAnnotationAssertionAxioms(b.getKey().getIRI())
+                            .stream()
+                            .findFirst()
+                            .map(OWLAnnotationAssertionAxiom::getAnnotation)
+                            .orElse(null);
+
+                    if (labelAnnotation2 != null) {
+                        OWLLiteral labelValue = (OWLLiteral) labelAnnotation2.getValue();
+                        String label = labelValue.getLiteral();
+
+                    }
+
                 }
             }
-        }
-    }
 
-    // saturateSameAs, saturateCorrespandences.
+                    // Add the annotation assertion to the ontology
+
+                   // caller(a.getKey(), o1, b.getKey(), o2);
+                }
+        System.out.println("We have added "+i+" sameAs in case 3.");
+            }
+
+
+
     private static void saturateSameAs(OWLOntology o1, OWLOntology o2){
    //Alignment.readAlignmentsTxt("");
         Set<Alignment> alignments = Alignment.readAlignmentsTxt(Paths.get(""));
@@ -172,16 +249,34 @@ public class Linkey {
                 String annotationValue = annotations.get(b);
 
                 String substring = propertyValues.toString().substring(1, propertyValues.toString().length() - 1);
-                if (annotationValue.contains(substring) || substring.contains(annotationValue)) {
+
+                if (calculateDistance(annotationValue, substring) > 0.7) {
                     i.getAndIncrement();
                     manager.addAxiom(o1, factory.getOWLSameIndividualAxiom(a, b));
                     manager.addAxiom(o2, factory.getOWLSameIndividualAxiom(a, b));
-                    caller(a, o1, b, o2);
+                    // caller(a, o1, b, o2);
+
+
+                    Stream<OWLAnnotation> literal = EntitySearcher.getAnnotations((OWLEntity) a, o1);
+                    String label = literal.toList().get(0).getValue().toString();
+                    EntitySearcher.getAnnotations(b, o2);
+                    // Create the label annotation
+                    OWLAnnotationProperty labelProperty = factory.getRDFSLabel();
+
+                    OWLLiteral labelValue = factory.getOWLLiteral(label);
+                    // Create the annotation assertion
+                    OWLAnnotationAssertionAxiom annotationAssertion =
+                            factory.getOWLAnnotationAssertionAxiom(labelProperty, b.getIRI(), labelValue);
+
+                    // Add the annotation assertion to the ontology
+                    //    AddAxiom addAxiom = new AddAxiom(o2, annotationAssertion);
+                    manager.addAxiom(o2, annotationAssertion);
                 }
+
             }
         }
 
-
+System.out.println("We have added "+i+" sameAs in case 2");
 
     }
 
@@ -205,13 +300,32 @@ public class Linkey {
             String s1 = o1Annotations.substring(o1Annotations.indexOf("\"") + 1, o1Annotations.lastIndexOf("\""));
             String s2 = o2Annotations.substring(o2Annotations.indexOf("\"") + 1, o2Annotations.lastIndexOf("\""));
 
-            if (!s1.contains(s2)) {
-                continue;
+            if (calculateDistance(s1,s2)>0.7) {
+
+                i.getAndIncrement();
+                manager.addAxiom(o1, factory.getOWLSameIndividualAxiom(a, b));
+                manager.addAxiom(o2, factory.getOWLSameIndividualAxiom(a, b));
+
+                //  OWLAnnotationProperty labelProperty = factory.getRDFSLabel();
+                // Set<OWLAnnotation> annotation=o1.getAnnotations();
+
+
+                OWLLiteral literal = (OWLLiteral) EntitySearcher.getAnnotations(a, o1);
+                String label = literal.getLiteral();
+                EntitySearcher.getAnnotations(b, o2);
+                // Create the label annotation
+                OWLAnnotationProperty labelProperty = factory.getRDFSLabel();
+
+                OWLLiteral labelValue = factory.getOWLLiteral(label);
+                // Create the annotation assertion
+                OWLAnnotationAssertionAxiom annotationAssertion =
+                        factory.getOWLAnnotationAssertionAxiom(labelProperty, b.getIRI(), labelValue);
+
+                // Add the annotation assertion to the ontology
+                manager.addAxiom(o2, annotationAssertion);
             }
-            i.getAndIncrement();
-            manager.addAxiom(o1, factory.getOWLSameIndividualAxiom(a, b));
-            manager.addAxiom(o2, factory.getOWLSameIndividualAxiom(a, b));
-            caller(a, o1, b, o2);
+            System.out.println("We have added "+i+" sameAs in case 1");
+            //caller(a, o1, b, o2);
         }
     }
 

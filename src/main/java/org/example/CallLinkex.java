@@ -23,9 +23,9 @@ public class CallLinkex {
 
     Set<Linkey> execute(File source, File target, File result) throws IOException, ParserConfigurationException, SAXException {
 
-        result.createNewFile();
-        
-        String s = "*********";
+        if(!result.exists()) {
+            result.createNewFile();
+        }
 
         StringBuilder arguments = new StringBuilder();
         arguments.append("java -jar ").append(linkexPath).append(" ");
@@ -41,11 +41,15 @@ public class CallLinkex {
     }
 
     Set<Linkey> execute(File source, File target, File result, Correspondence c) throws IOException, ParserConfigurationException, SAXException {
-        String s = "*********";
-        result.createNewFile();
+        if(!result.exists()) {
+            result=new File(result.getPath());
+            result.createNewFile();
+        }
         StringBuilder arguments = new StringBuilder();
-        arguments.append(javaPath).append(" -jar ").append(linkexPath).append(" ");
+        arguments.append("java -jar ").append(linkexPath).append(" ");
         arguments.append("-d 0.4 -s 0.4 -i -c -o output/").append(result.getName()).append(" ");
+      //  System.out.println( c.getC1().toString().substring(7, c.getC1().toString().length() - 1).replace("_", "#"));
+      //  System.out.println(c.getC2().toString().substring(7, c.getC2().toString().length() - 1).replace("_", "#"));
         arguments.append("-t eq -f edoal -c1 ").append(c.getC1().toString().substring(7, c.getC1().toString().length() - 1).replace("_", "#")).append(" ");
         arguments.append("-c2 ").append(c.getC2().toString().substring(7, c.getC2().toString().length() - 1).replace("_", "#")).append(" ");
         arguments.append(source).append(" ").append(target);
@@ -55,9 +59,7 @@ public class CallLinkex {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Set<Linkey> lks;
-        lks = ParseEdoal.EDOALtoLKs(result);
-        return lks;
+        return ParseEdoal.EDOALtoLKs(result);
     }
 
 }
