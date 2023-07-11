@@ -1,7 +1,15 @@
 /target/
 .idea/
 /output/
-test/source_temp.ttl
-test/target_temp.ttl
+test/
+logmap-log.out
+outputatmr.rdf
 canard/
+lib/
+alignment/
 linkex/
+output/
+logmap/
+matchers/
+matcha/
+out/

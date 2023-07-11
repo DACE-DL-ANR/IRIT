@@ -1,27 +1,25 @@
 package org.example;
 
-import java.io.File;
-
 public class CallLogMap {
-    String LogmapPath;
+
+
+    private final String logmapPath;
 
     public CallLogMap(String s) {
-        LogmapPath=s;
+
+        logmapPath = s;
     }
 
-    public void setLogmapPath(String logmapPath) {
-        LogmapPath = logmapPath;
-    }
-
-    public void execute(File fileSource, File fileTarget) {
+    public void execute(String fileSource, String fileTarget, String output) {
 
 //java -jar target/logmap-matcher-4.0.jar MATCHER source_temp.ttl  target_temp.ttl  ./output f
-
+  //      System.out.println("logmap path "+logmapPath+" filesrc "+fileSource+" filetrgt "+fileTarget );
         StringBuilder arguments = new StringBuilder();
-        //.append(javaPath).append(" -jar ")..append("/IdeaProjects/").append("/IdeaProjects/").
-        arguments.append("java -jar ").append(LogmapPath).append(" MATCHER");
+        arguments.append("java -jar ").append(logmapPath).append(" ");
+        arguments.append("MATCHER ");
         arguments.append(fileSource).append(" ");
-        arguments.append(fileTarget).append(" ./output f");
+        arguments.append(fileTarget).append(" ");
+        arguments.append(output).append(" false");
 
         try {
 

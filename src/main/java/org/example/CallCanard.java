@@ -4,8 +4,8 @@ import java.io.File;
 
 public class CallCanard {
 
-    private String canardPath;
-    private String javaPath;
+    private final String canardPath;
+
 
 
     public CallCanard(String canardPath) {
@@ -26,10 +26,15 @@ public class CallCanard {
         arguments.append("--range ").append(valueOfConf);
 
         try {
+
          //   System.out.println(arguments);
            // Run.runProcess("java -jar ../canard/CanardE.jar"+" "+ fileSource+" "+fileTarget+ " "+ s + " --range "+valueOfConf);
            Run.runProcess(arguments.toString());
-            
+
+
+            Run.runProcess(arguments.toString());
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
