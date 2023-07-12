@@ -19,11 +19,12 @@ public class CallLogMap {
         arguments.append("MATCHER ");
         arguments.append(fileSource).append(" ");
         arguments.append(fileTarget).append(" ");
-        arguments.append(output).append(" false");
-
+        arguments.append(output).append(" f");
+        //System.out.println(arguments);
         try {
 
             Run.runProcess(arguments.toString());
+      //      System.out.println("run successfully!");
 
         } catch (Exception e) {
             e.printStackTrace();

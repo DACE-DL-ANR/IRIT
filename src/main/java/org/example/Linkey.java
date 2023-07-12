@@ -3,9 +3,12 @@ package org.example;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.search.EntitySearcher;
+import org.xml.sax.SAXException;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import utils.Pair;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -83,8 +86,8 @@ public class Linkey {
         manager.addAxioms(ob, axiomsToAdd);
     }
 
-    public static void saturateSameAs(OWLOntology o1, OWLOntology o2, String path) {
-        Set<Alignment> alignments = Alignment.readAlignmentsTxt(Paths.get(path));
+    public static void saturateSameAs(OWLOntology o1, OWLOntology o2, String path) throws IOException, ParserConfigurationException, SAXException {
+        Set<Alignment> alignments = Alignment.readAlignmentsAt(path);
         Set<Alignment> instAl = alignments.stream().filter(alignment -> alignment.getElement1().getTag().equals("INST")).collect(Collectors.toSet());
         for (Alignment al : instAl) {
             OWLNamedIndividual a = factory.getOWLNamedIndividual(al.getElement1().getName());

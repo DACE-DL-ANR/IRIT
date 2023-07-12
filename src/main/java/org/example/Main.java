@@ -78,11 +78,11 @@ public class Main {
             Double valueOfConf = Double.valueOf(args[4]);
             pipeCanard(fileSource, fileTarget, fileSource, fileTarget, valueOfConf,"/Users/khadijajradeh/Downloads/DICAPNEW/output/");
           //
-        } else if (system.equals("3")) {
+
             pipeLogmap(fileSource, fileTarget, "/usr/bin/java", "/Users/khadijajradeh/Downloads/logmap-matcher-4.0.jar", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
           //
         } else if (system.equals("4")) {
-            runAMD(fileSource, fileTarget, "/usr/bin/java", args[4], "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
+            runAMD(fileSource, fileTarget, "/usr/bin/java", "output", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
         } else if (system.equals("5")){
             runMatcha(fileSource, fileTarget, "/usr/bin/java", "/Users/khadijajradeh/Downloads/matcha/external/oaei-0.0.1-SNAPSHOT.jar", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
         }
@@ -127,7 +127,7 @@ public class Main {
           //  Set<Alignment> s=Alignment.readAlignmentsAt(fs);
             Correspondence.saturateCorrespondenceSimple(source,target,fs);
             System.out.println("Ontologies saturated");
-          //  Linkey.saturateSameAs(source, target, fs);
+            Linkey.saturateSameAs(source, target, fs);
 
             fileSource = new File(output + "source_tmp.xml");
             fileTarget = new File(output + "target_tmp.xml");
@@ -149,7 +149,7 @@ public class Main {
         OWLOntology source = loadOntology(fileSource);
         OWLOntology target = loadOntology(fileTarget);
 
-        logMap = new CallLogMap("/Users/khadijajradeh/Downloads/logmap-matcher-4.0.jar");
+        logMap = new CallLogMap("/Users/khadijajradeh/Downloads/logmap-matcher-standalone-july-2021/logmap-matcher-4.0.jar");
         pipe.stop();
         runLM(fileSource, fileTarget,source,target);
     }

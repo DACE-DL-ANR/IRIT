@@ -7,7 +7,10 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -16,7 +19,7 @@ public class LinkeyTest {
 
 
     @Test
-    public void test0() throws URISyntaxException, OWLOntologyCreationException {
+    public void test0() throws URISyntaxException, OWLOntologyCreationException, IOException, ParserConfigurationException, SAXException {
         URL resource = getClass().getResource("/logmap_overestimation.txt");
         URL ont1 = getClass().getResource("/swg.xml");
         URL ont2 = getClass().getResource("/swtor.xml");
