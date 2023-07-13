@@ -1,5 +1,7 @@
 package org.example;
 
+import com.clarkparsia.pellet.BranchEffectTracker;
+import org.apache.jena.base.Sys;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.search.EntitySearcher;
@@ -88,13 +90,23 @@ public class Linkey {
 
     public static void saturateSameAs(OWLOntology o1, OWLOntology o2, String path) throws IOException, ParserConfigurationException, SAXException {
         Set<Alignment> alignments = Alignment.readAlignmentsAt(path);
+        OWLOntologyManager manager = o1.getOWLOntologyManager();
         Set<Alignment> instAl = alignments.stream().filter(alignment -> alignment.getElement1().getTag().equals("INST")).collect(Collectors.toSet());
+       //System.out.println("size: "+instAl.size());
+        Set<OWLAxiom> axiomsToAdd=new HashSet<>();
         for (Alignment al : instAl) {
-            OWLNamedIndividual a = factory.getOWLNamedIndividual(al.getElement1().getName());
-            OWLNamedIndividual b = factory.getOWLNamedIndividual(al.getElement2().getName());
-            caller(a, o1, b, o2);
-            manager.addAxiom(o1, factory.getOWLSameIndividualAxiom(a, b));
+            OWLNamedIndividual a = factory.getOWLNamedIndividual(al.getElement1().attributes.get("rdf:resource"));
+            OWLNamedIndividual b = factory.getOWLNamedIndividual(al.getElement2().attributes.get("rdf:resource"));
+          //  System.out.println(a);
+            //System.out.println(b);
+            if(!o1.getSameIndividualAxioms(a).contains(factory.getOWLSameIndividualAxiom(a,b)))
+
+           axiomsToAdd.add(factory.getOWLSameIndividualAxiom(a,b));
+
+           // manager.addAxiom(o1, factory.getOWLSameIndividualAxiom(a, b));
+
         }
+      //  System.out.println(manager.addAxioms(o1,axiomsToAdd));
     }
 
     private static Map<OWLNamedIndividual, String> getOwlNamedIndividualSetMap(OWLOntology o1, OWLDataPropertyExpression p1) {

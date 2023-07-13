@@ -47,20 +47,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        File fileSource = new File(args[0]);
-        File fileTarget = new File(args[1]);
-        String system = args[2];
 
-        if (system.equals("1")) {
-            Double valueOfConf = Double.valueOf(args[3]);
-//            pipeCanard(fileSource, fileTarget, fileSource, fileTarget, valueOfConf);
-        } else if (system.equals("2")) {
-            pipeLogmap(fileSource, fileTarget, args[3], args[4], args[5]);
-        } else if (system.equals("3")) {
-            runAMD(fileSource, fileTarget, args[3], args[4], args[5]);
-        } else if (system.equals("4")) {
-            runAtMatcher(fileSource, fileTarget, args[3], args[4], args[5]);
-        }
       
        /* String pathSource = "edas_100.ttl";
 
@@ -131,37 +118,41 @@ public class Main {
         CallAtMatcher callAtMatcher = new CallAtMatcher(java, path);
        // System.out.println("piping Atmatcher started 0");
         Runtime.getRuntime().addShutdownHook(new Thread(callAtMatcher::close));
+        callAtMatcher.start();
         //System.out.println("piping Atmatcher started 1");
-
       //  System.out.println("piping Atmatcher started 1");
         OWLOntology source = loadOntology(fileSource);
         OWLOntology target = loadOntology(fileTarget);
+        OWLOntologyManager manager1 = source.getOWLOntologyManager();
+        OWLOntologyManager manager2 = target.getOWLOntologyManager();
         //System.out.println("piping Atmatcher started 2");
-        for (int iter = 1; iter < 3; iter++) {
+        for (int iter = 0; iter < 3; iter++) {
 
             System.out.println("Iteration: " + iter);
 
             String fs = output + "atmr"+ iter+".rdf";
-            callAtMatcher.start();
+
             callAtMatcher.run(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), fs);
-            callAtMatcher.close();
-            System.out.println("Atmatcher called");
+
+            System.out.println("Atmatcher called for the "+iter+" time");
             //  Set<Alignment> s=Alignment.readAlignmentsAt(fs);
             Correspondence.saturateCorrespondenceSimple(source, target, fs);
-            System.out.println("Ontologies saturated");
-            Linkey.saturateSameAs(source, target, fs);
-
-            fileSource = new File(output + "source_tmp.xml");
-            fileTarget = new File(output + "target_tmp.xml");
-            OWLOntologyManager manager1 = source.getOWLOntologyManager();
-            OWLOntologyManager manager2 = target.getOWLOntologyManager();
+            System.out.println("Ontologies saturated using class correspondences");
             manager1.saveOntology(source, new RDFXMLDocumentFormat(), IRI.create(fileSource.toURI()));
             manager2.saveOntology(target, new RDFXMLDocumentFormat(), IRI.create(fileTarget.toURI()));
+            Linkey.saturateSameAs(source, target, fs);
+            System.out.println("Ontologies saturated using individual correspondences");
+            fileSource = new File(output + "source_tmp.xml");
+            fileTarget = new File(output + "target_tmp.xml");
+
+            manager1.saveOntology(source, new RDFXMLDocumentFormat(), IRI.create(fileSource.toURI()));
+            manager2.saveOntology(target, new RDFXMLDocumentFormat(), IRI.create(fileTarget.toURI()));
+
             removeAnnotationProperty("output/source_tmp.xml", "output/source_tmp.xml");
             removeAnnotationProperty("output/target_tmp.xml", "output/target_tmp.xml");
 
         }
-
+        callAtMatcher.close();
 
     }
 

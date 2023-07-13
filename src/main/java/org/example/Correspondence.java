@@ -127,11 +127,8 @@ public class Correspondence {
     public static void saturateCorrespondenceSimple(OWLOntology ontology1, OWLOntology ontology2, String fs) throws IOException, ParserConfigurationException, SAXException {
         //  Path path = Paths.get(fs);
 
-        Set<Alignment> alignments = Alignment.readAlignmentsAt(fs)
-                .stream()
-                .filter(alignment ->alignment.getElement1().toString().contains("class"))
-                .collect(Collectors.toSet());
-        System.out.println("size: "+alignments.size());
+        Set<Alignment> alignments = Alignment.readAlignmentsAt(fs).stream().filter(alignment ->alignment.getElement1().toString().contains("class")).collect(Collectors.toSet());
+        //System.out.println("size: "+alignments.size());
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 
         for (Alignment al : alignments) {
