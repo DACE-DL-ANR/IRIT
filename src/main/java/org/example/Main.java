@@ -46,6 +46,22 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
+
+        File fileSource = new File(args[0]);
+        File fileTarget = new File(args[1]);
+        String system = args[2];
+
+        if (system.equals("1")) {
+            Double valueOfConf = Double.valueOf(args[3]);
+//            pipeCanard(fileSource, fileTarget, fileSource, fileTarget, valueOfConf);
+        } else if (system.equals("2")) {
+            pipeLogmap(fileSource, fileTarget, args[3], args[4], args[5]);
+        } else if (system.equals("3")) {
+            runAMD(fileSource, fileTarget, args[3], args[4], args[5]);
+        } else if (system.equals("4")) {
+            runAtMatcher(fileSource, fileTarget, args[3], args[4], args[5]);
+        }
+      
        /* String pathSource = "edas_100.ttl";
 
         String pathTarget = "conference_100.ttl";
@@ -84,6 +100,7 @@ public class Main {
         } else if (system.equals("5")) {
             runMatcha(fileSource, fileTarget, "/usr/bin/java", "/Users/khadijajradeh/Downloads/matcha/external/oaei-0.0.1-SNAPSHOT.jar", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
         }
+
 
 
 
