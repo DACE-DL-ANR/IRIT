@@ -129,7 +129,7 @@ public class Correspondence {
 
         Set<Alignment> alignments = Alignment.readAlignmentsAt(fs)
                 .stream()
-                .filter(alignment ->alignment.getElement1().toString().contains("/class/"))
+                .filter(alignment ->alignment.getElement1().toString().contains("class"))
                 .collect(Collectors.toSet());
         System.out.println("size: "+alignments.size());
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
