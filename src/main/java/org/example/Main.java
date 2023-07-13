@@ -44,49 +44,20 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
-       /* String pathSource = "edas_100.ttl";
+        File fileSource = new File(args[0]);
+        File fileTarget = new File(args[1]);
+        String system = args[2];
 
-        String pathTarget = "conference_100.ttl";
-
-        Double valueOfConf = 0.7;
-        String system="2";*/
-
-      //  Scanner scanner = new Scanner(System.in);
-      //  System.out.println("Which system you need to integrate? 1:Atmatcher, 2:Canard, 3:LogMap, 4:AMD, 5:Matcha");
-        String system = args[0];
-      //  System.out.println("Please enter the source ontology");
-        String pathSource = args[1];
-        //scanner.nextLine().trim();
-        //System.out.println("Please enter the target ontology");
-        String pathTarget =  args[2];
-        //scanner.nextLine().trim();
-
-
-        fileSource = new File("test/" + pathSource);
-        fileTarget = new File("test/" + pathTarget);
-
-
-
-
-
-        if(system.equals("1")) {
-            runAtMatcher(fileSource, fileTarget,"/usr/bin/java" ,"/Users/khadijajradeh/Downloads/DICAPNEW/matchers/atm/atmatcher-1.0.jar", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
-
-        }
-         else if (system.equals("2")) {
-            System.out.println("Please enter the value of confidence");
-            Double valueOfConf = Double.valueOf(args[4]);
-            pipeCanard(fileSource, fileTarget, fileSource, fileTarget, valueOfConf,"/Users/khadijajradeh/Downloads/DICAPNEW/output/");
-          //
-
-            pipeLogmap(fileSource, fileTarget, "/usr/bin/java", "/Users/khadijajradeh/Downloads/logmap-matcher-4.0.jar", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
-          //
+        if (system.equals("1")) {
+            Double valueOfConf = Double.valueOf(args[3]);
+//            pipeCanard(fileSource, fileTarget, fileSource, fileTarget, valueOfConf);
+        } else if (system.equals("2")) {
+            pipeLogmap(fileSource, fileTarget, args[3], args[4], args[5]);
+        } else if (system.equals("3")) {
+            runAMD(fileSource, fileTarget, args[3], args[4], args[5]);
         } else if (system.equals("4")) {
-            runAMD(fileSource, fileTarget, "/usr/bin/java", "output", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
-        } else if (system.equals("5")){
-            runMatcha(fileSource, fileTarget, "/usr/bin/java", "/Users/khadijajradeh/Downloads/matcha/external/oaei-0.0.1-SNAPSHOT.jar", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
+            runAtMatcher(fileSource, fileTarget, args[3], args[4], args[5]);
         }
-
     }
 
 
