@@ -1,7 +1,6 @@
 package org.example;
 
 import eu.sealsproject.platform.res.tool.api.ToolBridgeException;
-import fr.inrialpes.exmo.align.service.Directory;
 import org.apache.commons.lang3.time.StopWatch;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
@@ -13,6 +12,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
@@ -20,12 +20,14 @@ import utils.Pair;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -51,14 +53,14 @@ public class Main {
         Double valueOfConf = 0.7;
         String system="2";*/
 
-      //  Scanner scanner = new Scanner(System.in);
-      //  System.out.println("Which system you need to integrate? 1:Atmatcher, 2:Canard, 3:LogMap, 4:AMD, 5:Matcha");
+        //  Scanner scanner = new Scanner(System.in);
+        //  System.out.println("Which system you need to integrate? 1:Atmatcher, 2:Canard, 3:LogMap, 4:AMD, 5:Matcha");
         String system = args[0];
-      //  System.out.println("Please enter the source ontology");
+        //  System.out.println("Please enter the source ontology");
         String pathSource = args[1];
         //scanner.nextLine().trim();
         //System.out.println("Please enter the target ontology");
-        String pathTarget =  args[2];
+        String pathTarget = args[2];
         //scanner.nextLine().trim();
 
 
@@ -66,31 +68,29 @@ public class Main {
         fileTarget = new File("test/" + pathTarget);
 
 
+        if (system.equals("1")) {
+            runAtMatcher(fileSource, fileTarget, "/usr/bin/java", "/Users/khadijajradeh/Downloads/DICAPNEW/matchers/atm/atmatcher-1.0.jar", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
 
-
-
-        if(system.equals("1")) {
-            runAtMatcher(fileSource, fileTarget,"/usr/bin/java" ,"/Users/khadijajradeh/Downloads/DICAPNEW/matchers/atm/atmatcher-1.0.jar", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
-
-        }
-         else if (system.equals("2")) {
+        } else if (system.equals("2")) {
             System.out.println("Please enter the value of confidence");
             Double valueOfConf = Double.valueOf(args[4]);
-            pipeCanard(fileSource, fileTarget, fileSource, fileTarget, valueOfConf,"/Users/khadijajradeh/Downloads/DICAPNEW/output/");
-          //
+            pipeCanard(fileSource, fileTarget, fileSource, fileTarget, valueOfConf, "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
+            //
 
             pipeLogmap(fileSource, fileTarget, "/usr/bin/java", "/Users/khadijajradeh/Downloads/logmap-matcher-4.0.jar", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
-          //
+            //
         } else if (system.equals("4")) {
             runAMD(fileSource, fileTarget, "/usr/bin/java", "output", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
-        } else if (system.equals("5")){
+        } else if (system.equals("5")) {
             runMatcha(fileSource, fileTarget, "/usr/bin/java", "/Users/khadijajradeh/Downloads/matcha/external/oaei-0.0.1-SNAPSHOT.jar", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
         }
+
+
 
     }
 
 
-    private static void runMatcha(File fileSource, File fileTarget, String java,String matchaPath, String output) throws IOException, ToolBridgeException, OWLOntologyStorageException, ParserConfigurationException, SAXException {
+    private static void runMatcha(File fileSource, File fileTarget, String java, String matchaPath, String output) throws IOException, ToolBridgeException, OWLOntologyStorageException, ParserConfigurationException, SAXException {
         OWLOntology source = loadOntology(fileSource);
         OWLOntology target = loadOntology(fileTarget);
         for (int iter = 0; iter < 5; iter++) {
@@ -110,22 +110,27 @@ public class Main {
     }
 
     private static void runAtMatcher(File fileSource, File fileTarget, String java, String path, String output) throws Exception {
+        System.out.println("piping Atmatcher started");
         CallAtMatcher callAtMatcher = new CallAtMatcher(java, path);
+       // System.out.println("piping Atmatcher started 0");
         Runtime.getRuntime().addShutdownHook(new Thread(callAtMatcher::close));
-        callAtMatcher.start();
+        //System.out.println("piping Atmatcher started 1");
+
+      //  System.out.println("piping Atmatcher started 1");
         OWLOntology source = loadOntology(fileSource);
         OWLOntology target = loadOntology(fileTarget);
-     //   CallLinkex linkex = new CallLinkex("../linkex/LinkkeyDiscovery-1.0-SNAPSHOT-jar-with-dependencies.jar");
+        //System.out.println("piping Atmatcher started 2");
         for (int iter = 1; iter < 3; iter++) {
 
-            System.out.println("Iteration: "+iter);
+            System.out.println("Iteration: " + iter);
 
-            String fs = output + "atmr.rdf"+iter;
-
+            String fs = output + "atmr"+ iter+".rdf";
+            callAtMatcher.start();
             callAtMatcher.run(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), fs);
+            callAtMatcher.close();
             System.out.println("Atmatcher called");
-          //  Set<Alignment> s=Alignment.readAlignmentsAt(fs);
-            Correspondence.saturateCorrespondenceSimple(source,target,fs);
+            //  Set<Alignment> s=Alignment.readAlignmentsAt(fs);
+            Correspondence.saturateCorrespondenceSimple(source, target, fs);
             System.out.println("Ontologies saturated");
             Linkey.saturateSameAs(source, target, fs);
 
@@ -135,9 +140,12 @@ public class Main {
             OWLOntologyManager manager2 = target.getOWLOntologyManager();
             manager1.saveOntology(source, new RDFXMLDocumentFormat(), IRI.create(fileSource.toURI()));
             manager2.saveOntology(target, new RDFXMLDocumentFormat(), IRI.create(fileTarget.toURI()));
+            removeAnnotationProperty("output/source_tmp.xml", "output/source_tmp.xml");
+            removeAnnotationProperty("output/target_tmp.xml", "output/target_tmp.xml");
+
         }
 
-        callAtMatcher.close();
+
     }
 
 
@@ -151,12 +159,12 @@ public class Main {
 
         logMap = new CallLogMap("/Users/khadijajradeh/Downloads/logmap-matcher-standalone-july-2021/logmap-matcher-4.0.jar");
         pipe.stop();
-        runLM(fileSource, fileTarget,source,target);
+        runLM(fileSource, fileTarget, source, target);
     }
 
     private static void runLM(File fileSource, File fileTarget, OWLOntology source, OWLOntology target) throws OWLOntologyStorageException, IOException, ParserConfigurationException, SAXException {
 
-        String output="output";
+        String output = "output";
         for (int iter = 0; iter < 5; iter++) {
 
 
@@ -167,7 +175,7 @@ public class Main {
 
 
             fileSource = new File("test/source_tmp.owl");
-            fileTarget = new File( "test/target_tmp.owl");
+            fileTarget = new File("test/target_tmp.owl");
             OWLOntologyManager manager1 = source.getOWLOntologyManager();
             OWLOntologyManager manager2 = target.getOWLOntologyManager();
             manager1.saveOntology(source, new RDFXMLDocumentFormat(), IRI.create(fileSource.toURI()));
@@ -241,8 +249,6 @@ public class Main {
     }
 
 
-
-
     static void pipeAMLC(File fileSourceI, File fileTargetI, File fileSource, File fileTarget, Double valueOfConf) throws Exception {
         StopWatch pipe = new StopWatch();
 
@@ -295,7 +301,6 @@ public class Main {
     private static void runAMLC(File fileSourceI, File fileTargetI, Double valueOfConf, OWLOntology source, OWLOntology target, Set<Linkey> lks, String fs, ParseEdoal pr, Correspondence c) throws IOException, ParserConfigurationException, SAXException, OWLOntologyStorageException {
 
 
-
         int counter_lks = 0;
         int counter_lkc = 0;
 
@@ -341,7 +346,6 @@ public class Main {
     }
 
 
-
     private static void runCanard(File fileSourceI, File fileTargetI, Double valueOfConf, OWLOntology source, OWLOntology target, Set<Linkey> lks) throws IOException, ParserConfigurationException, SAXException, OWLOntologyStorageException {
 
 
@@ -350,7 +354,7 @@ public class Main {
 
             // removeRdfsLabels(source);
             // removeRdfsLabels(target);
-            System.out.println("Iteration: "+iter++);
+            System.out.println("Iteration: " + iter++);
 
             File fileSource = new File("test/source_temp.ttl");
             File fileTarget = new File("test/target_temp.ttl");
@@ -384,27 +388,27 @@ public class Main {
             }
         }*/
 
-    //  lks_w = linkex.execute(fileSource, fileTarget, new File("output/linkeys"));
+            //  lks_w = linkex.execute(fileSource, fileTarget, new File("output/linkeys"));
         /*if (lks.size() == lks_w.size()) {
             break;
         }*/
-        //
-       lks = lks_w;
             //
-           //  saturateOntologies(source, target, lks, fs);
-    }
+            lks = lks_w;
+            //
+            //  saturateOntologies(source, target, lks, fs);
+        }
 
-}
+    }
 
     private static void saturateOntologies(OWLOntology source, OWLOntology target, Set<Linkey> lks, String fs) throws IOException, ParserConfigurationException, SAXException, OWLOntologyStorageException {
 
-    //  Correspondence c=new Correspondence();
-     // c.saturateCorrespondence(source, target, fs);
+        //  Correspondence c=new Correspondence();
+        // c.saturateCorrespondence(source, target, fs);
 
-      //  if (lks.isEmpty()) return;
+        //  if (lks.isEmpty()) return;
 
         for (Linkey lk : lks) {
-         //   lk.printLk();
+            //   lk.printLk();
             lk.saturateLinkey(source, target);
         }
 
@@ -504,6 +508,28 @@ public class Main {
         manager.applyChanges(removeAxiomList);
 
     }
+
+    public static void removeAnnotationProperty(String filePath, String outputFilePath) throws ParserConfigurationException, IOException, SAXException, TransformerException {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.parse(new File(filePath));
+
+            NodeList nodeList = document.getElementsByTagName("owl:AnnotationProperty");
+            for (int i = nodeList.getLength() - 1; i >= 0; i--) {
+                Element element = (Element) nodeList.item(i);
+                Node parent = element.getParentNode();
+                parent.removeChild(element);
+                }
+
+
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+
+            Result output = new StreamResult(new File(outputFilePath));
+            Source input = new DOMSource(document);
+            transformer.transform(input, output);
+        }
 
 
 }
