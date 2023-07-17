@@ -83,7 +83,7 @@ public class Main {
             pipeLogmap(fileSource, fileTarget, "/usr/bin/java", "/Users/khadijajradeh/Downloads/logmap-matcher-4.0.jar", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
             //
         } else if (system.equals("4")) {
-            runAMD(fileSource, fileTarget, "/usr/bin/java", "output", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
+            runAMD(fileSource, fileTarget, "/Users/khadijajradeh/Downloads/pythonProject/venv/bin/python", "/Users/khadijajradeh/Downloads/AMD-v2-main/pythonMatcher.py", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
         } else if (system.equals("5")) {
             runMatcha(fileSource, fileTarget, "/usr/bin/java", "/Users/khadijajradeh/Downloads/matcha/external/oaei-0.0.1-SNAPSHOT.jar", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
         }
@@ -148,8 +148,8 @@ public class Main {
             manager1.saveOntology(source, new RDFXMLDocumentFormat(), IRI.create(fileSource.toURI()));
             manager2.saveOntology(target, new RDFXMLDocumentFormat(), IRI.create(fileTarget.toURI()));
 
-            removeAnnotationProperty("output/source_tmp.xml", "output/source_tmp.xml");
-            removeAnnotationProperty("output/target_tmp.xml", "output/target_tmp.xml");
+            removeAnnotationProperty(output+"source_tmp.xml", output+"source_tmp.xml");
+            removeAnnotationProperty(output+"target_tmp.xml", output+"target_tmp.xml");
 
         }
         callAtMatcher.close();
