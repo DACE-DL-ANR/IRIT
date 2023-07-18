@@ -87,7 +87,7 @@ public class Alignment {
                             alignment.element1 = parseNode(item2);
                             if(alignment.getElement1().toString().contains("class"))
                                 alignment.getElement1().tag="class";
-                            else
+                            else if(!alignment.getElement1().toString().contains("property"))
                                alignment.getElement1().tag="INST";
                        //   System.out.println(  "elem. 1: "+alignment.getElement1());
 

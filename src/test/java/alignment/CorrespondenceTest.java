@@ -26,7 +26,7 @@ public class CorrespondenceTest {
         OWLOntology ontology1 = manager.loadOntologyFromOntologyDocument(Paths.get(ont1.toURI()).toFile());
         OWLOntology ontology2 = manager.loadOntologyFromOntologyDocument(Paths.get(ont2.toURI()).toFile());
 
-        Correspondence.saturateCorrespondenceSimple(ontology1, ontology2, resource.getPath());
+        Correspondence.saturateCorrespondenceSimple(ontology1, resource.getPath(),"3");
 
         Assert.assertEquals(90, ontology1.getClassesInSignature().size());
         Assert.assertEquals(121, ontology2.getClassesInSignature().size());

@@ -124,33 +124,33 @@ public class Correspondence {
 
 
 
-    public static void saturateCorrespondenceSimple(OWLOntology ontology1, OWLOntology ontology2, String fs) throws IOException, ParserConfigurationException, SAXException {
+    public static void saturateCorrespondenceSimple(OWLOntology ontology1,  String fs, String system) throws IOException, ParserConfigurationException, SAXException, OWLOntologyStorageException {
         //  Path path = Paths.get(fs);
+        Set<Alignment> alignments = new HashSet<>();
+        OWLOntologyManager manager = ontology1.getOWLOntologyManager();
+        Set<OWLAxiom> toAdd=new HashSet<>();
 
-        Set<Alignment> alignments = Alignment.readAlignmentsAt(fs).stream().filter(alignment ->alignment.getElement1().toString().contains("class")).collect(Collectors.toSet());
-        //System.out.println("size: "+alignments.size());
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        if (system == "1") {
+            alignments = Alignment.readAlignmentsAt(fs).stream().filter(alignment -> alignment.getElement1().toString().contains("class")).collect(Collectors.toSet());
+
+        } else {
+            alignments = Alignment.readAlignmentsTxt(Path.of(fs)).stream().filter(alignment -> alignment.getElement1().toString().contains("class")).collect(Collectors.toSet());
+
+        }
 
         for (Alignment al : alignments) {
-
             String name1 = "<" + al.getElement1().attributes.get("rdf:resource") + ">";
-
             for (OWLNamedIndividual e1 : ontology1.getIndividualsInSignature()) {
                 Set<String> collect = EntitySearcher.getTypes(e1, ontology1).map(Objects::toString).collect(Collectors.toSet());
-                if (collect.contains(name1)) {
+                if (collect.contains(name1) && !ontology1.getClassAssertionAxioms(e1).contains(factory.getOWLClass(al.getElement2().attributes.get("rdf:resource")))) {
                     OWLClassAssertionAxiom owlClassAssertionAxiom = factory.getOWLClassAssertionAxiom(factory.getOWLClass(al.getElement2().attributes.get("rdf:resource")), e1);
-                    manager.addAxiom(ontology1, owlClassAssertionAxiom);
+                    toAdd.add( owlClassAssertionAxiom);
+                    //    System.out.println(manager.addAxiom(ontology1, owlClassAssertionAxiom));
                 }
             }
-
-        /*    for (OWLNamedIndividual e2 : ontology2.getIndividualsInSignature()) {
-                Set<String> collect = EntitySearcher.getTypes(e2, ontology2).map(Objects::toString).collect(Collectors.toSet());
-                if (collect.contains(name2)) {
-                    OWLClassAssertionAxiom owlClassAssertionAxiom = factory.getOWLClassAssertionAxiom(factory.getOWLClass(al.getElement1().getName()), e2);
-                    manager.addAxiom(ontology2, owlClassAssertionAxiom);
-                }
-            }*/
         }
+         System.out.println(manager.addAxioms(ontology1,toAdd));
+
     }
 
     public static void separateCorrespondences(String xmlFilePath) throws Exception {

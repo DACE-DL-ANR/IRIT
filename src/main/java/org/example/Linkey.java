@@ -10,6 +10,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import utils.Pair;
 
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
@@ -88,25 +89,27 @@ public class Linkey {
         manager.addAxioms(ob, axiomsToAdd);
     }
 
-    public static void saturateSameAs(OWLOntology o1, OWLOntology o2, String path) throws IOException, ParserConfigurationException, SAXException {
+    public static void saturateSameAs(OWLOntology o1, String path) throws IOException, ParserConfigurationException, SAXException, OWLOntologyStorageException {
         Set<Alignment> alignments = Alignment.readAlignmentsAt(path);
         OWLOntologyManager manager = o1.getOWLOntologyManager();
         Set<Alignment> instAl = alignments.stream().filter(alignment -> alignment.getElement1().getTag().equals("INST")).collect(Collectors.toSet());
        //System.out.println("size: "+instAl.size());
         Set<OWLAxiom> axiomsToAdd=new HashSet<>();
         for (Alignment al : instAl) {
+
             OWLNamedIndividual a = factory.getOWLNamedIndividual(al.getElement1().attributes.get("rdf:resource"));
+
             OWLNamedIndividual b = factory.getOWLNamedIndividual(al.getElement2().attributes.get("rdf:resource"));
-          //  System.out.println(a);
-            //System.out.println(b);
-            if(!o1.getSameIndividualAxioms(a).contains(factory.getOWLSameIndividualAxiom(a,b)))
-
-           axiomsToAdd.add(factory.getOWLSameIndividualAxiom(a,b));
-
-           // manager.addAxiom(o1, factory.getOWLSameIndividualAxiom(a, b));
+            if(!o1.containsAxiom(factory.getOWLSameIndividualAxiom(a,b))&&a.toString().contains("resource")&&b.toString().contains("resource")) {
+                {
+                   axiomsToAdd.add(factory.getOWLSameIndividualAxiom(a, b));
+               }
+            }
 
         }
-      //  System.out.println(manager.addAxioms(o1,axiomsToAdd));
+        manager.addAxioms(o1,axiomsToAdd);
+
+       // manager.saveOntology(o1,o1.getFormat(), IRI.create(new File("output/source_tmp.xml").toURI()));
     }
 
     private static Map<OWLNamedIndividual, String> getOwlNamedIndividualSetMap(OWLOntology o1, OWLDataPropertyExpression p1) {
