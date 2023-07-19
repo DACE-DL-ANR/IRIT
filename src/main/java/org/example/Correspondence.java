@@ -121,7 +121,17 @@ public class Correspondence {
 
         return classPairs;
     }
+    public static void saturateCorrespondence(OWLOntology o1, OWLOntology o2, String f) throws IOException, ParserConfigurationException, SAXException {
+        Set<Alignment> alignments = Alignment.readAlignments(f)
+                .stream()
+                .filter(alignment -> !alignment.getElement1().toMergedForm().startsWith("Relation"))
+                .collect(Collectors.toSet());
 
+        Map<String, OWLClass> classMap = getStringOWLClassMap(alignments);
+
+        getJ(o1, o2, alignments, classMap);
+
+    }
 
 
     public static void saturateCorrespondenceSimple(OWLOntology ontology1,  String fs, String system) throws IOException, ParserConfigurationException, SAXException, OWLOntologyStorageException {
@@ -130,26 +140,37 @@ public class Correspondence {
         OWLOntologyManager manager = ontology1.getOWLOntologyManager();
         Set<OWLAxiom> toAdd=new HashSet<>();
 
-        if (system == "1") {
-            alignments = Alignment.readAlignmentsAt(fs).stream().filter(alignment -> alignment.getElement1().toString().contains("class")).collect(Collectors.toSet());
+        if (system == "1"){
 
-        } else {
-            alignments = Alignment.readAlignmentsTxt(Path.of(fs)).stream().filter(alignment -> alignment.getElement1().toString().contains("class")).collect(Collectors.toSet());
+            alignments = Alignment.readAlignmentsEdoal(fs).stream().filter(alignment -> alignment.getElement1().toString().contains("class")).collect(Collectors.toSet());
+
+        }
+        else if(system == "2") {
+            alignments = Alignment.readAlignments(fs).stream().filter(alignment -> alignment.getElement1().toString().contains("class")).collect(Collectors.toSet());
 
         }
 
+        else {
+            alignments = Alignment.readAlignmentsTxt(Path.of(fs)).stream().filter(alignment -> alignment.getElement1().toString().contains("class")).collect(Collectors.toSet());
+
+        }
+   //     System.out.println(alignments.size());
+
         for (Alignment al : alignments) {
+            //System.out.println("first side of the alignment "+al.getElement1());
+            //System.out.println("second side of the alignment "+al.getElement2());
             String name1 = "<" + al.getElement1().attributes.get("rdf:resource") + ">";
             for (OWLNamedIndividual e1 : ontology1.getIndividualsInSignature()) {
                 Set<String> collect = EntitySearcher.getTypes(e1, ontology1).map(Objects::toString).collect(Collectors.toSet());
                 if (collect.contains(name1) && !ontology1.getClassAssertionAxioms(e1).contains(factory.getOWLClass(al.getElement2().attributes.get("rdf:resource")))) {
+
                     OWLClassAssertionAxiom owlClassAssertionAxiom = factory.getOWLClassAssertionAxiom(factory.getOWLClass(al.getElement2().attributes.get("rdf:resource")), e1);
                     toAdd.add( owlClassAssertionAxiom);
                     //    System.out.println(manager.addAxiom(ontology1, owlClassAssertionAxiom));
                 }
             }
         }
-         System.out.println(manager.addAxioms(ontology1,toAdd));
+         manager.addAxioms(ontology1,toAdd);
 
     }
 
@@ -276,10 +297,6 @@ public class Correspondence {
         this.c2 = c2;
     }
 
-    public static void saturateCorrespondence(OWLOntology o1, OWLOntology o2, String f) throws IOException, ParserConfigurationException, SAXException {
-
-
-    }
 
     private static int getJ(OWLOntology o1, OWLOntology o2, Set<Alignment> alignments, Map<String, OWLClass> classMap) {
         int j = 0;
@@ -324,8 +341,10 @@ public class Correspondence {
             for (OWLIndividual i : individuals) {
                 OWLClassAssertionAxiom assertion1 = factory.getOWLClassAssertionAxiom(cls1, i);
                 OWLClassAssertionAxiom assertion2 = factory.getOWLClassAssertionAxiom(cls2, i);
-                o1.getOWLOntologyManager().addAxiom(o1, assertion1);
-                o2.getOWLOntologyManager().addAxiom(o2, assertion2);
+                o1.addAxiom( assertion1);
+                o2.addAxiom( assertion2);
+              //  System.out.println("adding to onto1: "+o1.getOWLOntologyManager().addAxiom(o1, assertion1));
+               // System.out.println("adding to onto2: "+o2.getOWLOntologyManager().addAxiom(o2, assertion2));
             }
         }
 

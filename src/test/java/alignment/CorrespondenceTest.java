@@ -17,7 +17,7 @@ public class CorrespondenceTest {
 
 
     @Test
-    public void testSaturateSimpleTxt() throws URISyntaxException, OWLOntologyCreationException, IOException, ParserConfigurationException, SAXException {
+    public void testSaturateSimpleTxt() throws URISyntaxException, OWLOntologyCreationException, IOException, ParserConfigurationException, SAXException, OWLOntologyStorageException {
         URL resource = getClass().getResource("/logmap_overestimation.txt");
         URL ont1 = getClass().getResource("/swg.xml");
         URL ont2 = getClass().getResource("/swtor.xml");

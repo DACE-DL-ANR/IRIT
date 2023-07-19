@@ -77,7 +77,7 @@ public class Main {
         } else if (system.equals("2")) {
           //  System.out.println("Please enter the value of confidence");
             //  Double valueOfConf = Double.valueOf(args[4]);
-            pipeCanard(fileSource, fileTarget, fileSource, fileTarget, Double.valueOf(valueOfConf), "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
+           runCanard(fileSource, fileTarget,  Double.valueOf(valueOfConf));
             //
         } else if (system.equals("3")) {
             pipeLogmap(fileSource, fileTarget, "/usr/bin/java", "/Users/khadijajradeh/Downloads/logmap-matcher-4.0.jar", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
@@ -121,7 +121,7 @@ public class Main {
         Runtime.getRuntime().addShutdownHook(new Thread(callAtMatcher::close));
 
         //System.out.println("piping Atmatcher started 2");
-        for (int iter = 1; iter < 3; iter++) {
+        for (int iter = 1; iter < 4; iter++) {
 
 
             String fs = output + "atmr"+ iter+".rdf";
@@ -129,7 +129,7 @@ public class Main {
             callAtMatcher.run(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), fs);
             callAtMatcher.close();
 
-            System.out.println("In iteration number "+ iter+" Atmatcher was called on files "+fileSource.getName()+" and "+fileTarget.getName()+".");
+            System.out.println("In iteration number "+ iter+" atmatcher was called on files "+fileSource.getName()+" and "+fileTarget.getName()+".");
 
 
             OWLOntology source = loadOntology(fileSource);
@@ -226,35 +226,6 @@ public class Main {
         return ontology;
     }
 
-    static void pipeCanard(File fileSourceI, File fileTargetI, File fileSource, File fileTarget, Double valueOfConf, String output) throws Exception {
-        StopWatch pipe = new StopWatch();
-
-        pipe.start();
-
-        OWLOntology source = loadOntology(fileSourceI);
-        OWLOntology target = loadOntology(fileTargetI);
-
-
-        linkex = new CallLinkex("../linkex/LinkkeyDiscovery-1.0-SNAPSHOT-jar-with-dependencies.jar");
-        File f_start = new File("output/startlinkeys");
-        f_start.createNewFile();
-        Set<Linkey> lks = linkex.execute(fileSourceI, fileTargetI, f_start);
-
-
-        canard = new CallCanard("../canard/CanardE.jar");
-        canard.execute(fileSourceI, fileTargetI, fileSource, fileTarget, valueOfConf);
-
-        int t1 = fileSource.getName().lastIndexOf(".");
-        int t2 = fileTarget.getName().lastIndexOf(".");
-
-      //  String fs = "output/" + fileSourceI.getName().substring(0, t1) + "_" + fileTargetI.getName().substring(0, t2) + "/th_" + valueOfConf.toString() + ".edoal";
-
-        runCanard(fileSourceI, fileTargetI, valueOfConf, source, target, lks);
-        pipe.stop();
-        System.out.println("Pipe: " + pipe.getTime(TimeUnit.SECONDS));
-    }
-
-
     static void pipeAMLC(File fileSourceI, File fileTargetI, File fileSource, File fileTarget, Double valueOfConf) throws Exception {
         StopWatch pipe = new StopWatch();
 
@@ -274,8 +245,7 @@ public class Main {
         System.out.println(valueOfConf);
         amlc = new CallAMLC("../AML/bin/AML.jar");
         amlc.execute(fileSource, fileTarget);
-        //  canard = new CallCanard( "../canard/CanardE.jar");
-        // canard.execute(fileSourceI, fileTargetI, fileSource, fileTarget, valueOfConf);
+
 
         int t1 = fileSource.getName().lastIndexOf(".");
         int t2 = fileTarget.getName().lastIndexOf(".");
@@ -306,11 +276,7 @@ public class Main {
 
     private static void runAMLC(File fileSourceI, File fileTargetI, Double valueOfConf, OWLOntology source, OWLOntology target, Set<Linkey> lks, String fs, ParseEdoal pr, Correspondence c) throws IOException, ParserConfigurationException, SAXException, OWLOntologyStorageException {
 
-
-        int counter_lks = 0;
-        int counter_lkc = 0;
-
-        for (int iter = 0; iter < 2; iter++) {
+        for (int iter = 0; iter < 3; iter++) {
             System.out.println("Iteration number: " + iter++);
             // int t1 = fileSource.getName().lastIndexOf(".");
             //  int t2 = fileTarget.getName().lastIndexOf(".");
@@ -352,10 +318,26 @@ public class Main {
     }
 
 
-    private static void runCanard(File fileSourceI, File fileTargetI, Double valueOfConf, OWLOntology source, OWLOntology target, Set<Linkey> lks) throws IOException, ParserConfigurationException, SAXException, OWLOntologyStorageException {
+    private static void runCanard(File fileSourceI, File fileTargetI, Double valueOfConf) throws Exception {
+        StopWatch pipe = new StopWatch();
+
+        pipe.start();
+
 
 
         for (int iter = 0; iter < 2; iter++) {
+            OWLOntology source = loadOntology(fileSourceI);
+            OWLOntology target = loadOntology(fileTargetI);
+
+
+            linkex = new CallLinkex("../linkex/LinkkeyDiscovery-1.0-SNAPSHOT-jar-with-dependencies.jar");
+            File f = new File("output/linkeys"+iter);
+            f.createNewFile();
+            Set<Linkey> lks = linkex.execute(fileSourceI, fileTargetI, f);
+
+
+            canard = new CallCanard("../canard/CanardE.jar");
+            canard.execute(fileSourceI, fileTargetI, fileSourceI, fileTargetI, valueOfConf);
             System.out.println("Iteration: " + iter++);
 
             File fileSource = new File("test/source_temp.ttl");
@@ -363,6 +345,8 @@ public class Main {
             int t1 = fileSource.getName().lastIndexOf(".");
             int t2 = fileTarget.getName().lastIndexOf(".");
             String fs = "output/" + fileSource.getName().substring(0, t1) + "_" + fileTarget.getName().substring(0, t2) + "/th_" + valueOfConf + ".edoal";
+            Correspondence.separateCorrespondences(fs);
+
             saturateOntologies(source, target, lks, fs);
             System.out.println("Ontologies saturated!");
             OWLOntologyManager manager1 = source.getOWLOntologyManager();
@@ -372,49 +356,26 @@ public class Main {
 
             System.out.println("Ontologies saved!");
 
-            canard.execute(fileSourceI, fileTargetI, fileSource, fileTarget, valueOfConf);
-            System.out.println("Canard Called!");
-            Pair<Set<Correspondence>, Set<Correspondence>> pair = buildCorrespondences(fs);
-            Set<Linkey> lks_w = linkex.execute(fileSource, fileTarget, new File("output/linkeys"));
-            System.out.println("Linkex Called!");
+            Pair<Set<Correspondence>, Set<Correspondence>> pairs = buildCorrespondences(fs);
 
-
-     /*  for (Correspondence crc : pair.second())
-        {
-            Set<Linkey> lks_c= linkex.execute(fileSource, fileTarget, new File("output/linkeys_complex/" + crc.getC1().toString().substring(1,crc.getC1().toString().length()-1).replace("://","_")  + "_" + crc.getC2().toString().substring(1,crc.getC2().toString().length()-1).replace("://","_")), crc);
-
-            for (Linkey lk : lks_c) {
-
-                lk.printLk();
-                lk.saturateLinkey(source, target);
+            for ( Correspondence pair:pairs.first()){
+                linkex.execute(fileSource, fileTarget, new File("output/linkeys"+iter),pair );
+                System.out.println("Linkex Called!");
             }
-        }*/
 
-            //  lks_w = linkex.execute(fileSource, fileTarget, new File("output/linkeys"));
-        /*if (lks.size() == lks_w.size()) {
-            break;
-        }*/
-            //
-            lks = lks_w;
-            //
-            //  saturateOntologies(source, target, lks, fs);
+          //  lks = lks_w;
         }
-
+        pipe.stop();
+        System.out.println("Pipe: " + pipe.getTime(TimeUnit.SECONDS));
     }
 
     private static void saturateOntologies(OWLOntology source, OWLOntology target, Set<Linkey> lks, String fs) throws IOException, ParserConfigurationException, SAXException, OWLOntologyStorageException {
 
-        //  Correspondence c=new Correspondence();
-        // c.saturateCorrespondence(source, target, fs);
-
-        //  if (lks.isEmpty()) return;
-
-        for (Linkey lk : lks) {
-            //   lk.printLk();
+          Correspondence.saturateCorrespondence(source, target, fs);
+          if (lks.isEmpty()) return;
+          for (Linkey lk : lks) {
             lk.saturateLinkey(source, target);
-        }
-
-
+            }
     }
 
 
@@ -429,9 +390,11 @@ public class Main {
 
             String a1Merged = a.getElement1().toMergedForm();
             String a1Trim = a1Merged.trim();
+            //System.out.println(a.getElement1());
 
             String a2Merged = a.getElement2().toMergedForm();
             String a2Trim = a2Merged.trim();
+            //System.out.println(a.getElement2());
 
             addTocrs(crs, a1Merged, a1Trim, a2Merged, a2Trim);
             addTocrsc(crsc, a1Merged, a1Trim, a2Merged, a2Trim);

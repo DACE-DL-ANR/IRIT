@@ -90,7 +90,7 @@ public class Linkey {
     }
 
     public static void saturateSameAs(OWLOntology o1, String path) throws IOException, ParserConfigurationException, SAXException, OWLOntologyStorageException {
-        Set<Alignment> alignments = Alignment.readAlignmentsAt(path);
+        Set<Alignment> alignments = Alignment.readAlignmentsEdoal(path);
         OWLOntologyManager manager = o1.getOWLOntologyManager();
         Set<Alignment> instAl = alignments.stream().filter(alignment -> alignment.getElement1().getTag().equals("INST")).collect(Collectors.toSet());
        //System.out.println("size: "+instAl.size());
@@ -174,8 +174,10 @@ public class Linkey {
 
                 for(Pair<OWLNamedIndividual, OWLNamedIndividual> p:intersection){
                     i++;
-                    o1.getOWLOntologyManager().addAxiom(o1, factory.getOWLSameIndividualAxiom( p.first(), p.second()));
-                    o2.getOWLOntologyManager().addAxiom(o2, factory.getOWLSameIndividualAxiom( p.first(), p.second()));
+                    //  o1.getOWLOntologyManager().addAxiom(o1, factory.getOWLSameIndividualAxiom( p.first(), p.second()));
+                    if(!o2.containsAxiom(factory.getOWLSameIndividualAxiom(p.first(), p.second()))) {
+                     o2.add( factory.getOWLSameIndividualAxiom(p.first(), p.second()));
+                    }
                     Stream<OWLAnnotation> literal = EntitySearcher.getAnnotations( p.first(), o1);
                     String label = literal.toList().get(0).getValue().toString();
                     EntitySearcher.getAnnotations(p.second(), o2);
@@ -186,11 +188,12 @@ public class Linkey {
                     // Create the annotation assertion
                     OWLAnnotationAssertionAxiom annotationAssertion =
                             factory.getOWLAnnotationAssertionAxiom(labelProperty, p.second().getIRI(), labelValue);
-
-                    manager.addAxiom(o2, annotationAssertion);
-
+                    if(!o2.containsAxiom(annotationAssertion)) {
+                        manager.addAxiom(o2, annotationAssertion);
+                       // System.out.println(manager.addAxiom(o2, annotationAssertion));
+                    }
                 }
-                System.out.println("We have added: "+i+" sameAs.");
+              //  System.out.println("We have added: "+i+" sameAs.");
             }
 
 
