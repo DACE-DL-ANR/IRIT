@@ -194,7 +194,7 @@ public class Main {
     private static void runAMD(File fileSource, File fileTarget, String python, String amdPath, String output) throws OWLOntologyStorageException, IOException, InterruptedException, ParserConfigurationException, SAXException {
 
         CallAMD amd = new CallAMD(python, amdPath);
-        for (int iter = 1; iter < 3; iter++) {
+        for (int iter = 1; iter < 4; iter++) {
 
             amd.run(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), output);
             String fs = output + "out.txt";
