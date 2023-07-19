@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -56,37 +57,75 @@ public class Main {
         Double valueOfConf = 0.7;
         String system="2";*/
 
-        //  Scanner scanner = new Scanner(System.in);
-        //  System.out.println("Which system you need to integrate? 1:Atmatcher, 2:Canard, 3:LogMap, 4:AMD, 5:Matcha");
-        String system = args[0];
-        //  System.out.println("Please enter the source ontology");
-        String pathSource = args[1];
-        //scanner.nextLine().trim();
-        //System.out.println("Please enter the target ontology");
-        String pathTarget = args[2];
-        //scanner.nextLine().trim();
-        String valueOfConf= args[3];
+          Scanner scanner = new Scanner(System.in);
+         System.out.println("Which system you need to integrate? 1:Atmatcher, 2:Canard, 3:LogMap, 4:AMD, 5:Matcha");
+        String system = scanner.nextLine().trim();
+       // String system = args[0];
+          System.out.println("Please enter the source ontology");
+       // String pathSource = args[1];
+        String pathSource = scanner.nextLine().trim();
+        System.out.println("Please enter the target ontology");
+      //  String pathTarget = args[2];
+        String pathTarget = scanner.nextLine().trim();
+       // String valueOfConf= args[3];
 
         fileSource = new File("test/" + pathSource);
         fileTarget = new File("test/" + pathTarget);
 
 
         if (system.equals("1")) {
-            runAtMatcher(fileSource, fileTarget, "/usr/bin/java", "/Users/khadijajradeh/Downloads/DICAPNEW/matchers/atm/atmatcher-1.0.jar", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
+            System.out.println("indicate java path");
+            String java=scanner.nextLine().trim();
+            System.out.println("indicate output path");
+            String out=scanner.nextLine().trim();
+            System.out.println("indicate Atmatcher path");
+            String atm =scanner.nextLine().trim();
+            ///usr/bin/java
+           // "/Users/khadijajradeh/Downloads/DICAPNEW/matchers/atm/atmatcher-1.0.jar"
+            //"/Users/khadijajradeh/Downloads/DICAPNEW/output/"
+            runAtMatcher(fileSource, fileTarget, java,atm , out);
 
         } else if (system.equals("2")) {
-          //  System.out.println("Please enter the value of confidence");
-            //  Double valueOfConf = Double.valueOf(args[4]);
+            System.out.println("Please enter the value of confidence");
+             Double valueOfConf = Double.valueOf(args[4]);
            runCanard(fileSource, fileTarget,  Double.valueOf(valueOfConf));
             //
         } else if (system.equals("3")) {
-            pipeLogmap(fileSource, fileTarget, "/usr/bin/java", "/Users/khadijajradeh/Downloads/logmap-matcher-4.0.jar", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
+            System.out.println("indicate java path");
+            String java=scanner.nextLine().trim();
+            System.out.println("indicate output path");
+            String out=scanner.nextLine().trim();
+            System.out.println("indicate LogMap path");
+            String lg =scanner.nextLine().trim();
+
+            ///usr/bin/java
+            //  "/Users/khadijajradeh/Downloads/logmap-matcher-4.0.jar"
+            //"/Users/khadijajradeh/Downloads/DICAPNEW/output/"
+            pipeLogmap(fileSource, fileTarget, java, lg, out);
             //
         } else if (system.equals("4")) {
-            runAMD(fileSource, fileTarget, "/Users/khadijajradeh/Downloads/pythonProject/venv/bin/python", "/Users/khadijajradeh/Downloads/AMD-v2-main/pythonMatcher.py", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
+            System.out.println("indicate python path");
+            String python=scanner.nextLine().trim();
+            System.out.println("indicate output path");
+            String out=scanner.nextLine().trim();
+            System.out.println("indicate LogMap path");
+            String AMD =scanner.nextLine().trim();
+            //"/Users/khadijajradeh/Downloads/pythonProject/venv/bin/python"
+            //"/Users/khadijajradeh/Downloads/AMD-v2-main/pythonMatcher.py"
+            //"/Users/khadijajradeh/Downloads/DICAPNEW/output/"
+            runAMD(fileSource, fileTarget, python,AMD , out);
         } else if (system.equals("5")) {
+            System.out.println("indicate java path");
+            String java=scanner.nextLine().trim();
+            System.out.println("indicate output path");
+            String out=scanner.nextLine().trim();
+            System.out.println("indicate LogMap path");
+            String matcha =scanner.nextLine().trim();
+            ///usr/bin/java
+            //"/Users/khadijajradeh/Downloads/matcha/external/oaei-0.0.1-SNAPSHOT.jar"
+            //"/Users/khadijajradeh/Downloads/DICAPNEW/output/"
             //the generation of huge files is not allowed on the cluster
-            runMatcha(fileSource, fileTarget, "/usr/bin/java", "/Users/khadijajradeh/Downloads/matcha/external/oaei-0.0.1-SNAPSHOT.jar", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
+            runMatcha(fileSource, fileTarget, java, matcha, out);
         }
 
 
@@ -359,12 +398,17 @@ public class Main {
 
             System.out.println("Ontologies saved!");
 
-          // Pair<Set<Correspondence>, Set<Correspondence>> pairs = buildCorrespondences(fs);
+          Pair<Set<Correspondence>, Set<Correspondence>> pairs = buildCorrespondences(fs);
 
-          /*  for ( Correspondence pair:pairs.first()){
-                linkex.execute(fileSource, fileTarget, new File("output/linkeys"+iter),pair );
-                System.out.println("Linkex Called!");
-            }*/
+            for ( Correspondence pair:pairs.first()){
+                File fp=new File("output/linkeys"+iter);
+                Set<Linkey> lksp=linkex.execute(fileSource, fileTarget,fp ,pair );
+                if(lksp.size()==0){
+                    fp.delete();
+                }
+
+            }
+            System.out.println("Linkex Called!");
 
           //  lks = lks_w;
         }
@@ -374,11 +418,13 @@ public class Main {
 
     private static void saturateOntologies(OWLOntology source, OWLOntology target, Set<Linkey> lks, String fs) throws IOException, ParserConfigurationException, SAXException, OWLOntologyStorageException {
 
-          Correspondence.saturateCorrespondence(source, target, fs);
+      //    Correspondence.saturateCorrespondence(source, target, fs);
           if (lks.isEmpty()) return;
           for (Linkey lk : lks) {
             lk.saturateLinkey(source, target);
             }
+
+
     }
 
 
