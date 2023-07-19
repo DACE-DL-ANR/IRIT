@@ -141,15 +141,12 @@ public class Correspondence {
         Set<OWLAxiom> toAdd=new HashSet<>();
 
         if (system == "1"){
-
             alignments = Alignment.readAlignmentsEdoal(fs).stream().filter(alignment -> alignment.getElement1().toString().contains("class")).collect(Collectors.toSet());
-
         }
         else if(system == "2") {
             alignments = Alignment.readAlignments(fs).stream().filter(alignment -> alignment.getElement1().toString().contains("class")).collect(Collectors.toSet());
 
         }
-
         else {
             alignments = Alignment.readAlignmentsTxt(Path.of(fs)).stream().filter(alignment -> alignment.getElement1().toString().contains("class")).collect(Collectors.toSet());
 

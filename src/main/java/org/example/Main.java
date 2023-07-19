@@ -103,7 +103,7 @@ public class Main {
             String fs = CallMatcha.run(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), matchaPath);
 
             Correspondence.saturateCorrespondenceSimple(source,  fs,"5");
-            Linkey.saturateSameAs(source, fs);
+            Linkey.saturateSameAs(source, fs, "4");
 
             fileSource = new File("test/source_tmp.ttl");
             fileTarget = new File("test/target_tmp.ttl");
@@ -140,7 +140,7 @@ public class Main {
 
             Correspondence.saturateCorrespondenceSimple(source,fs,"1");
 
-            Linkey.saturateSameAs(source, fs);
+            Linkey.saturateSameAs(source, fs, "1");
 
 
 
@@ -177,7 +177,7 @@ public class Main {
             logMap.execute(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), output);
             String fs = output + "/logmap_overestimation.txt";
             Correspondence.saturateCorrespondenceSimple(source,  fs, "3");
-            Linkey.saturateSameAs(source, fs);
+            Linkey.saturateSameAs(source, fs, "3");
 
 
             fileSource = new File("test/source_tmp.owl");
@@ -201,7 +201,7 @@ public class Main {
             OWLOntology source = loadOntology(fileSource);
             OWLOntology target = loadOntology(fileTarget);
             Correspondence.saturateCorrespondenceSimple(source, fs, "4");
-            Linkey.saturateSameAs(source, fs);
+            Linkey.saturateSameAs(source, fs, "4");
 
             fileSource = new File(output + "source_tmp.owl");
             fileTarget = new File(output + "target_tmp.owl");
@@ -325,7 +325,8 @@ public class Main {
 
 
 
-        for (int iter = 0; iter < 2; iter++) {
+        for (int iter = 0; iter < 3; iter++) {
+            System.out.println("Iteration: " + iter++);
             OWLOntology source = loadOntology(fileSourceI);
             OWLOntology target = loadOntology(fileTargetI);
 
@@ -334,34 +335,36 @@ public class Main {
             File f = new File("output/linkeys"+iter);
             f.createNewFile();
             Set<Linkey> lks = linkex.execute(fileSourceI, fileTargetI, f);
-
+            System.out.println("Linkex Called!");
 
             canard = new CallCanard("../canard/CanardE.jar");
-            canard.execute(fileSourceI, fileTargetI, fileSourceI, fileTargetI, valueOfConf);
-            System.out.println("Iteration: " + iter++);
+            canard.execute(fileSourceI, fileTargetI, fileSource, fileTarget, valueOfConf);
 
-            File fileSource = new File("test/source_temp.ttl");
-            File fileTarget = new File("test/target_temp.ttl");
-            int t1 = fileSource.getName().lastIndexOf(".");
-            int t2 = fileTarget.getName().lastIndexOf(".");
-            String fs = "output/" + fileSource.getName().substring(0, t1) + "_" + fileTarget.getName().substring(0, t2) + "/th_" + valueOfConf + ".edoal";
-            Correspondence.separateCorrespondences(fs);
+            System.out.println("Canard Called!");
+            String fs = "output/" + fileSource.getName().substring(0, fileSource.getName().lastIndexOf(".")) + "_" + fileTarget.getName().substring(0, fileTarget.getName().lastIndexOf(".")) + "/th_" + valueOfConf + ".edoal";
+            //    System.out.println("fs name: "+fs);
+
+          fileSource = new File("test/source_temp.ttl");
+          fileTarget = new File("test/target_temp.ttl");
+          //  int t1 = fileSource.getName().lastIndexOf(".");
+         //   int t2 = fileTarget.getName().lastIndexOf(".");
+            // Correspondence.separateCorrespondences(fs);
 
             saturateOntologies(source, target, lks, fs);
             System.out.println("Ontologies saturated!");
             OWLOntologyManager manager1 = source.getOWLOntologyManager();
             OWLOntologyManager manager2 = target.getOWLOntologyManager();
-            manager1.saveOntology(source, source.getFormat(), IRI.create(fileSource.toURI()));
-            manager2.saveOntology(target, target.getFormat(), IRI.create(fileTarget.toURI()));
+            manager1.saveOntology(source,  IRI.create(fileSource.toURI()));
+            manager2.saveOntology(target,  IRI.create(fileTarget.toURI()));
 
             System.out.println("Ontologies saved!");
 
-            Pair<Set<Correspondence>, Set<Correspondence>> pairs = buildCorrespondences(fs);
+          // Pair<Set<Correspondence>, Set<Correspondence>> pairs = buildCorrespondences(fs);
 
-            for ( Correspondence pair:pairs.first()){
+          /*  for ( Correspondence pair:pairs.first()){
                 linkex.execute(fileSource, fileTarget, new File("output/linkeys"+iter),pair );
                 System.out.println("Linkex Called!");
-            }
+            }*/
 
           //  lks = lks_w;
         }

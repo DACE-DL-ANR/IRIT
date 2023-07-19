@@ -1,7 +1,5 @@
 package org.example;
 
-import com.clarkparsia.pellet.BranchEffectTracker;
-import org.apache.jena.base.Sys;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.search.EntitySearcher;
@@ -10,8 +8,8 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import utils.Pair;
 
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -89,13 +87,25 @@ public class Linkey {
         manager.addAxioms(ob, axiomsToAdd);
     }
 
-    public static void saturateSameAs(OWLOntology o1, String path) throws IOException, ParserConfigurationException, SAXException, OWLOntologyStorageException {
-        Set<Alignment> alignments = Alignment.readAlignmentsEdoal(path);
+    public static void saturateSameAs(OWLOntology o1, String path, String number) throws IOException, ParserConfigurationException, SAXException, OWLOntologyStorageException {
+        Set<Alignment> alignments = new HashSet<>();
         OWLOntologyManager manager = o1.getOWLOntologyManager();
-        Set<Alignment> instAl = alignments.stream().filter(alignment -> alignment.getElement1().getTag().equals("INST")).collect(Collectors.toSet());
+
        //System.out.println("size: "+instAl.size());
+        if (number == "1"){
+            alignments = Alignment.readAlignmentsEdoal(path).stream().filter(alignment -> alignment.getElement1().toString().contains("class")).collect(Collectors.toSet());
+        }
+        else if(number == "2") {
+            alignments = Alignment.readAlignments(path).stream().filter(alignment -> alignment.getElement1().toString().contains("class")).collect(Collectors.toSet());
+
+        }
+        else {
+            alignments = Alignment.readAlignmentsTxt(Path.of(path)).stream().filter(alignment -> alignment.getElement1().toString().contains("class")).collect(Collectors.toSet());
+
+        }
+        alignments = alignments.stream().filter(alignment -> alignment.getElement1().getTag().equals("INST")).collect(Collectors.toSet());
         Set<OWLAxiom> axiomsToAdd=new HashSet<>();
-        for (Alignment al : instAl) {
+        for (Alignment al : alignments) {
 
             OWLNamedIndividual a = factory.getOWLNamedIndividual(al.getElement1().attributes.get("rdf:resource"));
 

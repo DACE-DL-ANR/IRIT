@@ -21,7 +21,7 @@ public class Alignment {
     private OntologyNode element1, element2;
     private String relation;
     private float measure;
-    Alignment() {
+    public Alignment() {
     }
     public static Set<Alignment> readAlignments(String path) throws IOException, SAXException, ParserConfigurationException {
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -39,19 +39,19 @@ public class Alignment {
                 switch (item2.getNodeName()) {
                     case "entity1" -> {
                         alignment.element1 = parseNode(item2.getChildNodes().item(1));
-                        System.out.println(alignment.getElement1());
+                        // System.out.println(alignment.getElement1());
                     }
                     case "entity2" -> {
                         alignment.element2 = parseNode(item2.getChildNodes().item(1));
-                        System.out.println(alignment.getElement2());
+                       // System.out.println(alignment.getElement2());
                     }
                     case "relation" -> {
                         alignment.relation = item2.getChildNodes().item(0).getNodeValue();
-                        System.out.println(alignment.relation);
+                       // System.out.println(alignment.relation);
                     }
                     case "measure" ->{
                             alignment.measure = Float.parseFloat(item2.getChildNodes().item(0).getNodeValue());
-                        System.out.println(alignment.measure);
+                       // System.out.println(alignment.measure);
                     }
 
                 }
@@ -149,7 +149,7 @@ public class Alignment {
 
         return alignments;
     }
-
+    //http://dbkwik.webdatacommons.org/starwars.wikia.com/cleanup|http://dbkwik.webdatacommons.org/swg.wikia.com/cleanup|=|1.0|CLS
     public static Set<Alignment> readAlignmentsTxt(Path path) {
         Set<Alignment> alignments = new HashSet<>();
         try (Scanner scanner = new Scanner(path)) {
