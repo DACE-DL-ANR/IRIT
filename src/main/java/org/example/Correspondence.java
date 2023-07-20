@@ -134,12 +134,12 @@ public class Correspondence {
     }
 
 
-    public static void saturateCorrespondenceSimple(OWLOntology ontology1,  String fs, String system) throws IOException, ParserConfigurationException, SAXException, OWLOntologyStorageException {
+    public static void saturateCorrespondenceSimple(OWLOntology ontology1,OWLOntology ontology2,  String fs, String system) throws IOException, ParserConfigurationException, SAXException, OWLOntologyStorageException {
         //  Path path = Paths.get(fs);
         Set<Alignment> alignments = new HashSet<>();
         OWLOntologyManager manager = ontology1.getOWLOntologyManager();
         Set<OWLAxiom> toAdd=new HashSet<>();
-
+        Set<OWLAxiom> toAdd2=new HashSet<>();
         if (system == "1"){
             alignments = Alignment.readAlignmentsEdoal(fs).stream().filter(alignment -> alignment.getElement1().toString().contains("class")).collect(Collectors.toSet());
         }
@@ -163,11 +163,29 @@ public class Correspondence {
 
                     OWLClassAssertionAxiom owlClassAssertionAxiom = factory.getOWLClassAssertionAxiom(factory.getOWLClass(al.getElement2().attributes.get("rdf:resource")), e1);
                     toAdd.add( owlClassAssertionAxiom);
+                    for (OWLAnnotationAssertionAxiom axiom : ontology1.getAnnotationAssertionAxioms(factory.getOWLClass(al.getElement2().attributes.get("rdf:resource")).getIRI())) {
+                        if (axiom.getProperty().isLabel()) {
+                            OWLLiteral label = (OWLLiteral) axiom.getValue();
+                            // String labelText = label.getLiteral();
+                            toAdd.add(factory.getOWLAnnotationAssertionAxiom(axiom.getProperty(), e1.getIRI(), label));
+                            for (OWLNamedIndividual e2 : ontology2.getIndividualsInSignature()) {
+                               if(EntitySearcher.getTypes(e1, ontology1).map(Objects::toString).collect(Collectors.toSet()).contains( "<" + al.getElement2().attributes.get("rdf:resource") + ">"))
+                                toAdd2.add(factory.getOWLAnnotationAssertionAxiom(axiom.getProperty(), e2.getIRI(), label));
+                            }
+                        }
+                            //System.out.println("Label of the class: " + labelText);
+                        }
+
+
+            }
                     //    System.out.println(manager.addAxiom(ontology1, owlClassAssertionAxiom));
                 }
-            }
+
         }
          manager.addAxioms(ontology1,toAdd);
+
+        manager.addAxioms(ontology2,toAdd2);
+
 
     }
 

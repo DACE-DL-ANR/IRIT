@@ -58,15 +58,15 @@ public class Main {
         String system="2";*/
 
           Scanner scanner = new Scanner(System.in);
-         System.out.println("Which system you need to integrate? 1:Atmatcher, 2:Canard, 3:LogMap, 4:AMD, 5:Matcha");
-        String system = scanner.nextLine().trim();
-       // String system = args[0];
-          System.out.println("Please enter the source ontology");
-       // String pathSource = args[1];
-        String pathSource = scanner.nextLine().trim();
-        System.out.println("Please enter the target ontology");
-      //  String pathTarget = args[2];
-        String pathTarget = scanner.nextLine().trim();
+       //  System.out.println("Which system you need to integrate? 1:Atmatcher, 2:Canard, 3:LogMap, 4:AMD, 5:Matcha");
+       // String system = scanner.nextLine().trim();
+        String system = args[0];
+         // System.out.println("Please enter the source ontology");
+        String pathSource = args[1];
+       // String pathSource = scanner.nextLine().trim();
+      //  System.out.println("Please enter the target ontology");
+        String pathTarget = args[2];
+      //  String pathTarget = scanner.nextLine().trim();
        // String valueOfConf= args[3];
 
         fileSource = new File("test/" + pathSource);
@@ -74,20 +74,21 @@ public class Main {
 
 
         if (system.equals("1")) {
-            System.out.println("indicate java path");
+        /*    System.out.println("indicate java path");
             String java=scanner.nextLine().trim();
             System.out.println("indicate output path");
             String out=scanner.nextLine().trim();
             System.out.println("indicate Atmatcher path");
             String atm =scanner.nextLine().trim();
-            ///usr/bin/java
-           // "/Users/khadijajradeh/Downloads/DICAPNEW/matchers/atm/atmatcher-1.0.jar"
-            //"/Users/khadijajradeh/Downloads/DICAPNEW/output/"
-            runAtMatcher(fileSource, fileTarget, java,atm , out);
+            /usr/bin/java
+            "/Users/khadijajradeh/Downloads/DICAPNEW/output/"
+            "/Users/khadijajradeh/Downloads/DICAPNEW/matchers/atm/atmatcher-1.0.jar"*/
+            runAtMatcher(fileSource, fileTarget, "/usr/bin/java","/Users/khadijajradeh/Downloads/DICAPNEW/matchers/atm/atmatcher-1.0.jar","/Users/khadijajradeh/Downloads/DICAPNEW/output/" );
+           // runAtMatcher(fileSource, fileTarget, java,atm , out);
 
         } else if (system.equals("2")) {
-            System.out.println("Please enter the value of confidence");
-             Double valueOfConf = Double.valueOf(args[4]);
+           // System.out.println("Please enter the value of confidence");
+             Double valueOfConf = Double.valueOf(args[3]);
            runCanard(fileSource, fileTarget,  Double.valueOf(valueOfConf));
             //
         } else if (system.equals("3")) {
@@ -108,7 +109,7 @@ public class Main {
             String python=scanner.nextLine().trim();
             System.out.println("indicate output path");
             String out=scanner.nextLine().trim();
-            System.out.println("indicate LogMap path");
+            System.out.println("indicate AMD path");
             String AMD =scanner.nextLine().trim();
             //"/Users/khadijajradeh/Downloads/pythonProject/venv/bin/python"
             //"/Users/khadijajradeh/Downloads/AMD-v2-main/pythonMatcher.py"
@@ -141,8 +142,8 @@ public class Main {
 
             String fs = CallMatcha.run(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), matchaPath);
 
-            Correspondence.saturateCorrespondenceSimple(source,  fs,"5");
-            Linkey.saturateSameAs(source, fs, "4");
+            Correspondence.saturateCorrespondenceSimple(source,target,  fs,"5");
+            Linkey.saturateSameAs(source,target, fs, "4");
 
             fileSource = new File("test/source_tmp.ttl");
             fileTarget = new File("test/target_tmp.ttl");
@@ -177,9 +178,9 @@ public class Main {
             OWLOntologyManager manager1 = source.getOWLOntologyManager();
             OWLOntologyManager manager2 = target.getOWLOntologyManager();
 
-            Correspondence.saturateCorrespondenceSimple(source,fs,"1");
+            Correspondence.saturateCorrespondenceSimple(source,target,fs,"1");
 
-            Linkey.saturateSameAs(source, fs, "1");
+            Linkey.saturateSameAs(source,target, fs, "1");
 
 
 
@@ -215,8 +216,9 @@ public class Main {
 
             logMap.execute(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), output);
             String fs = output + "/logmap_overestimation.txt";
-            Correspondence.saturateCorrespondenceSimple(source,  fs, "3");
-            Linkey.saturateSameAs(source, fs, "3");
+            Correspondence.saturateCorrespondenceSimple(source,target,  fs, "3");
+
+            Linkey.saturateSameAs(source, target,fs, "3");
 
 
             fileSource = new File("test/source_tmp.owl");
@@ -239,8 +241,8 @@ public class Main {
             String fs = output + "out.txt";
             OWLOntology source = loadOntology(fileSource);
             OWLOntology target = loadOntology(fileTarget);
-            Correspondence.saturateCorrespondenceSimple(source, fs, "4");
-            Linkey.saturateSameAs(source, fs, "4");
+            Correspondence.saturateCorrespondenceSimple(source, target,fs, "4");
+            Linkey.saturateSameAs(source, target,fs, "4");
 
             fileSource = new File(output + "source_tmp.owl");
             fileTarget = new File(output + "target_tmp.owl");
@@ -364,8 +366,8 @@ public class Main {
 
 
 
-        for (int iter = 0; iter < 3; iter++) {
-            System.out.println("Iteration: " + iter++);
+        for (int iter = 1; iter < 3; iter++) {
+            System.out.println("Iteration: " + iter);
             OWLOntology source = loadOntology(fileSourceI);
             OWLOntology target = loadOntology(fileTargetI);
 
@@ -398,9 +400,9 @@ public class Main {
 
             System.out.println("Ontologies saved!");
 
-          Pair<Set<Correspondence>, Set<Correspondence>> pairs = buildCorrespondences(fs);
+         /*  Pair<Set<Correspondence>, Set<Correspondence>> pairs = buildCorrespondences(fs);
 
-            for ( Correspondence pair:pairs.first()){
+           for ( Correspondence pair:pairs.first()){
                 File fp=new File("output/linkeys"+iter);
                 Set<Linkey> lksp=linkex.execute(fileSource, fileTarget,fp ,pair );
                 if(lksp.size()==0){
@@ -408,7 +410,7 @@ public class Main {
                 }
 
             }
-            System.out.println("Linkex Called!");
+            System.out.println("Linkex Called!");*/
 
           //  lks = lks_w;
         }

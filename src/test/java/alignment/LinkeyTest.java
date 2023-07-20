@@ -29,7 +29,7 @@ public class LinkeyTest {
         OWLOntology ontology1 = manager.loadOntologyFromOntologyDocument(Paths.get(ont1.toURI()).toFile());
         OWLOntology ontology2 = manager.loadOntologyFromOntologyDocument(Paths.get(ont2.toURI()).toFile());
 
-        Linkey.saturateSameAs(ontology1, resource.getPath(), "4");
+        Linkey.saturateSameAs(ontology1, ontology2,resource.getPath(), "4");
 
         Assert.assertEquals(115273, ontology1.axioms().count());
 

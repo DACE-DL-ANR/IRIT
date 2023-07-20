@@ -146,6 +146,7 @@ public class Alignment {
             alignments.add(alignment);
 
         }
+       // System.out.println(alignments.size());
 
         return alignments;
     }

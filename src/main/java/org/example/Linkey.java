@@ -1,5 +1,6 @@
 package org.example;
 
+import com.clarkparsia.pellet.BranchEffectTracker;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.search.EntitySearcher;
@@ -87,36 +88,56 @@ public class Linkey {
         manager.addAxioms(ob, axiomsToAdd);
     }
 
-    public static void saturateSameAs(OWLOntology o1, String path, String number) throws IOException, ParserConfigurationException, SAXException, OWLOntologyStorageException {
+    public static void saturateSameAs(OWLOntology o1, OWLOntology o2,String path, String number) throws IOException, ParserConfigurationException, SAXException, OWLOntologyStorageException {
         Set<Alignment> alignments = new HashSet<>();
         OWLOntologyManager manager = o1.getOWLOntologyManager();
 
        //System.out.println("size: "+instAl.size());
         if (number == "1"){
-            alignments = Alignment.readAlignmentsEdoal(path).stream().filter(alignment -> alignment.getElement1().toString().contains("class")).collect(Collectors.toSet());
+            alignments = Alignment.readAlignmentsEdoal(path).stream().filter(alignment -> alignment.getElement1().getTag().equals("INST")).collect(Collectors.toSet());
         }
         else if(number == "2") {
-            alignments = Alignment.readAlignments(path).stream().filter(alignment -> alignment.getElement1().toString().contains("class")).collect(Collectors.toSet());
+            alignments = Alignment.readAlignments(path).stream().filter(alignment -> alignment.getElement1().getTag().equals("INST")).collect(Collectors.toSet());
 
         }
         else {
-            alignments = Alignment.readAlignmentsTxt(Path.of(path)).stream().filter(alignment -> alignment.getElement1().toString().contains("class")).collect(Collectors.toSet());
+            alignments = Alignment.readAlignmentsTxt(Path.of(path)).stream().filter(alignment -> alignment.getElement1().getTag().equals("INST")).collect(Collectors.toSet());
 
         }
-        alignments = alignments.stream().filter(alignment -> alignment.getElement1().getTag().equals("INST")).collect(Collectors.toSet());
+      //  System.out.println(alignments.size());
+      //  alignments = alignments.stream().filter(alignment -> alignment.getElement1().getTag().equals("INST")).collect(Collectors.toSet());
         Set<OWLAxiom> axiomsToAdd=new HashSet<>();
+        Set<OWLAxiom> axiomsToAdd2=new HashSet<>();
+        System.out.println(alignments.size());
         for (Alignment al : alignments) {
 
             OWLNamedIndividual a = factory.getOWLNamedIndividual(al.getElement1().attributes.get("rdf:resource"));
 
             OWLNamedIndividual b = factory.getOWLNamedIndividual(al.getElement2().attributes.get("rdf:resource"));
+
             if(!o1.containsAxiom(factory.getOWLSameIndividualAxiom(a,b))&&a.toString().contains("resource")&&b.toString().contains("resource")) {
                 {
+
                    axiomsToAdd.add(factory.getOWLSameIndividualAxiom(a, b));
+
+                    for (OWLAnnotationAssertionAxiom axiom : o2.getAnnotationAssertionAxioms(b.getIRI())) {
+
+                        if (axiom.getProperty().isLabel()) {
+
+                            OWLLiteral label = (OWLLiteral) axiom.getValue();
+                           // String labelText = label.getLiteral();
+
+                            axiomsToAdd.add(factory.getOWLAnnotationAssertionAxiom(axiom.getProperty(),a.getIRI() , label));
+                            axiomsToAdd.add(factory.getOWLAnnotationAssertionAxiom(axiom.getProperty(),a.getEntityType().getIRI() , label));
+                            axiomsToAdd2.add(factory.getOWLAnnotationAssertionAxiom(axiom.getProperty(),b.getEntityType().getIRI() , label));
+                          //  System.out.println("Label of the individual: " + labelText);
+                        }
+                    }
                }
             }
 
         }
+        manager.addAxioms(o2,axiomsToAdd2);
         manager.addAxioms(o1,axiomsToAdd);
 
        // manager.saveOntology(o1,o1.getFormat(), IRI.create(new File("output/source_tmp.xml").toURI()));
