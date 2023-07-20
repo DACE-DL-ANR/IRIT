@@ -118,7 +118,7 @@ public class Linkey {
             if(!o1.containsAxiom(factory.getOWLSameIndividualAxiom(a,b))&&a.toString().contains("resource")&&b.toString().contains("resource")) {
                 {
 
-                   axiomsToAdd.add(factory.getOWLSameIndividualAxiom(a, b));
+                   System.out.println(axiomsToAdd.add(factory.getOWLSameIndividualAxiom(a, b)));
 
                     for (OWLAnnotationAssertionAxiom axiom : o2.getAnnotationAssertionAxioms(b.getIRI())) {
 

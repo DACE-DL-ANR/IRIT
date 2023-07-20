@@ -238,7 +238,7 @@ public class Main {
         for (int iter = 1; iter < 4; iter++) {
 
             amd.run(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), output);
-            String fs = output + "out.txt";
+            String fs = output + "out"+iter+".txt";
             OWLOntology source = loadOntology(fileSource);
             OWLOntology target = loadOntology(fileTarget);
             Correspondence.saturateCorrespondenceSimple(source, target,fs, "4");
