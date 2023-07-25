@@ -2,6 +2,10 @@ package org.example;
 
 import eu.sealsproject.platform.res.tool.api.ToolBridgeException;
 import org.apache.commons.lang3.time.StopWatch;
+import org.apache.jena.base.Sys;
+import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntModelSpec;
+import org.apache.jena.rdf.model.ModelFactory;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
@@ -23,8 +27,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
@@ -72,9 +75,9 @@ public class Main {
         fileSource = new File("test/" + pathSource);
         fileTarget = new File("test/" + pathTarget);
 
-
+//
         if (system.equals("1")) {
-        /*    System.out.println("indicate java path");
+         /*   System.out.println("indicate java path");
             String java=scanner.nextLine().trim();
             System.out.println("indicate output path");
             String out=scanner.nextLine().trim();
@@ -92,7 +95,7 @@ public class Main {
            runCanard(fileSource, fileTarget,  Double.valueOf(valueOfConf));
             //
         } else if (system.equals("3")) {
-            System.out.println("indicate java path");
+            /*System.out.println("indicate java path");
             String java=scanner.nextLine().trim();
             System.out.println("indicate output path");
             String out=scanner.nextLine().trim();
@@ -101,11 +104,12 @@ public class Main {
 
             ///usr/bin/java
             //  "/Users/khadijajradeh/Downloads/logmap-matcher-4.0.jar"
-            //"/Users/khadijajradeh/Downloads/DICAPNEW/output/"
-            pipeLogmap(fileSource, fileTarget, java, lg, out);
+            //"/Users/khadijajradeh/Downloads/DICAPNEW/output/"*/
+            pipeLogmap(fileSource, fileTarget, "/usr/bin/java", "/Users/khadijajradeh/Downloads/logmap-matcher-4.0.jar", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
+          //  pipeLogmap(fileSource, fileTarget, java, lg, out);
             //
         } else if (system.equals("4")) {
-            System.out.println("indicate python path");
+           /* System.out.println("indicate python path");
             String python=scanner.nextLine().trim();
             System.out.println("indicate output path");
             String out=scanner.nextLine().trim();
@@ -113,25 +117,74 @@ public class Main {
             String AMD =scanner.nextLine().trim();
             //"/Users/khadijajradeh/Downloads/pythonProject/venv/bin/python"
             //"/Users/khadijajradeh/Downloads/AMD-v2-main/pythonMatcher.py"
-            //"/Users/khadijajradeh/Downloads/DICAPNEW/output/"
-            runAMD(fileSource, fileTarget, python,AMD , out);
+            //"/Users/khadijajradeh/Downloads/DICAPNEW/output/"*/
+            runAMD(fileSource, fileTarget, "/Users/khadijajradeh/Downloads/pythonProject/venv/bin/python","/Users/khadijajradeh/Downloads/AMD-v2-main/pythonMatcher.py" , "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
+         //   runAMD(fileSource, fileTarget, python,AMD , out);
         } else if (system.equals("5")) {
-            System.out.println("indicate java path");
+           /* System.out.println("indicate java path");
             String java=scanner.nextLine().trim();
             System.out.println("indicate output path");
             String out=scanner.nextLine().trim();
             System.out.println("indicate LogMap path");
             String matcha =scanner.nextLine().trim();
             ///usr/bin/java
-            //"/Users/khadijajradeh/Downloads/matcha/external/oaei-0.0.1-SNAPSHOT.jar"
+            //"/Users/khadijajradeh/Downloads/matcha/oaei-0.0.1-SNAPSHOT.jar"
             //"/Users/khadijajradeh/Downloads/DICAPNEW/output/"
-            //the generation of huge files is not allowed on the cluster
-            runMatcha(fileSource, fileTarget, java, matcha, out);
+            //the generation of huge files is not allowed on the cluster*/
+            runMatcha(fileSource, fileTarget, "/usr/bin/java", "/Users/khadijajradeh/Downloads/matcha/oaei-0.0.1-SNAPSHOT.jar", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
+           // runMatcha(fileSource, fileTarget, java, matcha, out);
+        }
+        else if(system.equals("6")){
+            runBasicMatcher(fileSource,fileTarget);
         }
 
 
 
 
+    }
+    private static void runBasicMatcher(File fileSource, File fileTarget) throws Exception {
+
+        System.out.println("Piping basic label matcher has started ...");
+        CallLabelMatch labelMatch=new CallLabelMatch();
+        for(int i=0;i<3;i++){
+            File output=new File("Output/outLB"+i+".txt");
+        OWLOntology source = loadOntology(fileSource);
+        OWLOntology target = loadOntology(fileTarget);
+
+        // Convert OWL ontology to OntModel
+        OntModel ontModel1 =convertOWLOntologyToOntModel(source);
+        OntModel ontModel2 = convertOWLOntologyToOntModel(target);
+        Set<Alignment> als= labelMatch.match(ontModel1,ontModel2, output);
+        System.out.println("alignments obtained: "+als.size());
+        Correspondence.saturateOntologies(source,target,als );
+      //  Linkey.saturateSameAs(source,target,als);
+
+        fileSource = new File( "output/source_tmp"+i+".xml");
+        fileTarget = new File("output/target_tmp"+i+".xml");
+
+        source.getOWLOntologyManager().saveOntology(source,  IRI.create(fileSource.toURI()));
+        target.getOWLOntologyManager().saveOntology(target, IRI.create(fileTarget.toURI()));
+        System.out.println("Ontologies saturated and saved");
+        }
+    }
+
+
+
+    public static OntModel convertOWLOntologyToOntModel(OWLOntology ontology) {
+        OntModel ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
+
+        // Get the ontology as an InputStream
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            ontology.getOWLOntologyManager().saveOntology(ontology, outputStream);
+            InputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+
+            // Read the InputStream into the OntModel
+            ontModel.read(inputStream, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ontModel;
     }
 
 
@@ -238,7 +291,7 @@ public class Main {
         for (int iter = 1; iter < 4; iter++) {
 
             amd.run(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), output);
-            String fs = output + "out"+iter+".txt";
+            String fs = output + "out.txt";
             OWLOntology source = loadOntology(fileSource);
             OWLOntology target = loadOntology(fileTarget);
             Correspondence.saturateCorrespondenceSimple(source, target,fs, "4");

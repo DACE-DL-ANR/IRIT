@@ -18,9 +18,10 @@ import java.util.*;
 public class Alignment {
 
 
-    private OntologyNode element1, element2;
-    private String relation;
-    private float measure;
+    OntologyNode element1;
+    OntologyNode element2;
+    String relation;
+    float measure;
     public Alignment() {
     }
     public static Set<Alignment> readAlignments(String path) throws IOException, SAXException, ParserConfigurationException {

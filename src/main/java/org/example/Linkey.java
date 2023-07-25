@@ -160,7 +160,57 @@ public class Linkey {
         addRoleAss(o2, o1, b, a, EntitySearcher.getDataPropertyValues(b, o2).keySet());
     }
 
-    void saturateLinkey(OWLOntology o1, OWLOntology o2) throws OWLOntologyStorageException {
+    public static void saturateSameAs(OWLOntology o1, OWLOntology o2, Set<Alignment> als) {
+        Set<OWLAxiom> axiomsToAdd=new HashSet<>();
+        Set<OWLAxiom> axiomsToAdd2=new HashSet<>();
+        for (Alignment al : als) {
+
+            OWLNamedIndividual a = factory.getOWLNamedIndividual(al.element1.getName().toString());
+
+            OWLNamedIndividual b = factory.getOWLNamedIndividual(al.element2.getName().toString());
+          //  System.out.println(a+",  "+b);
+
+            if(!o1.containsAxiom(factory.getOWLSameIndividualAxiom(a,b))&&al.getElement1().getTag().contains("INST")&&b.toString().contains("resource")) {
+                {
+
+
+                    axiomsToAdd.add(factory.getOWLSameIndividualAxiom(a, b));
+
+                    for (OWLAnnotationAssertionAxiom axiom : o2.getAnnotationAssertionAxioms(b.getIRI())) {
+
+                        if (axiom.getProperty().isLabel()) {
+
+
+                            OWLLiteral label = (OWLLiteral) axiom.getValue();
+                            // String labelText = label.getLiteral();
+
+                            axiomsToAdd.add(factory.getOWLAnnotationAssertionAxiom(axiom.getProperty(),a.getIRI() , label));
+                            axiomsToAdd.add(factory.getOWLAnnotationAssertionAxiom(axiom.getProperty(),a.getEntityType().getIRI() , label));
+                            axiomsToAdd2.add(factory.getOWLAnnotationAssertionAxiom(axiom.getProperty(),b.getEntityType().getIRI() , label));
+                            //  System.out.println("Label of the individual: " + labelText);
+                        }
+                    }
+                }
+               for(OWLClassExpression l: EntitySearcher.getTypes(a, o1).toList()){
+
+                  axiomsToAdd.add( factory.getOWLAnnotationAssertionAxiom(factory.getRDFSLabel(), l.asOWLClass().getIRI(),  a.getIRI()));
+
+               }
+                for(OWLClassExpression l: EntitySearcher.getTypes(b, o2).toList()){
+
+                    axiomsToAdd2.add(factory.getOWLAnnotationAssertionAxiom(factory.getRDFSLabel(), l.asOWLClass().getIRI(),  a.getIRI()));
+
+                }
+            }
+
+        }
+      //  System.out.println(axiomsToAdd.size());
+ manager.addAxioms(o2,axiomsToAdd2);
+manager.addAxioms(o1,axiomsToAdd);
+
+    }
+
+    public  void saturateLinkey(OWLOntology o1, OWLOntology o2) throws OWLOntologyStorageException {
         Set<Pair<OWLNamedIndividual, OWLNamedIndividual>> s1=new HashSet<>(),s2=new HashSet<>(),s3=new HashSet<>();
 
         int i = 0;

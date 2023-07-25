@@ -10,7 +10,7 @@ import java.util.Set;
 public class CallLinkex {
 
 
-    private final String linkexPath;
+    private static String linkexPath;
 
 
     public CallLinkex( String linkexPath) {
@@ -18,7 +18,7 @@ public class CallLinkex {
         this.linkexPath = linkexPath;
     }
 
-    Set<Linkey> execute(File source, File target, File result) throws IOException, ParserConfigurationException, SAXException {
+    public static Set<Linkey> execute(File source, File target, File result) throws IOException, ParserConfigurationException, SAXException {
 
         if(!result.exists()) {
             result.createNewFile();
