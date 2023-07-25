@@ -147,7 +147,8 @@ public class Main {
         System.out.println("Piping basic label matcher has started ...");
         CallLabelMatch labelMatch=new CallLabelMatch();
         for(int i=0;i<3;i++){
-            File output=new File("Output/outLB"+i+".txt");
+            File output=new File("output/outLB"+i+".txt");
+            output.createNewFile();
         OWLOntology source = loadOntology(fileSource);
         OWLOntology target = loadOntology(fileTarget);
 
@@ -156,8 +157,9 @@ public class Main {
         OntModel ontModel2 = convertOWLOntologyToOntModel(target);
         Set<Alignment> als= labelMatch.match(ontModel1,ontModel2, output);
         System.out.println("alignments obtained: "+als.size());
-        Correspondence.saturateOntologies(source,target,als );
-      //  Linkey.saturateSameAs(source,target,als);
+       // Correspondence.saturateOntologies(source,target,als );
+      //
+            Linkey.saturateSameAs(source,target,als);
 
         fileSource = new File( "output/source_tmp"+i+".xml");
         fileTarget = new File("output/target_tmp"+i+".xml");
