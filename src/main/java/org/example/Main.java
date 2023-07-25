@@ -193,10 +193,10 @@ public class Main {
         OWLOntology target = loadOntology(fileTarget);
         for (int iter = 0; iter < 5; iter++) {
 
-            String fs = CallMatcha.run(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), matchaPath);
+            CallMatcha.run(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), matchaPath);
 
-            Correspondence.saturateCorrespondenceSimple(source,target,  fs,"5");
-            Linkey.saturateSameAs(source,target, fs, "4");
+            Correspondence.saturateCorrespondenceSimple(source,target,  "","5");
+            Linkey.saturateSameAs(source,target, "", "4");
 
             fileSource = new File("test/source_tmp.ttl");
             fileTarget = new File("test/target_tmp.ttl");
@@ -326,7 +326,7 @@ public class Main {
         pipe.start();
         OWLOntology source = loadOntology(fileSourceI);
         OWLOntology target = loadOntology(fileTargetI);
-        linkex = new CallLinkex("../linkex/LinkkeyDiscovery-1.0-SNAPSHOT-jar-with-dependencies.jar");
+        linkex = new CallLinkex("../linkex/LinkkeyDiscovery-1.0-SNAPSHOT-jar-with-dependencies.jar","");
 
         File f_start = new File("output/startlinkeys");
 
@@ -372,9 +372,9 @@ public class Main {
 
         for (int iter = 0; iter < 3; iter++) {
             System.out.println("Iteration number: " + iter++);
-            // int t1 = fileSource.getName().lastIndexOf(".");
-            //  int t2 = fileTarget.getName().lastIndexOf(".");
-            //  fs = "output/" + fileSource.getName().substring(0, t1) + "_" + fileTarget.getName().substring(0, t2) + "/th_" + valueOfConf + ".edoal";
+             int t1 = fileSource.getName().lastIndexOf(".");
+              int t2 = fileTarget.getName().lastIndexOf(".");
+              fs = "output/" + fileSource.getName().substring(0, t1) + "_" + fileTarget.getName().substring(0, t2) + "/th_" + valueOfConf + ".edoal";
             //saturate with the starting lks in the first round.
 
             fileSource = new File("test/source_temp.ttl");
@@ -383,7 +383,7 @@ public class Main {
             pr.saveOntologies(target, fileTarget);
 
 
-            canard.execute(fileSourceI, fileTargetI, fileSource, fileTarget, valueOfConf);
+            canard.execute(fileSourceI, fileTargetI,  valueOfConf,fs,"");
             Pair<Set<Correspondence>, Set<Correspondence>> pair = buildCorrespondences(fs);
 
             for (Correspondence cr : pair.first()) {
@@ -425,19 +425,19 @@ public class Main {
             OWLOntology target = loadOntology(fileTargetI);
 
 
-            linkex = new CallLinkex("../linkex/LinkkeyDiscovery-1.0-SNAPSHOT-jar-with-dependencies.jar");
+            linkex = new CallLinkex("../linkex/LinkkeyDiscovery-1.0-SNAPSHOT-jar-with-dependencies.jar","");
             File f = new File("output/linkeys"+iter);
             f.createNewFile();
             Set<Linkey> lks = linkex.execute(fileSourceI, fileTargetI, f);
             System.out.println("Linkex Called!");
 
-            canard = new CallCanard("../canard/CanardE.jar");
-            canard.execute(fileSourceI, fileTargetI, fileSource, fileTarget, valueOfConf);
+            canard = new CallCanard("../canard/CanardE.jar","");
+
 
             System.out.println("Canard Called!");
             String fs = "output/" + fileSource.getName().substring(0, fileSource.getName().lastIndexOf(".")) + "_" + fileTarget.getName().substring(0, fileTarget.getName().lastIndexOf(".")) + "/th_" + valueOfConf + ".edoal";
             //    System.out.println("fs name: "+fs);
-
+            canard.execute(fileSource, fileTarget, valueOfConf,fs,"");
           fileSource = new File("test/source_temp.ttl");
           fileTarget = new File("test/target_temp.ttl");
           //  int t1 = fileSource.getName().lastIndexOf(".");
