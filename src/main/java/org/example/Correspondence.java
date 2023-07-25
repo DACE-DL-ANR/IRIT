@@ -135,22 +135,26 @@ public class Correspondence {
     static void saturateOntologies(OWLOntology ontology1, OWLOntology ontology2, Set<Alignment> als) {
         Set<OWLAxiom> toAdd=new HashSet<>();
         Set<OWLAxiom> toAdd2=new HashSet<>();
+        // System.out.println("Saturating ontologies");
         for (Alignment al : als) {
 
                     for (OWLAnnotationAssertionAxiom axiom : ontology1.getAnnotationAssertionAxioms(factory.getOWLClass(al.element1.getName()).getIRI())) {
 
                         if (axiom.getProperty().isLabel()) {
-                            OWLLiteral label = (OWLLiteral) axiom.getValue();
+                           // System.out.println("here "+axiom.getValue());
+                           // OWLLiteral label;
+
                             for (OWLNamedIndividual e1 : ontology1.getIndividualsInSignature()) {
+
                                 if (EntitySearcher.getTypes(e1, ontology1).map(Objects::toString).collect(Collectors.toSet()).contains("<" + al.element1.getName() + ">"))
 
                                     // String labelText = label.getLiteral();
-                                    toAdd.add(factory.getOWLAnnotationAssertionAxiom(axiom.getProperty(), e1.getIRI(), label));
+                                    toAdd.add(factory.getOWLAnnotationAssertionAxiom(axiom.getProperty(), e1.getIRI(), axiom.getValue()));
 
                             }
                             for (OWLNamedIndividual e2 : ontology2.getIndividualsInSignature()) {
                                 if (EntitySearcher.getTypes(e2, ontology2).map(Objects::toString).collect(Collectors.toSet()).contains("<" + al.element2.getName() + ">"))
-                                    toAdd2.add(factory.getOWLAnnotationAssertionAxiom(axiom.getProperty(), e2.getIRI(), label));
+                                    toAdd2.add(factory.getOWLAnnotationAssertionAxiom(axiom.getProperty(), e2.getIRI(), axiom.getValue()));
                             }
                         }
                     }

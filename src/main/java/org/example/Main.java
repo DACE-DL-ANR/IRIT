@@ -131,7 +131,7 @@ public class Main {
             //"/Users/khadijajradeh/Downloads/matcha/oaei-0.0.1-SNAPSHOT.jar"
             //"/Users/khadijajradeh/Downloads/DICAPNEW/output/"
             //the generation of huge files is not allowed on the cluster*/
-            runMatcha(fileSource, fileTarget, "/usr/bin/java", "/Users/khadijajradeh/Downloads/matcha/oaei-0.0.1-SNAPSHOT.jar", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
+            runMatcha(fileSource, fileTarget, "/usr/bin/java", "/Users/khadijajradeh/Downloads/matcha/", "/Users/khadijajradeh/Downloads/DICAPNEW/output/");
            // runMatcha(fileSource, fileTarget, java, matcha, out);
         }
         else if(system.equals("6")){
@@ -156,15 +156,16 @@ public class Main {
         OntModel ontModel2 = convertOWLOntologyToOntModel(target);
         Set<Alignment> als= labelMatch.match(ontModel1,ontModel2, output);
         System.out.println("alignments obtained: "+als.size());
-        Correspondence.saturateOntologies(source,target,als );
-      //  Linkey.saturateSameAs(source,target,als);
-
+       /* Correspondence.saturateOntologies(source,target,als );
+        System.out.println("Ontologies saturated with cr");
+        System.out.println("Ontologies saved");*/
+        Linkey.saturateSameAs(source,target,als);
+        System.out.println("Ontologies saturated with individuals" );
         fileSource = new File( "output/source_tmp"+i+".xml");
         fileTarget = new File("output/target_tmp"+i+".xml");
-
         source.getOWLOntologyManager().saveOntology(source,  IRI.create(fileSource.toURI()));
         target.getOWLOntologyManager().saveOntology(target, IRI.create(fileTarget.toURI()));
-        System.out.println("Ontologies saturated and saved");
+        System.out.println("Ontologies saved");
         }
     }
 
@@ -193,10 +194,10 @@ public class Main {
         OWLOntology target = loadOntology(fileTarget);
         for (int iter = 0; iter < 5; iter++) {
 
-            String fs = CallMatcha.run(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), matchaPath);
+            CallMatcha.run(fileSource.getAbsolutePath(), fileTarget.getAbsolutePath(), matchaPath);
 
-            Correspondence.saturateCorrespondenceSimple(source,target,  fs,"5");
-            Linkey.saturateSameAs(source,target, fs, "4");
+            Correspondence.saturateCorrespondenceSimple(source,target, "alignment.rdf", "5");
+            Linkey.saturateSameAs(source,target, "alignment.rdf", "4");
 
             fileSource = new File("test/source_tmp.ttl");
             fileTarget = new File("test/target_tmp.ttl");

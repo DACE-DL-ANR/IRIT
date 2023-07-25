@@ -181,12 +181,12 @@ public class Linkey {
                         if (axiom.getProperty().isLabel()) {
 
 
-                            OWLLiteral label = (OWLLiteral) axiom.getValue();
+                           // OWLLiteral label = (OWLLiteral) axiom.getValue();
                             // String labelText = label.getLiteral();
 
-                            axiomsToAdd.add(factory.getOWLAnnotationAssertionAxiom(axiom.getProperty(),a.getIRI() , label));
-                            axiomsToAdd.add(factory.getOWLAnnotationAssertionAxiom(axiom.getProperty(),a.getEntityType().getIRI() , label));
-                            axiomsToAdd2.add(factory.getOWLAnnotationAssertionAxiom(axiom.getProperty(),b.getEntityType().getIRI() , label));
+                            axiomsToAdd.add(factory.getOWLAnnotationAssertionAxiom(axiom.getProperty(),a.getIRI() , axiom.getValue()));
+                            axiomsToAdd.add(factory.getOWLAnnotationAssertionAxiom(axiom.getProperty(),a.getEntityType().getIRI() , axiom.getValue()));
+                            axiomsToAdd2.add(factory.getOWLAnnotationAssertionAxiom(axiom.getProperty(),b.getEntityType().getIRI() , axiom.getValue()));
                             //  System.out.println("Label of the individual: " + labelText);
                         }
                     }
@@ -199,14 +199,14 @@ public class Linkey {
                 for(OWLClassExpression l: EntitySearcher.getTypes(b, o2).toList()){
 
                     axiomsToAdd2.add(factory.getOWLAnnotationAssertionAxiom(factory.getRDFSLabel(), l.asOWLClass().getIRI(),  a.getIRI()));
-
+                   // System.out.println(factory.getOWLAnnotationAssertionAxiom(factory.getRDFSLabel(), l.asOWLClass().getIRI(),  a.getIRI()));
                 }
             }
 
         }
       //  System.out.println(axiomsToAdd.size());
- manager.addAxioms(o2,axiomsToAdd2);
-manager.addAxioms(o1,axiomsToAdd);
+System.out.println( manager.addAxioms(o2,axiomsToAdd2));
+        System.out.println(manager.addAxioms(o1,axiomsToAdd));
 
     }
 

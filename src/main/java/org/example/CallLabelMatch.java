@@ -1,4 +1,5 @@
 package org.example;
+import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntResource;
 import org.apache.jena.rdf.model.RDFNode;
@@ -22,7 +23,9 @@ public class CallLabelMatch {
         this.alignment = new HashSet<>();
         ontology1 = sourceOntology;
         ontology2 = targetOntology;
-        match(ontology1.listClasses(), ontology2.listClasses(), output);
+       // ExtendedIterator<OntClass> r = ontology1.listClasses();
+
+        match(ontology1.listClasses(), ontology2.listClasses(), new File(output.getPath()+"cls"));
         match(ontology1.listDatatypeProperties(), ontology2.listDatatypeProperties(), output);
         match(ontology1.listObjectProperties(), ontology2.listObjectProperties(), output);
         match(ontology1.listDatatypeProperties(), ontology2.listDatatypeProperties(), output);
@@ -56,14 +59,16 @@ public class CallLabelMatch {
 
                     Alignment al = new Alignment();
 
-                    if (label2.contains("class")) {
+                    if (r2.getURI().contains("resource")) {
+                        al.element1 = Alignment.OntologyNode.fromTxt(labelToURI_1.get(label2), "INST");
+                        al.element2 = Alignment.OntologyNode.fromTxt(r2.getURI(), "INST");
+
+                    } else {
 
                         al.element1 = Alignment.OntologyNode.fromTxt(labelToURI_1.get(label2), "CLS");
 
                         al.element2 = Alignment.OntologyNode.fromTxt(r2.getURI(), "CLS");
-                    } else {
-                        al.element1 = Alignment.OntologyNode.fromTxt(labelToURI_1.get(label2), "INST");
-                        al.element2 = Alignment.OntologyNode.fromTxt(r2.getURI(), "INST");
+
                     }
 
                     // al.relation = split[2];
