@@ -21,6 +21,7 @@ public class AlignmentOWL {
     private OWLObject entity1, entity2;
     private String relation;
     private float measure;
+    //here 
 
     public AlignmentOWL(OWLObject entity1, OWLObject entity2, String relation, float measure) {
         this.entity1 = entity1;
